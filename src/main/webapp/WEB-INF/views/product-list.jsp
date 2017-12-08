@@ -8,6 +8,7 @@
 <h3>Product List page</h3>
 
 <c:if test="${fn:length(productList) gt 0}">
+<div class="scrollbar-thumb" style="overflow-x:auto;overflow-y:auto;">
 <table class="table table-striped" style="cellspacing: 2; cellpadding: 2; border: 1;width:100%">
 	<thead>
 	<tr class="listHeading">
@@ -53,4 +54,5 @@
 	</c:forEach>
 	</tbody>
 </table>
+</div>
 </c:if>
