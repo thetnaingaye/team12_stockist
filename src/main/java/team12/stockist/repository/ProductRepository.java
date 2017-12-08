@@ -7,5 +7,5 @@ import team12.stockist.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer>
 {
-
+	//Add repos
 }
