@@ -3,6 +3,9 @@ package team12.stockist.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -49,6 +52,8 @@ public class Product
 	
 	@Column(name="Discontinued")
 	private int discontinued;
+	
+	//Table relationship do we need to write?
 	
 	public Product() {
 		super();
