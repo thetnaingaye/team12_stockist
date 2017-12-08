@@ -11,22 +11,44 @@ public class Product
 {
 	
 	@Id
-	private int PartID;
+	@Column(name="PartID")
+	private int partID;
 	
 	@Column(name="Description")
 	private String description;
 	
-	private double UnitPrice;
-	private String Color;
-	private String Dimension;
-	private String Manufacturer;
-	private int ReorderLevel;
-	private int MinReorderQty;
-	private String ShelfLocation;
-	private String SupplierID;
-	private int UnitsInStock;
-	private int UnitsOnOrder;
-	private int Discontinued;
+	@Column(name="UnitPrice")
+	private double unitPrice;
+	
+	@Column(name="Color")
+	private String color;
+	
+	@Column(name="Dimension")
+	private String dimension;
+	
+	@Column(name="Manufacturer")
+	private String manufacturer;
+	
+	@Column(name="ReorderLevel")
+	private int reorderLevel;
+	
+	@Column(name="MinReorderQty")
+	private int minReorderQty;
+	
+	@Column(name="ShelfLocation")
+	private String shelfLocation;
+	
+	@Column(name="SupplierID")
+	private String supplierID;
+	
+	@Column(name="UnitsInStock")
+	private int unitsInStock;
+	
+	@Column(name="UnitsOnOrder")
+	private int unitsOnOrder;
+	
+	@Column(name="Discontinued")
+	private int discontinued;
 	
 	public Product() {
 		super();
@@ -37,27 +59,27 @@ public class Product
 			String manufacturer, int reorderLevel, int minReorderLevel, String shelfLocation, String supplierID,
 			int unitsInStock, int unitsOnOrder, int discontinued) {
 		super();
-		PartID = partID;
+		this.partID = partID;
 		this.description = description;
-		UnitPrice = unitPrice;
-		Color = color;
-		Dimension = dimension;
-		Manufacturer = manufacturer;
-		ReorderLevel = reorderLevel;
-		MinReorderQty = minReorderLevel;
-		ShelfLocation = shelfLocation;
-		SupplierID = supplierID;
-		UnitsInStock = unitsInStock;
-		UnitsOnOrder = unitsOnOrder;
-		Discontinued = discontinued;
+		this.unitPrice = unitPrice;
+		this.color = color;
+		this.dimension = dimension;
+		this.manufacturer = manufacturer;
+		this.reorderLevel = reorderLevel;
+		this.minReorderQty = minReorderLevel;
+		this.shelfLocation = shelfLocation;
+		this.supplierID = supplierID;
+		this.unitsInStock = unitsInStock;
+		this.unitsOnOrder = unitsOnOrder;
+		this.discontinued = discontinued;
 	}
 
 	public int getPartID() {
-		return PartID;
+		return partID;
 	}
 
 	public void setPartID(int partID) {
-		PartID = partID;
+		this.partID = partID;
 	}
 
 	public String getDescription() {
@@ -69,98 +91,98 @@ public class Product
 	}
 
 	public double getUnitPrice() {
-		return UnitPrice;
+		return unitPrice;
 	}
 
 	public void setUnitPrice(double unitPrice) {
-		UnitPrice = unitPrice;
+		this.unitPrice = unitPrice;
 	}
 
 	public String getColor() {
-		return Color;
+		return color;
 	}
 
 	public void setColor(String color) {
-		Color = color;
+		this.color = color;
 	}
 
 	public String getDimension() {
-		return Dimension;
+		return dimension;
 	}
 
 	public void setDimension(String dimension) {
-		Dimension = dimension;
+		this.dimension = dimension;
 	}
 
 	public String getManufacturer() {
-		return Manufacturer;
+		return manufacturer;
 	}
 
 	public void setManufacturer(String manufacturer) {
-		Manufacturer = manufacturer;
+		this.manufacturer = manufacturer;
 	}
 
 	public int getReorderLevel() {
-		return ReorderLevel;
+		return reorderLevel;
 	}
 
 	public void setReorderLevel(int reorderLevel) {
-		ReorderLevel = reorderLevel;
+		this.reorderLevel = reorderLevel;
 	}
 
 	public int getMinReorderQty() {
-		return MinReorderQty;
+		return minReorderQty;
 	}
 
 	public void setMinReorderQty(int minReorderLevel) {
-		MinReorderQty = minReorderLevel;
+		this.minReorderQty = minReorderLevel;
 	}
 
 	public String getShelfLocation() {
-		return ShelfLocation;
+		return shelfLocation;
 	}
 
 	public void setShelfLocation(String shelfLocation) {
-		ShelfLocation = shelfLocation;
+		this.shelfLocation = shelfLocation;
 	}
 
 	public String getSupplierID() {
-		return SupplierID;
+		return supplierID;
 	}
 
 	public void setSupplierID(String supplierID) {
-		SupplierID = supplierID;
+		this.supplierID = supplierID;
 	}
 
 	public int getUnitsInStock() {
-		return UnitsInStock;
+		return unitsInStock;
 	}
 
 	public void setUnitsInStock(int unitsInStock) {
-		UnitsInStock = unitsInStock;
+		this.unitsInStock = unitsInStock;
 	}
 
 	public int getUnitsOnOrder() {
-		return UnitsOnOrder;
+		return unitsOnOrder;
 	}
 
 	public void setUnitsOnOrder(int unitsOnOrder) {
-		UnitsOnOrder = unitsOnOrder;
+		this.unitsOnOrder = unitsOnOrder;
 	}
 
 	public int getDiscontinued() {
-		return Discontinued;
+		return discontinued;
 	}
 
 	public void setDiscontinued(int discontinued) {
-		Discontinued = discontinued;
+		this.discontinued = discontinued;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + PartID;
+		result = prime * result + partID;
 		return result;
 	}
 
@@ -173,18 +195,18 @@ public class Product
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		if (PartID != other.PartID)
+		if (partID != other.partID)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [PartID=" + PartID + ", Description=" + description + ", UnitPrice=" + UnitPrice + ", Color="
-				+ Color + ", Dimension=" + Dimension + ", Manufacturer=" + Manufacturer + ", ReorderLevel="
-				+ ReorderLevel + ", MinReorderLevel=" + MinReorderQty + ", ShelfLocation=" + ShelfLocation
-				+ ", SupplierID=" + SupplierID + ", UnitsInStock=" + UnitsInStock + ", UnitsOnOrder=" + UnitsOnOrder
-				+ ", Discontinued=" + Discontinued + "]";
+		return "Product [PartID=" + partID + ", Description=" + description + ", UnitPrice=" + unitPrice + ", Color="
+				+ color + ", Dimension=" + dimension + ", Manufacturer=" + manufacturer + ", ReorderLevel="
+				+ reorderLevel + ", MinReorderLevel=" + minReorderQty + ", ShelfLocation=" + shelfLocation
+				+ ", SupplierID=" + supplierID + ", UnitsInStock=" + unitsInStock + ", UnitsOnOrder=" + unitsOnOrder
+				+ ", Discontinued=" + discontinued + "]";
 	}
 	
 	
