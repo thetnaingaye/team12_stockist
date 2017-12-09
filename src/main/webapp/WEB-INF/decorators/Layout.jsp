@@ -75,7 +75,7 @@
 						<li class="nav-divider"></li>
 						<li><a class="btn btn-primary" href="#">Usage Records</a></li>
 						<li class="nav-divider"></li>
-						<sec:authorize access="hasRole('admin')">
+						<sec:authorize access="hasAuthority('admin')">
 							<li><a class="btn btn-primary"
 								href="${pageContext.request.contextPath}/admin/supplier/list">Suppliers</a></li>
 							<li class="nav-divider"></li>
