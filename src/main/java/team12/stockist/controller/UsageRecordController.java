@@ -55,6 +55,7 @@ public class UsageRecordController {
 		//Temporary random generator
 		Random random = new Random();
 		int cartIdNumber = random.nextInt(9999);
+		//End of temporary generator
 		cart.setCartId(cartIdNumber);
 		cart.setUser(userService.findUserById(1));
 		cart.setDateUsed(new Date());
@@ -78,7 +79,7 @@ public class UsageRecordController {
 		
 		for(CartItem cartItem : cart.getCartItemList()) {
 			UsageRecordDetail usageRecordDetail = new UsageRecordDetail();
-			usageRecordDetail.setTransId(cart.CartId);
+			usageRecordDetail.setTransId(cart.cartId);
 			usageRecordDetail.setProductPartId(cartItem.getProduct().getPartID());
 			usageRecordDetail.setUsedQty(cartItem.getQuantity());
 			usageRecordDetails.add(usageRecordDetail);

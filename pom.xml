@@ -25,6 +25,7 @@
 		<web.version>7.0</web.version>
 		<jstl.version>1.2</jstl.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
+		<start-class>team12.stockist.controller.Cart</start-class>
 	</properties>
 
 	<dependencies>

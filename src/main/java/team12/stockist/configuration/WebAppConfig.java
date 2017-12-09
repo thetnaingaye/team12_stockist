@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -149,5 +150,11 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		cookieLocaleResolver.setDefaultLocale(StringUtils
 				.parseLocaleString("en"));
 		return cookieLocaleResolver;
+	}
+	
+	//Added by changsiang to have a default view page
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("default");
 	}
 }

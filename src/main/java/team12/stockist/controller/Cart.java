@@ -7,7 +7,7 @@ import team12.stockist.model.User;
 
 public class Cart {
 	
-	int CartId;
+	int cartId;
 	User user;
 	ArrayList<CartItem> cartItemList;
 	Date dateUsed;
@@ -18,17 +18,17 @@ public class Cart {
 	}
 	public Cart(int cartId, User user, ArrayList<CartItem> cartItemList, Date dateUsed, String customerName) {
 		super();
-		CartId = cartId;
+		this.cartId = cartId;
 		this.user = user;
 		this.cartItemList = cartItemList;
 		this.dateUsed = dateUsed;
 		this.customerName = customerName;
 	}
 	public int getCartId() {
-		return CartId;
+		return cartId;
 	}
 	public void setCartId(int cartId) {
-		CartId = cartId;
+		this.cartId = cartId;
 	}
 	public User getUser() {
 		return user;
@@ -58,7 +58,7 @@ public class Cart {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + CartId;
+		result = prime * result + cartId;
 		return result;
 	}
 	@Override
@@ -70,7 +70,7 @@ public class Cart {
 		if (getClass() != obj.getClass())
 			return false;
 		Cart other = (Cart) obj;
-		if (CartId != other.CartId)
+		if (cartId != other.cartId)
 			return false;
 		return true;
 	}
