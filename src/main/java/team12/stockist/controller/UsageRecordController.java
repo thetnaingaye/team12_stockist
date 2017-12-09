@@ -8,9 +8,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 import team12.stockist.model.UsageRecord;
 import team12.stockist.model.UsageRecordDetail;
 import team12.stockist.service.ProductService;
@@ -125,6 +127,18 @@ public class UsageRecordController {
 		//I have added a new method in usageRecordDetailService to accept list and create automatically
 		//Might need to rename the method for better readability
 		usageRecordDetailService.addUsageRecordDetailList(usageRecordDetails);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "viewcart/edit/{index}", method=RequestMethod.GET)
+	public ModelAndView editCartItem(@PathVariable int index, HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("edit-cartitem");
+		Cart cart = (Cart) session.getAttribute("cartlist");
+		ArrayList<CartItem> cartItemList = cart.getCartItemList();
+		CartItem cartItem = cartItemList.get(index);
+		
+		modelAndView.addObject("cartItem", cartItem);
+
 		return modelAndView;
 	}
 }

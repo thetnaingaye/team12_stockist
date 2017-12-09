@@ -42,15 +42,17 @@
 				</tr>
 			</thead>
 			<tbody>
+			<%int i = -1; %>
 				<c:forEach var="i" items="${cartList.cartItemList}">
 					<tr>
+					<%i++; %>
 						<td align="center">${i.product.partID}</td>
 						<td align="center">${i.product.description}</td>
 						<td align="center">${i.quantity}</td>
 						<td align="center"><a class="btn btn-primary"
-							href="${pageContext.request.contextPath}/usagerecord/viewcart/edit/${i.product.partID}">Amend</a></td>
+							href="${pageContext.request.contextPath}/usagerecord/viewcart/edit/<%=i%>">Amend</a></td>
 						<td><a class="btn btn-danger"
-							href="${pageContext.request.contextPath}/usagerecord/viewcart/delete/${i.product.partID}">Delete</a></td>
+							href="${pageContext.request.contextPath}/usagerecord/viewcart/delete/<%=i%>">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
