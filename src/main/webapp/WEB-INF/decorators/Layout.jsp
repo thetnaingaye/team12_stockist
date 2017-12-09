@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="sec"
+<%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
 <html>
@@ -41,17 +41,22 @@
 					Inventory Management System</a>
 			</div>
 
+			<sec:authorize access="isAuthenticated()">
 
-			<div class="nav navbar-nav navbar-right"><a class="btn btn-primary">${pageContext.request.userPrincipal.name}</a></div>
-			
-			<c:if test="${param.logout == null}">
+				<div class="nav navbar-nav navbar-right">
+					<span class="btn btn-primary">${pageContext.request.userPrincipal.name}</span>
+				</div>
+
+
 				<div class="nav navbar-nav navbar-right">
 					<form:form action="${pageContext.request.contextPath}/logout"
 						method="POST">
 						<input class="btn btn-primary" type="submit" value="Logout" />
 					</form:form>
 				</div>
-			</c:if>
+			</sec:authorize>
+
+
 
 		</div>
 	</nav>
@@ -70,11 +75,19 @@
 						<li class="nav-divider"></li>
 						<li><a class="btn btn-primary" href="#">Usage Records</a></li>
 						<li class="nav-divider"></li>
+						<sec:authorize access="hasRole('admin')">
+							<li><a class="btn btn-primary"
+								href="${pageContext.request.contextPath}/admin/supplier/list">Suppliers</a></li>
+							<li class="nav-divider"></li>
+						</sec:authorize>
 
 					</ul>
 				</div>
 
 			</div>
+
+
+
 			<div class="col-md-10">
 				<br>
 				<div class="jumbotron">
