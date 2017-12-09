@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import team12.stockist.model.Product;
 import team12.stockist.model.UsageRecord;
@@ -43,19 +44,21 @@ public class UsageRecordController {
 	@RequestMapping(value = "/viewcart", method = RequestMethod.GET)
 	public ModelAndView ViewCart(Object object) {
 		ModelAndView modelAndView = new ModelAndView("view-cart");
-		// temporary list here
-		Cart cart = new Cart();
-		CartItem cartItem1 = new CartItem();
-		CartItem cartItem2 = new CartItem();
-		cartItem1.setProduct(productService.findProductById(123));
-		cartItem2.setProduct(productService.findProductById(234));
-		ArrayList<CartItem> cartItemList = new ArrayList<CartItem>();
-		cartItemList.add(cartItem1);
-		cartItemList.add(cartItem2);
 		//Temporary random generator
 		Random random = new Random();
 		int cartIdNumber = random.nextInt(9999);
 		//End of temporary generator
+		// temporary list here
+		Cart cart = new Cart();
+		ArrayList<CartItem> cartItemList = new ArrayList<CartItem>();
+		CartItem cartItem1 = new CartItem();
+		CartItem cartItem2 = new CartItem();
+		cartItem1.setProduct(productService.findProductById(123));
+		cartItem1.setQuantity(1);
+		cartItem2.setProduct(productService.findProductById(234));
+		cartItem2.setQuantity(1);
+		cartItemList.add(cartItem1);
+		cartItemList.add(cartItem2);
 		cart.setCartId(cartIdNumber);
 		cart.setUser(userService.findUserById(1));
 		cart.setDateUsed(new Date());
@@ -67,24 +70,23 @@ public class UsageRecordController {
 	}
 
 	@RequestMapping(value="/viewcart", method = RequestMethod.POST)
-	public ModelAndView Checkout(@ModelAttribute Cart cart){
+	public ModelAndView Checkout(@ModelAttribute Cart cart, final RedirectAttributes redirectAttributes){
 		ModelAndView modelAndView = new ModelAndView();
 		
 		ArrayList<UsageRecordDetail> usageRecordDetails = new ArrayList<UsageRecordDetail>();
 		UsageRecord usageRecord = new UsageRecord();
 		usageRecord.setCustomerName(cart.getCustomerName());
-		usageRecord.setTransID(cart.getCartId());
 		usageRecord.setUserId(cart.user.getId());
 		usageRecord.setDateUsed(cart.getDateUsed());
 		
 		for(CartItem cartItem : cart.getCartItemList()) {
 			UsageRecordDetail usageRecordDetail = new UsageRecordDetail();
-			usageRecordDetail.setTransId(cart.cartId);
+			usageRecordDetail.setTransId(usageRecord.getTransID());
 			usageRecordDetail.setProductPartId(cartItem.getProduct().getPartID());
 			usageRecordDetail.setUsedQty(cartItem.getQuantity());
 			usageRecordDetails.add(usageRecordDetail);
 		}
-		
+		modelAndView.setViewName("redirect:/");
 		usageRecordDetailService.addUsageRecordDetailList(usageRecordDetails);
 		return modelAndView;
 	}

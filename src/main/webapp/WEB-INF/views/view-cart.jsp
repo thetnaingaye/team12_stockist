@@ -13,8 +13,8 @@
 </head>
 <body>
 	<form:form method="POST" modelAttribute="cartList"
-		action="${pageContext.request.contextPath}/usagerecord/viewcart.helloworld">
-	Cart ID: ${cartList.cartId}
+		action="${pageContext.request.contextPath}/usagerecord/viewcart">
+	Cart ID: ${cartList.cartId} Name: ${cartList.user.username} Count: ${fn:length(cartList.cartItemList) }
 	<br />
 		<table>
 			<thead>
@@ -24,14 +24,16 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="ci" items="${cartList.cartItemList}"></c:forEach>
-			<tr>
-			<td>${ci.product}</td>
-			<td>${ci.quantity}</td>
-			</tr>
+				<c:forEach var="i" items="${cartList.cartItemList}">
+					<tr>
+						<td>${i.product.description}</td>
+						<td>${i.quantity}</td>
+					</tr>
+				</c:forEach>
 			</tbody>
+
 		</table>
-		<input type="submit" value="Checkout"/>
+		<input type="submit" value="Checkout" />
 	</form:form>
 </body>
 </html>
