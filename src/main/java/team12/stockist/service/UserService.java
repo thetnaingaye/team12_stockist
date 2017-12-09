@@ -8,7 +8,7 @@ import team12.stockist.model.User;
 
 public interface UserService {
 
-	ArrayList<User> findAllUser();
+	ArrayList<User> findAllUsers();
 
 	User findUserById(Integer userId);
 
@@ -18,4 +18,8 @@ public interface UserService {
 
 	void deleteUser(User user);
 
+	User findByUsername(String username);
+	
+	User authenticate(String uname, String pwd);
+	
 }
