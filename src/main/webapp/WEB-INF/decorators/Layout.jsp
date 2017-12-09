@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <html>
 <head>
@@ -38,15 +40,10 @@
 				<a class="navbar-brand text-center" href="#">STOCKIST -
 					Inventory Management System</a>
 			</div>
+
+
+			<div class="nav navbar-nav navbar-right"><a class="btn btn-primary">${pageContext.request.userPrincipal.name}</a></div>
 			
-			<c:if test="${param.logout == null}">
-				<ul class="nav navbar-nav">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							Naing:Role Mechanic</a></li>
-
-				</ul>
-			</c:if>
-
 			<c:if test="${param.logout == null}">
 				<div class="nav navbar-nav navbar-right">
 					<form:form action="${pageContext.request.contextPath}/logout"
@@ -76,10 +73,8 @@
 
 					</ul>
 				</div>
-				<!--/.well -->
-			</div>
-			<!--/span-->
 
+			</div>
 			<div class="col-md-10">
 				<br>
 				<div class="jumbotron">

@@ -26,6 +26,7 @@
 		<jstl.version>1.2</jstl.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<start-class>team12.stockist.controller.Cart</start-class>
+		<spring.security.version>3.2.3.RELEASE</spring.security.version>
 	</properties>
 
 	<dependencies>
@@ -108,6 +109,12 @@
 			<version>${sitemesh.version}</version>
 		</dependency>
 
+		<!-- Spring Security JSP Taglib -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
