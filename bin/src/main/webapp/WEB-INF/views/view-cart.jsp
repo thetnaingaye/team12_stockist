@@ -31,8 +31,9 @@
 					</tr>
 				</c:forEach>
 			</tbody>
+
 		</table>
-		<input type="submit" value="Checkout"/>
+		<input type="submit" value="Checkout" />
 	</form:form>
 </body>
 </html>

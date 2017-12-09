@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class UsageRecordDetail {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name = "TransDetailID")
 	private int transDetailId;
 	@Column (name = "TransID")

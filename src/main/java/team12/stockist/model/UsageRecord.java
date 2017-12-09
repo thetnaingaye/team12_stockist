@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class UsageRecord {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "TransID")
 	private int transID;
 	@Column (name = "CustomerName")
@@ -85,6 +85,7 @@ public class UsageRecord {
 			return false;
 		return true;
 	}
+	
 	
 	
 	
