@@ -26,8 +26,8 @@
 
 			<tr>
 				<td style="border-top: none;"></td>
-				<td style="border-top: none;"><input class="btn" type="submit"
-					value="Click here to submit" style="border-color: #333333" /></td>
+				<td style="border-top: none;"><input class="btn btn-primary" type="submit"
+					value="Click here to submit" /></td>
 			</tr>
 		</table>
 	</div>
