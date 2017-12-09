@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <html>
 <head>
 
@@ -32,16 +34,28 @@
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<div  class="navbar-header">
-				<a class="navbar-brand text-center" href="#">STOCKIST - Inventory Management System</a>
+			<div class="navbar-header">
+				<a class="navbar-brand text-center" href="#">STOCKIST -
+					Inventory Management System</a>
 			</div>
+			
+			<c:if test="${param.logout == null}">
+				<ul class="nav navbar-nav">
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+							Naing:Role Mechanic</a></li>
 
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-						Naing:Role Mechanic</a></li>
-				<li><a href="/team12_stockist/product/login1"><span class="glyphicon glyphicon-log-in"></span>
-						Login</a></li>
-			</ul>
+				</ul>
+			</c:if>
+
+			<c:if test="${param.logout == null}">
+				<div class="nav navbar-nav navbar-right">
+					<form:form action="${pageContext.request.contextPath}/logout"
+						method="POST">
+						<input class="btn btn-primary" type="submit" value="Logout" />
+					</form:form>
+				</div>
+			</c:if>
+
 		</div>
 	</nav>
 
@@ -54,7 +68,8 @@
 					<ul class="nav">
 
 						<li class="nav-divider"></li>
-						<li><a class="btn btn-primary" href="/team12_stockist/product/list">View Products</a></li>
+						<li><a class="btn btn-primary"
+							href="/team12_stockist/product/list">View Products</a></li>
 						<li class="nav-divider"></li>
 						<li><a class="btn btn-primary" href="#">Usage Records</a></li>
 						<li class="nav-divider"></li>
