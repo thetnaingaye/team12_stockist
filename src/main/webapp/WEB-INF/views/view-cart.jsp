@@ -14,25 +14,47 @@
 <body>
 	<form:form method="POST" modelAttribute="cartList"
 		action="${pageContext.request.contextPath}/usagerecord/viewcart">
-	Cart ID: ${cartList.cartId} Name: ${cartList.user.username} Count: ${fn:length(cartList.cartItemList) }
-	<br />
-		<table>
+		<div>
+			<table style="cellspacing: 2; cellpadding: 2; border: 1; width: 50%">
+				<tr>
+					<td>Name: ${cartList.user.username}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Cart ID: ${cartList.cartId}</td>
+					<td></td>
+				</tr>
+
+			</table>
+		</div>
+		<br />
+		Customer Name: <form:input path="customerName" />
+		<input type="submit" value="Checkout" />
+		<table class="table table-striped"
+			style="cellspacing: 2; cellpadding: 2; border: 1; width: 100%">
 			<thead>
 				<tr>
-					<th>Product</th>
-					<th>Quantity</th>
+					<td align="center">Part ID</td>
+					<td align="center">Description</td>
+					<td align="center">Quantity</td>
+					<td></td>
+					<td></td>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="i" items="${cartList.cartItemList}">
 					<tr>
-						<td>${i.product.description}</td>
-						<td>${i.quantity}</td>
+						<td align="center">${i.product.partID}</td>
+						<td align="center">${i.product.description}</td>
+						<td align="center">${i.quantity}</td>
+						<td align="center"><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/usagerecord/viewcart/edit/${i.product.partID}">Amend</a></td>
+						<td><a class="btn btn-danger"
+							href="${pageContext.request.contextPath}/usagerecord/viewcart/delete/${i.product.partID}">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<input type="submit" value="Checkout"/>
 	</form:form>
 </body>
 </html>
