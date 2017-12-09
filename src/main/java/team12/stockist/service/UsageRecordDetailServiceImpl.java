@@ -47,5 +47,14 @@ public class UsageRecordDetailServiceImpl implements UsageRecordDetailService {
 	void deleteUsageRecordDetail(UsageRecordDetail usageRecordDetail) {
 		usageRecordDetailRepository.delete(usageRecordDetail);
 	}
+	
+	@Override
+	@Transactional
+	public ArrayList<UsageRecordDetail> addUsageRecordDetailList(ArrayList<UsageRecordDetail> usageRecordDetails) {
+		for(UsageRecordDetail urDetail : usageRecordDetails) {
+			createUsageRecordDetail(urDetail);
+		}
+		return usageRecordDetails;
+	}
 
 }

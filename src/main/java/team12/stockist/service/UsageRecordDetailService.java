@@ -15,5 +15,11 @@ public interface UsageRecordDetailService {
 	UsageRecordDetail createUsageRecordDetail(UsageRecordDetail usageRecordDetail);
 
 	UsageRecordDetail updateUsageRecordDetail(UsageRecordDetail usageRecordDetail);
+	
+	ArrayList<UsageRecordDetail> addUsageRecordDetailList(ArrayList<UsageRecordDetail> usageRecordDetails);
 
 }
+
+
+	
+
