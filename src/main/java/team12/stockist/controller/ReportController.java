@@ -26,10 +26,10 @@ import team12.stockist.service.SupplierService;
 public class ReportController {
 
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 
 	@Autowired
-	SupplierService supplierService;
+	private SupplierService supplierService;
 
 	@RequestMapping(value = "/report", method = RequestMethod.GET)
 	public ModelAndView printReport() {

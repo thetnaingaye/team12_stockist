@@ -22,10 +22,20 @@
 				<tr>
 					<td>Name: ${cartItem.product.description} <form:hidden
 							path="product.description" /></td>
-					<td></td>
+					<td><form:hidden path="product.unitPrice"/>
+					<form:hidden path="product.color"/>
+					<form:hidden path="product.manufacturer"/>
+					<form:hidden path="product.reorderLevel"/>
+					<form:hidden path="product.minReorderQty"/>
+					<form:hidden path="product.shelfLocation"/>
+					<form:hidden path="product.supplierID"/>
+					<form:hidden path="product.unitsInStock"/>
+					<form:hidden path="product.unitsOnOrder"/>
+					<form:hidden path="product.discontinued"/></td>
 				</tr>
 				<tr>
-					<td>Quantity: <form:input path="quantity" /></td>
+					<td>Quantity: <form:input path="quantity" /> <form:errors
+							path="quantity" cssStyle="color: red;" /></td>
 					<td></td>
 				</tr>
 			</table>
