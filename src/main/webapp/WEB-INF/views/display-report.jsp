@@ -52,6 +52,10 @@
 		<div class="col-md-offset-5">
 			<c:out value="~End Of Report~"></c:out>
 		</div>
+		<form:form method="POST"
+			action="${pageContext.request.contextPath}/admin/print/report">
+		<input type="submit" value="GenerateReport" />
+		</form:form>
 	</div>
 </body>
 </html>

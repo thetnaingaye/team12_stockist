@@ -29,7 +29,9 @@
 					<td></td>
 				</tr>
 			</table>
-			<input type="submit" value="Update" />
+		</div>
+		<input type="submit" value="Update" />
 	</form:form>
+
 </body>
 </html>
