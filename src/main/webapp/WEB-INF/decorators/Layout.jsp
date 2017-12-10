@@ -44,7 +44,10 @@
 			<sec:authorize access="isAuthenticated()">
 
 				<div class="nav navbar-nav navbar-right">
-					<span class="btn btn-primary">${pageContext.request.userPrincipal.name}</span>
+					<span class="btn btn-primary">hi! ${pageContext.request.userPrincipal.name}, your are currently logged in as | user ID :<sec:authentication property="principal.id" />|
+					 user role :<sec:authentication property="principal.userRole" />
+					 </span>
+						
 				</div>
 
 
