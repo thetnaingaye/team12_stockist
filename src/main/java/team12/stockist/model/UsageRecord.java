@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,6 +14,7 @@ import javax.persistence.Table;
 public class UsageRecord {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name = "TransID")
 	private int transID;
 	@Column (name = "CustomerName")
@@ -82,6 +85,7 @@ public class UsageRecord {
 			return false;
 		return true;
 	}
+	
 	
 	
 	
