@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+
 <html>
 <head>
 
@@ -32,16 +36,28 @@
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<div  class="navbar-header">
-				<a class="navbar-brand text-center" href="#">STOCKIST - Inventory Management System</a>
+			<div class="navbar-header">
+				<a class="navbar-brand text-center" href="#">STOCKIST -
+					Inventory Management System</a>
 			</div>
 
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-						Naing:Role Mechanic</a></li>
-				<li><a href="/team12_stockist/product/login1"><span class="glyphicon glyphicon-log-in"></span>
-						Login</a></li>
-			</ul>
+			<sec:authorize access="isAuthenticated()">
+
+				<div class="nav navbar-nav navbar-right">
+					<span class="btn btn-primary">${pageContext.request.userPrincipal.name}</span>
+				</div>
+
+
+				<div class="nav navbar-nav navbar-right">
+					<form:form action="${pageContext.request.contextPath}/logout"
+						method="POST">
+						<input class="btn btn-primary" type="submit" value="Logout" />
+					</form:form>
+				</div>
+			</sec:authorize>
+
+
+
 		</div>
 	</nav>
 
@@ -54,16 +70,23 @@
 					<ul class="nav">
 
 						<li class="nav-divider"></li>
-						<li><a class="btn btn-primary" href="/team12_stockist/product/list">View Products</a></li>
+						<li><a class="btn btn-primary"
+							href="/team12_stockist/mechanic/product/list">View Products</a></li>
 						<li class="nav-divider"></li>
 						<li><a class="btn btn-primary" href="#">Usage Records</a></li>
 						<li class="nav-divider"></li>
+						<sec:authorize access="hasAuthority('admin')">
+							<li><a class="btn btn-primary"
+								href="${pageContext.request.contextPath}/admin/supplier/list">Suppliers</a></li>
+							<li class="nav-divider"></li>
+						</sec:authorize>
 
 					</ul>
 				</div>
-				<!--/.well -->
+
 			</div>
-			<!--/span-->
+
+
 
 			<div class="col-md-10">
 				<br>

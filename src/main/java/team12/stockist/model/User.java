@@ -1,5 +1,7 @@
 package team12.stockist.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,15 +9,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable{
 
+
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@Column(name = "ID")
 	private int id;
+	
 	@Column(name = "UserName")
 	private String username;
+	
 	@Column(name = "Password")
 	private String password;
+	
 	@Column(name = "UserRole")
 	private String userRole;
 	
@@ -33,6 +41,14 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.userRole = userRole;
+	}
+	
+	public User(User user) {
+
+		this.id = user.id;
+		this.username = user.username;
+		this.password = user.password;
+		this.userRole = user.userRole;
 	}
 	
 	//Getters and Setters

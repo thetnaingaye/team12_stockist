@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
@@ -37,6 +39,7 @@ import org.springframework.web.servlet.view.JstlView;
 @PropertySource({ "classpath:application.properties",
 		"classpath:/i18n/messages.properties" })
 @EnableJpaRepositories("team12.stockist.repository")
+
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
