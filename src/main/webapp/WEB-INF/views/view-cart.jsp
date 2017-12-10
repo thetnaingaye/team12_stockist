@@ -12,16 +12,16 @@
 <title>View Item Cart</title>
 </head>
 <body>
-	<form:form method="POST" modelAttribute="cartList"
+	<form:form method="POST" modelAttribute="cart"
 		action="${pageContext.request.contextPath}/usagerecord/viewcart">
 		<div>
 			<table style="cellspacing: 2; cellpadding: 2; border: 1; width: 50%">
 				<tr>
-					<td>Name: ${cartList.user.username}</td>
+					<td>Name: ${cart.user.username}</td>
 					<td></td>
 				</tr>
 				<tr>
-					<td>Cart ID: ${cartList.cartId}</td>
+					<td>Cart ID: ${cart.cartId}</td>
 					<td></td>
 				</tr>
 
@@ -42,7 +42,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="i" items="${cartList.cartItemList}"  varStatus="loop">
+				<c:forEach var="i" items="${cart.cartItemList}"  varStatus="loop">
 					<tr>
 						<td align="center">${i.product.partID}</td>
 						<td align="center">${i.product.description}</td>

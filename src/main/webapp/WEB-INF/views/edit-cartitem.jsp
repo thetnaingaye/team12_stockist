@@ -12,15 +12,20 @@
 </head>
 <body>
 	<form:form method="POST" modelAttribute="cartItem"
-		action="${pageContext.request.contextPath}/usagerecord/edit/${cartItem.product.partID }">
+		action="${pageContext.request.contextPath}/usagerecord/viewcart/edit/${index}">
 		<div>
 			<table style="cellspacing: 2; cellpadding: 2; border: 1; width: 50%">
 				<tr>
-					<td>Name: ${cartItem.product.description}</td>
+					<td>Part ID: ${cartItem.product.partID} <form:hidden
+							path="product.partID" /></td>
+				</tr>
+				<tr>
+					<td>Name: ${cartItem.product.description} <form:hidden
+							path="product.description" /></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td>Quantity: ${cartItem.quantity}</td>
+					<td>Quantity: <form:input path="quantity" /></td>
 					<td></td>
 				</tr>
 			</table>
