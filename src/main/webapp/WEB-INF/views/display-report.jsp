@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h3>${message}</h3>
 	<div class="scrollbar-thumb"
 		style="overflow-x: auto; overflow-y: auto;">
 		<table class="table table-striped"
@@ -52,10 +53,12 @@
 		<div class="col-md-offset-5">
 			<c:out value="~End Of Report~"></c:out>
 		</div>
-		<form:form method="POST"
-			action="${pageContext.request.contextPath}/admin/print/report">
-		<input type="submit" value="GenerateReport" />
-		</form:form>
+		<c:if test="${empty message}">
+			<form:form method="POST"
+				action="${pageContext.request.contextPath}/admin/print/report">
+				<input type="submit" value="GenerateReport" />
+			</form:form>
+		</c:if>
 	</div>
 </body>
 </html>

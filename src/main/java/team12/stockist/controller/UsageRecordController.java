@@ -1,26 +1,18 @@
 package team12.stockist.controller;
 
-import static org.hamcrest.CoreMatchers.is;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
-
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.type.descriptor.java.CalendarTimeTypeDescriptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.header.writers.frameoptions.StaticAllowFromStrategy;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import team12.stockist.model.Product;
 import team12.stockist.model.UsageRecord;
 import team12.stockist.model.UsageRecordDetail;
 import team12.stockist.service.CustomUserDetails;

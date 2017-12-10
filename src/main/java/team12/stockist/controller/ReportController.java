@@ -1,12 +1,7 @@
 package team12.stockist.controller;
 
-import static org.mockito.Matchers.floatThat;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,14 +9,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.inject.New;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import team12.stockist.model.Product;
 import team12.stockist.model.Supplier;
@@ -51,18 +44,19 @@ public class ReportController {
 	}
 
 	@RequestMapping(value = "/report", method = RequestMethod.POST)
-	public ModelAndView outputReport() {
+	public ModelAndView outputReport(RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		ArrayList<Supplier> supplierList = supplierService.findAll();
 		HashMap<Supplier, ArrayList<Product>> orderListMap = getOrderList(supplierList);
+		String filename = "";
 		for (Map.Entry<Supplier, ArrayList<Product>> entry : orderListMap.entrySet()) {
 			double totalPrice = 0;
 			ArrayList<Product> productList = entry.getValue();
 			String supplierId = entry.getKey().getSupplierID();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String date = sdf.format(new Date());
-			String filename = "C:\\JavaCaReport\\"+date+"-"+supplierId+"-ReorderReport.dat";
+			filename = "C:\\JavaCaReport\\"+date+"-"+supplierId+"-ReorderReport.dat";
 			try {
 				PrintWriter out = new PrintWriter(new File(filename));
 				out.println("\t\t\tInventory Reorder Report for Supplier " + supplierId);
@@ -82,11 +76,16 @@ public class ReportController {
 				out.print("\t\t\t\t\t\t End of Report");
 				out.close();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+				
+
 				e.printStackTrace();
 			}
 		}
+		
+		String message = "File Successfully Output to: "+filename;
+		
 		modelAndView.setViewName("redirect:/admin/print/report");
+		redirectAttributes.addFlashAttribute("message", message);
 
 		return modelAndView;
 	}
