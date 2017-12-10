@@ -25,6 +25,7 @@
 <tr><td><a href="${pageContext.request.contextPath}/mechanic/product/list">Product-List.jsp GET</a></td></tr>
 <tr><td><a href="${pageContext.request.contextPath}/usagerecord/viewcart">view-cart.jsp GET</a></td></tr>
 <tr><td><a href="${pageContext.request.contextPath}/admin/supplier/list">Click here to try you have admin access</a></td></tr>
+<tr><td><a href="${pageContext.request.contextPath}/admin/print/report">display-report.jsp GET</a></td></tr>
 </table>
 
 </body>

@@ -14,7 +14,7 @@ import team12.stockist.model.Supplier;
 import team12.stockist.service.ProductService;
 import team12.stockist.service.SupplierService;
 
-@RequestMapping(value = "/print/")
+@RequestMapping(value = "/admin/print/")
 @Controller
 public class ReportController {
 
