@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>This is admin page.. </h1>
+<h1>This is admin page.. Welcome! ${username} | role: ${userRole} | id: ${userid} </h1>
 </body>
 </html>

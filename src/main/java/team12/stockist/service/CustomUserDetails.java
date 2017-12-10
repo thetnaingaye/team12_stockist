@@ -58,5 +58,15 @@ public class CustomUserDetails extends User implements UserDetails{
 	public String getUsername() {
 		return super.getUsername();
 	}
+	
+	@Override
+	public int getId() {
+		return super.getId();
+	}
+	
+	@Override
+	public String getUserRole() {
+		return super.getUserRole();
+	}
 
 }
