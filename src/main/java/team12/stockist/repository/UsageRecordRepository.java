@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import team12.stockist.model.UsageRecord;
 
-public interface UsageRecordRepository extends JpaRepository<UsageRecord, Integer> 
+public interface UsageRecordRepository extends JpaRepository<UsageRecord, String> 
 {
 
 }

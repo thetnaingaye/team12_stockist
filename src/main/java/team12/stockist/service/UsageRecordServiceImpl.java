@@ -25,7 +25,7 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 
 	@Override
 	@Transactional
-	public UsageRecord findUsageRecordById(Integer Id) {
+	public UsageRecord findUsageRecordById(String Id) {
 		return usageRecordRepository.findOne(Id);
 	}
 

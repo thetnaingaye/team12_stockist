@@ -24,14 +24,14 @@
 		<tr>
 			<td style="border-top: none;">USER NAME</td>
 			<td style="border-top: none;"><input class="form-control"
-				type="text" id="username" name="username" value="" /></td>
+				type="text" id="username" name="username" value="sum" /></td>
 
 		</tr>
 
 		<tr>
 			<td style="border-top: none;">PASSWORD</td>
 			<td style="border-top: none;"><input class="form-control"
-				type="password" id="password" name="password" value="" /></td>
+				type="password" id="password" name="password" value="1234" /></td>
 		</tr>
 
 		<tr>

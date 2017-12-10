@@ -16,7 +16,7 @@ public class UsageRecordDetail {
 	@Column (name = "TransDetailID")
 	private int transDetailId;
 	@Column (name = "TransID")
-	private int transId;
+	private String transId;
 	@Column (name = "Products_PartID")
 	private int productPartId;
 	@Column (name = "UsedQty")
@@ -27,7 +27,7 @@ public class UsageRecordDetail {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UsageRecordDetail(int transDetailId, int transId, int productPartId, int usedQty) {
+	public UsageRecordDetail(int transDetailId, String transId, int productPartId, int usedQty) {
 		super();
 		this.transDetailId = transDetailId;
 		this.transId = transId;
@@ -42,10 +42,10 @@ public class UsageRecordDetail {
 	public void setTransDetailId(int transDetailId) {
 		this.transDetailId = transDetailId;
 	}
-	public int getTransId() {
+	public String getTransId() {
 		return transId;
 	}
-	public void setTransId(int transId) {
+	public void setTransId(String transId) {
 		this.transId = transId;
 	}
 	public int getProductPartId() {

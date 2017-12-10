@@ -1,5 +1,9 @@
 package team12.stockist.controller;
 
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -7,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoginController 
 {
 	@GetMapping("/login")
-	public String showLoginPage()
+	public String showLoginPage(HttpSession session)
 	{
+		long cartID = new Date().getTime();
+		session.setAttribute("cartID", cartID);
 		return "login";
 	}
 	

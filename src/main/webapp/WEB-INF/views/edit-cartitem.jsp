@@ -23,8 +23,8 @@
 					<td>Quantity: ${cartItem.quantity}</td>
 					<td></td>
 				</tr>
-
 			</table>
+			<input type="submit" value="Update" />
 	</form:form>
 </body>
 </html>

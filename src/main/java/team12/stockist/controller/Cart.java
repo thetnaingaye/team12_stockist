@@ -7,7 +7,7 @@ import team12.stockist.model.User;
 
 public class Cart {
 	
-	int cartId;
+	String cartId;
 	User user;
 	ArrayList<CartItem> cartItemList;
 	Date dateUsed;
@@ -16,7 +16,7 @@ public class Cart {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Cart(int cartId, User user, ArrayList<CartItem> cartItemList, Date dateUsed, String customerName) {
+	public Cart(String cartId, User user, ArrayList<CartItem> cartItemList, Date dateUsed, String customerName) {
 		super();
 		this.cartId = cartId;
 		this.user = user;
@@ -24,10 +24,10 @@ public class Cart {
 		this.dateUsed = dateUsed;
 		this.customerName = customerName;
 	}
-	public int getCartId() {
+	public String getCartId() {
 		return cartId;
 	}
-	public void setCartId(int cartId) {
+	public void setCartId(String cartId) {
 		this.cartId = cartId;
 	}
 	public User getUser() {
@@ -54,13 +54,7 @@ public class Cart {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + cartId;
-		return result;
-	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
