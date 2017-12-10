@@ -18,4 +18,6 @@ public interface ProductService
 	Product updateProduct(Product product);
 	
 	void deleteProduct(Product product);
+	
+	ArrayList<Product> findProductBySupplier(String supplierID);
 }
