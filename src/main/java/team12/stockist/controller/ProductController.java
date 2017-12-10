@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import team12.stockist.model.Product;
 import team12.stockist.service.ProductService;
 
-@RequestMapping(value="/product/")
+@RequestMapping(value="/mechanic/product/")
 @Controller
 public class ProductController 
 {

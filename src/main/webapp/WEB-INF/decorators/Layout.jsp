@@ -71,7 +71,7 @@
 
 						<li class="nav-divider"></li>
 						<li><a class="btn btn-primary"
-							href="/team12_stockist/product/list">View Products</a></li>
+							href="/team12_stockist/mechanic/product/list">View Products</a></li>
 						<li class="nav-divider"></li>
 						<li><a class="btn btn-primary" href="#">Usage Records</a></li>
 						<li class="nav-divider"></li>
