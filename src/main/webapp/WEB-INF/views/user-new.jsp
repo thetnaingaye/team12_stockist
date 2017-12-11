@@ -33,9 +33,8 @@
 				<td><form:input path="userRole" class="form-control" /></td>
 			</tr>
 <tr>
-<td><br /></td>
-</tr>
-
+			<td><br /></td>
+			</tr>
 			<tr>
 				<td><input class="btn btn-primary" type="submit" value="Create" /></td>
 				<td></td>
