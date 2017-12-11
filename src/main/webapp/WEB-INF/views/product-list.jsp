@@ -49,6 +49,7 @@
 
 
 <h2 align="center">Product List</h2>
+
 		
 <c:if test="${fn:length(productList) gt 0}">
 <div class="scrollbar-thumb" style="overflow-x:auto;overflow-y:auto;">

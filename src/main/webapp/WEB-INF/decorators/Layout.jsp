@@ -81,25 +81,30 @@
 						<li class="nav-divider"></li>
 						<li><a class="btn btn-primary" href="#">Usage Records</a></li>
 						<li class="nav-divider"></li>
+						<li><a class="btn btn-primary" href="${pageContext.request.contextPath}/usagerecord/viewcart">Carts</a></li>
+						<li class="nav-divider"></li>
+						
 						<sec:authorize access="hasAuthority('admin')">
 							<li><a class="btn btn-primary"
-								href="${pageContext.request.contextPath}/admin/print/report">Reorder Report</a></li>
+								href="${pageContext.request.contextPath}/admin/print/report">Reorder
+									Report</a></li>
 							<li class="nav-divider"></li>
-							
+
 							<li><a class="btn btn-primary"
 								href="${pageContext.request.contextPath}/admin/supplier/list">Suppliers</a></li>
 							<li class="nav-divider"></li>
-							
+
 							<li><a class="btn btn-primary"
 								href="${pageContext.request.contextPath}/admin/user/list">Users</a></li>
 							<li class="nav-divider"></li>
-							
+
 							<li><a class="btn btn-primary"
-								href="${pageContext.request.contextPath}/admin/product/create">New Product Entry</a></li>
+								href="${pageContext.request.contextPath}/admin/product/create">New
+									Product Entry</a></li>
 							<li class="nav-divider"></li>
-							
-							
-							
+
+
+
 						</sec:authorize>
 
 					</ul>
