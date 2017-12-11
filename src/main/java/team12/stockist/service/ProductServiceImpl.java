@@ -52,4 +52,12 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
+	@Override
+	@Transactional
+	public ArrayList<Product> findProductBySupplier(String supplierID) {
+		return prepo.findProductBySupplier(supplierID);
+	}
+	
+
+
 }

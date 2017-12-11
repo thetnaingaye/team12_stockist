@@ -1,8 +1,12 @@
 package team12.stockist.controller;
 
+
 import java.util.ArrayList;
 
 import javax.validation.Valid;
+
+
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +30,7 @@ public class SupplierController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView userListPage() {
 		ModelAndView mav = new ModelAndView("supplier-list");
-		ArrayList<Supplier> supplierList = (ArrayList<Supplier>) supplierService.findAllDamageRecord();
+		ArrayList<Supplier> supplierList = (ArrayList<Supplier>) supplierService.findAll();
 		mav.addObject("supplierList", supplierList);
 		return mav;
 	}

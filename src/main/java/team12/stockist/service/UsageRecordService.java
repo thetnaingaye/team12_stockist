@@ -8,7 +8,7 @@ public interface UsageRecordService {
 
 	ArrayList<UsageRecord> findAllUsageRecord();
 
-	UsageRecord findUsageRecordById(Integer Id);
+	UsageRecord findUsageRecordById(String Id);
 
 	UsageRecord createUsageRecord(UsageRecord usageRecord);
 

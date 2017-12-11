@@ -12,27 +12,57 @@
 <title>View Item Cart</title>
 </head>
 <body>
-	<form:form method="POST" modelAttribute="cartList"
+
+	<form:form method="POST" modelAttribute="cart"
 		action="${pageContext.request.contextPath}/usagerecord/viewcart">
-	Cart ID: ${cartList.cartId} Name: ${cartList.user.username} Count: ${fn:length(cartList.cartItemList) }
-	<br />
-		<table>
+		<div>
+			<table style="cellspacing: 2; cellpadding: 2; border: 1; width: 50%">
+				<tr>
+					<td>Name: ${cart.user.username}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Cart ID: ${cart.cartId}</td>
+					<td></td>
+				</tr>
+
+			</table>
+		</div>
+
+		<br />
+		Customer Name: <form:input path="customerName" value="" />
+		<input type="submit" value="Checkout" />
+		<h2>
+			<form:errors path="customerName" cssStyle="color: red;" />
+		</h2>
+		<br />
+
+
+		<table class="table table-striped"
+			style="cellspacing: 2; cellpadding: 2; border: 1; width: 100%">
 			<thead>
 				<tr>
-					<th>Product</th>
-					<th>Quantity</th>
+					<td align="center">Part ID</td>
+					<td align="center">Description</td>
+					<td align="center">Quantity</td>
+					<td></td>
+					<td></td>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="i" items="${cartList.cartItemList}">
+				<c:forEach var="i" items="${cart.cartItemList}" varStatus="loop">
 					<tr>
-						<td>${i.product.description}</td>
-						<td>${i.quantity}</td>
+						<td align="center">${i.product.partID}</td>
+						<td align="center">${i.product.description}</td>
+						<td align="center">${i.quantity}</td>
+						<td align="center"><a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/usagerecord/viewcart/edit/${loop.index}">Amend</a></td>
+						<td><a class="btn btn-danger"
+							href="${pageContext.request.contextPath}/usagerecord/viewcart/delete/${loop.index}">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<input type="submit" value="Checkout"/>
 	</form:form>
 </body>
 </html>
