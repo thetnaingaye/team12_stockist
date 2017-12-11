@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
 	pageEncoding="BIG5"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,7 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>${message}</h3>
+	<h2>${message}</h2>
 	<div class="scrollbar-thumb"
 		style="overflow-x: auto; overflow-y: auto;">
 		<table class="table table-striped"
@@ -37,21 +38,27 @@
 				</div>
 				<c:forEach var="p" items="${map.value}">
 					<tr class="listRecord">
-						<td align="left">${p.partID}</td>
-						<td align="left">${p.unitPrice}</td>
+						<td><fmt:formatNumber type="number" minIntegerDigits="4"
+								groupingUsed="false" value="${p.partID}" /></td>
+						<td><fmt:formatNumber type="currency" currencySymbol="$"
+								value="${p.unitPrice}" /></td>
 						<td align="left">${p.unitsInStock}</td>
 						<td align="left">${p.reorderLevel}</td>
 						<td align="left">${p.minReorderQty}</td>
 						<td align="left">${p.unitsOnOrder}</td>
-						<td align="left">${p.unitPrice * p.unitsOnOrder}</td>
+						<td align="left"><fmt:formatNumber type="currency"
+								currencySymbol="$" groupingUsed="true"
+								value="${p.unitPrice * p.unitsOnOrder}" /></td>
 					</tr>
 				</c:forEach>
-
 			</c:forEach>
 
+
 		</table>
-		<div class="col-md-offset-5">
-			<c:out value="~End Of Report~"></c:out>
+		<div align="right">
+			<h3>Total Price:       <fmt:formatNumber type="currency"
+								currencySymbol="$" groupingUsed="true"
+								value=" ${totalPrice}" /></h3>
 		</div>
 		<c:if test="${empty message}">
 			<form:form method="POST"
