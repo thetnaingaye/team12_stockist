@@ -4,6 +4,8 @@ import static org.mockito.Matchers.intThat;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import team12.stockist.model.Product;
 import team12.stockist.model.UsageRecord;
@@ -47,9 +51,6 @@ public class UsageRecordController {
 	@Autowired
 	private CartItemValidator ciValidator;
 
-	@Autowired
-	private CartValidator cValidator;
-
 	// temporary
 	@Autowired
 	UserService userService;
@@ -57,11 +58,6 @@ public class UsageRecordController {
 	@InitBinder("cartItem")
 	private void initCartItemValidator(WebDataBinder binder) {
 		binder.addValidators(ciValidator);
-	}
-
-	@InitBinder("cart")
-	private void initCartValidator(WebDataBinder binder) {
-		binder.addValidators(cValidator);
 	}
 
 	// @RequestMapping (value = "/yourlinkhere", method = RequestMethod.GET (or
@@ -119,16 +115,40 @@ public class UsageRecordController {
 	}
 
 	@RequestMapping(value = "/viewcart", method = RequestMethod.POST)
-	public ModelAndView Checkout(@ModelAttribute @Valid Cart model, BindingResult result, HttpSession session) {
-
-		if (result.hasErrors())
-			return new ModelAndView("redirect:/usagerecord/viewcart/");
+	public ModelAndView Checkout(@ModelAttribute Cart model, BindingResult result, HttpSession session,
+			final RedirectAttributes redirectAttributes) {
 
 		Cart cart = (Cart) session.getAttribute("cart");
+
 		UsageRecord usageRecord = new UsageRecord();
 		ArrayList<UsageRecordDetail> usageRecordDetails = new ArrayList<UsageRecordDetail>();
 		ModelAndView modelAndView = new ModelAndView();
 		usageRecord.setTransID(cart.getCartId());
+
+		CartValidator cartValidator = new CartValidator();
+		cartValidator.validate(model, result);
+
+		if (result.hasErrors()) {
+			ModelAndView mav = new ModelAndView("redirect:/usagerecord/viewcart/");
+			redirectAttributes.addFlashAttribute("customerNameError", "Error! Customer Name cannot be empty");
+			return mav;
+		}
+		
+		if (!checkStockAvailable(cart).isEmpty()) {
+			ModelAndView mav = new ModelAndView("redirect:/usagerecord/viewcart/");
+			ArrayList<String> noStockCartItem = new ArrayList<String>();
+			ArrayList<CartItem> noStockList = checkStockAvailable(cart);
+			for(CartItem cartItem : noStockList) {
+				StringBuilder stockAlert = new StringBuilder("Stock Error for ");
+				stockAlert.append(cartItem.getProduct().getDescription());
+				stockAlert.append(" Remaining stock left is: ");
+				stockAlert.append(Integer.toString(productService.findProductById(cartItem.getProduct().getPartID()).getUnitsInStock()));
+				noStockCartItem.add(stockAlert.toString());			
+			}
+			redirectAttributes.addFlashAttribute("noStockCartItem",noStockCartItem);
+			return mav;
+		}
+
 		usageRecord.setCustomerName(model.getCustomerName());
 		usageRecord.setUserId(cart.getUser().getId());
 		usageRecord.setDateUsed(cart.getDateUsed());
@@ -220,4 +240,16 @@ public class UsageRecordController {
 
 		return reOrderLevel;
 	}
+
+	private ArrayList<CartItem> checkStockAvailable(Cart cart) {
+		ArrayList<CartItem> noStockList = new ArrayList<CartItem>();
+		for(CartItem cartitem : cart.getCartItemList()) {
+			Product product = productService.findProductById(cartitem.getProduct().getPartID());
+			if(product.getUnitsInStock() < cartitem.quantity) {
+				noStockList.add(cartitem);
+			}
+		}
+		return noStockList;
+	}
 }
+
