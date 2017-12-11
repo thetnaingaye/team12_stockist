@@ -18,6 +18,8 @@ public interface UsageRecordDetailService {
 	
 	ArrayList<UsageRecordDetail> addUsageRecordDetailList(ArrayList<UsageRecordDetail> usageRecordDetails);
 
+	public ArrayList<UsageRecordDetail> findTransactionHistoryByProductId(int products_PartID);
+
 }
 
 
