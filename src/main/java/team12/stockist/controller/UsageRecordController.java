@@ -137,6 +137,7 @@ public class UsageRecordController {
 		Cart cartNew = new Cart();
 		cartNew.setCartId(Long.toString(new Date().getTime()));
 		session.setAttribute("cart", cartNew);
+
 		modelAndView.setViewName("redirect:/");
 
 		return modelAndView;
@@ -191,7 +192,8 @@ public class UsageRecordController {
 
 	private int checkForReOrder(Product product) {
 		int reOrderLevel;
-		if (product.getUnitsInStock() < product.getReorderLevel()) {
+		if (product.getUnitsInStock() < product.getReorderLevel()
+				&& product.getUnitsOnOrder() < product.getMinReorderQty()) {
 
 			if ((product.getReorderLevel() - product.getUnitsInStock()) >= product.getMinReorderQty()) {
 				reOrderLevel = (product.getReorderLevel() - product.getUnitsInStock());

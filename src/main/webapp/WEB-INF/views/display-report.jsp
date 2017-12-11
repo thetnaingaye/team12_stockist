@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>${customerNameError}</h3>
+	<h3>${message}</h3>
 	<div class="scrollbar-thumb"
 		style="overflow-x: auto; overflow-y: auto;">
 		<table class="table table-striped"

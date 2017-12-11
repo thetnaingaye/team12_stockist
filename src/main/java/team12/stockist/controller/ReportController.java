@@ -3,11 +3,14 @@ package team12.stockist.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.text.NumberFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +49,7 @@ public class ReportController {
 	@RequestMapping(value = "/report", method = RequestMethod.POST)
 	public ModelAndView outputReport(RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
-
+		NumberFormat cF = NumberFormat.getCurrencyInstance();
 		ArrayList<Supplier> supplierList = supplierService.findAllSupplier();
 		HashMap<Supplier, ArrayList<Product>> orderListMap = getOrderList(supplierList);
 		String filename = "";
@@ -65,9 +68,9 @@ public class ReportController {
 				out.println("Part No.  Unit.Price  Qty  Reorder Qty.  Min.Ord.Qty  Ord.Qty  Price");
 				out.println("=======================================================================\t\t\t");
 				for (Product p : productList) {
-					out.println(String.format("%04d", p.getPartID()) + "\t\t" + p.getUnitPrice() + "\t  "
-							+ p.getUnitsInStock() + "\t\t\t" + (p.getReorderLevel() + "\t\t\t" + p.getMinReorderQty() + "\t\t"
-									+ p.getUnitsOnOrder() + "\t\t" + p.getUnitsOnOrder() * p.getUnitPrice()));
+					out.println(String.format("%04d", p.getPartID()) + "\t\t" + cF.format(p.getUnitPrice()) + "\t  "
+							+ p.getUnitsInStock() + "\t\t\t" + p.getReorderLevel() + "\t\t\t" + p.getMinReorderQty() + "\t\t"
+									+ p.getUnitsOnOrder() + "\t\t" + cF.format(p.getUnitsOnOrder() * p.getUnitPrice()));
 					totalPrice += p.getUnitsOnOrder() * p.getUnitPrice();
 				}
 				out.println("=======================================================================\t\t\t");
