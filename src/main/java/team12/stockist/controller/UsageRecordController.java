@@ -67,45 +67,10 @@ public class UsageRecordController {
 	@RequestMapping(value = "/viewcart", method = RequestMethod.GET)
 	public ModelAndView ViewCart(Object object, HttpSession session, Authentication authentication) {
 		ModelAndView modelAndView = new ModelAndView("view-cart");
+
 		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-		Cart cart;
-		if (session.getAttribute("cart") == null)
-
-		{
-			cart = new Cart();
-
-			// ProductController
-			// Khair most likely will use arraylist, use session state to catch his
-			// arraylist to here.
-			ArrayList<CartItem> cartItemList = new ArrayList<CartItem>();
-			CartItem cartItem1 = new CartItem();
-			CartItem cartItem2 = new CartItem();
-
-			// ---- Start of fake items for code testing
-			// Temporary random generator
-			String cartIdNumber = Long.toString((long) session.getAttribute("cartID"));
-			// End of temporary generator
-			// Create some fake hard coded products to add
-			cartItem1.setProduct(productService.findProductById(123));
-			cartItem1.setQuantity(1);
-			cartItem2.setProduct(productService.findProductById(234));
-			cartItem2.setQuantity(1);
-			// End of fake object creation
-			// Addition of cartItem to cartItemList - expect this to be done in
-			// ProductController
-			// Final version should be retrieval of "cartItemList" from HttpSession state
-			cartItemList.add(cartItem1); // ArrayList
-			cartItemList.add(cartItem2); // ArrayList
-
-			cart.setCartId(cartIdNumber);
-			cart.setUser(userDetails);
-			cart.setDateUsed(new Date());
-			cart.setCartItemList(cartItemList);
-			// end of temporary list
-		} else {
-			cart = (Cart) session.getAttribute("cart");
-		}
-		cart.setCartId(Long.toString((long) session.getAttribute("cartID")));
+		Cart cart = (Cart) session.getAttribute("cart");
+		;
 		cart.setUser(userDetails);
 		cart.setDateUsed(new Date());
 
@@ -133,19 +98,20 @@ public class UsageRecordController {
 			redirectAttributes.addFlashAttribute("customerNameError", "Error! Customer Name cannot be empty");
 			return mav;
 		}
-		
+
 		if (!checkStockAvailable(cart).isEmpty()) {
 			ModelAndView mav = new ModelAndView("redirect:/usagerecord/viewcart/");
 			ArrayList<String> noStockCartItem = new ArrayList<String>();
 			ArrayList<CartItem> noStockList = checkStockAvailable(cart);
-			for(CartItem cartItem : noStockList) {
+			for (CartItem cartItem : noStockList) {
 				StringBuilder stockAlert = new StringBuilder("Stock Error for ");
 				stockAlert.append(cartItem.getProduct().getDescription());
 				stockAlert.append(" Remaining stock left is: ");
-				stockAlert.append(Integer.toString(productService.findProductById(cartItem.getProduct().getPartID()).getUnitsInStock()));
-				noStockCartItem.add(stockAlert.toString());			
+				stockAlert.append(Integer
+						.toString(productService.findProductById(cartItem.getProduct().getPartID()).getUnitsInStock()));
+				noStockCartItem.add(stockAlert.toString());
 			}
-			redirectAttributes.addFlashAttribute("noStockCartItem",noStockCartItem);
+			redirectAttributes.addFlashAttribute("noStockCartItem", noStockCartItem);
 			return mav;
 		}
 
@@ -168,11 +134,9 @@ public class UsageRecordController {
 		}
 		usageRecordDetailService.addUsageRecordDetailList(usageRecordDetails);
 
-		long cartID = new Date().getTime();
 		Cart cartNew = new Cart();
-		session.setAttribute("cartID", cartID);
+		cartNew.setCartId(Long.toString(new Date().getTime()));
 		session.setAttribute("cart", cartNew);
-
 		modelAndView.setViewName("redirect:/");
 
 		return modelAndView;
@@ -243,13 +207,12 @@ public class UsageRecordController {
 
 	private ArrayList<CartItem> checkStockAvailable(Cart cart) {
 		ArrayList<CartItem> noStockList = new ArrayList<CartItem>();
-		for(CartItem cartitem : cart.getCartItemList()) {
+		for (CartItem cartitem : cart.getCartItemList()) {
 			Product product = productService.findProductById(cartitem.getProduct().getPartID());
-			if(product.getUnitsInStock() < cartitem.quantity) {
+			if (product.getUnitsInStock() < cartitem.quantity) {
 				noStockList.add(cartitem);
 			}
 		}
 		return noStockList;
 	}
 }
-
