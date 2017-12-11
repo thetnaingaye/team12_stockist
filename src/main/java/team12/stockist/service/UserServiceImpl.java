@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import team12.stockist.model.User;
 import team12.stockist.repository.UserRepository;
 
@@ -21,6 +22,8 @@ public class UserServiceImpl implements UserService {
 		return users;
 		
 	}
+	
+	
 
 	@Override
 	@Transactional

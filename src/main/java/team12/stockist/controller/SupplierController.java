@@ -1,24 +1,22 @@
 package team12.stockist.controller;
 
-
 import java.util.ArrayList;
 
 import javax.validation.Valid;
 
-
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import team12.stockist.model.Supplier;
 import team12.stockist.service.SupplierService;
+import team12.stockist.validator.SupplierValidator;
 
 @RequestMapping(value = "admin/supplier")
 @Controller
@@ -26,6 +24,13 @@ public class SupplierController {
 
 	@Autowired
 	SupplierService supplierService;
+	@Autowired
+	private SupplierValidator supplierValidator;
+
+	@InitBinder("supplier")
+	private void initSupplierBinder(WebDataBinder binder) {
+		binder.addValidators(supplierValidator);
+	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView userListPage() {
@@ -45,6 +50,8 @@ public class SupplierController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView createSupplierPage(@ModelAttribute @Valid Supplier supplier, BindingResult result) {
 
+		if (result.hasErrors())
+			return new ModelAndView("supplier-new");
 		ModelAndView mav = new ModelAndView();
 
 		supplierService.createSupplierRecord(supplier);
@@ -62,9 +69,15 @@ public class SupplierController {
 	}
 
 	@RequestMapping(value = "/edit/{supplierID}", method = RequestMethod.POST)
-	public ModelAndView editStudentPage(@ModelAttribute Supplier supplier) {
+	public ModelAndView editSupplierPage(@ModelAttribute @Valid Supplier suppliers, BindingResult result,
+			@PathVariable String supplierID) {
+		if (result.hasErrors())
+			return new ModelAndView("supplier-edit");
+
 		ModelAndView mav = new ModelAndView("redirect:/admin/supplier/list");
-		supplierService.updateSupplierRecord(supplier);
+
+		supplierService.updateSupplierRecord(suppliers);
+
 		return mav;
 	}
 

@@ -5,32 +5,37 @@
 <h3>Edit Supplier Record</h3>
 <form:form method="POST" modelAttribute="supplier"
 	action="${pageContext.request.contextPath}/admin/supplier/edit/${suppliers.supplierID}.html">
+	<form:errors />
 	<table>
 		<tbody>
 			<tr>
 				<td>Supplier ID</td>
-				<td><form:input class="form-control" path="supplierID" readyonly="true" /></td>
+				    <td><form:input class="form-control" path="supplierID" readyonly="true" />
+					<form:errors path="supplierID" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td><br /></td>
 			</tr>
 			<tr>
 				<td>Company Name</td>
-				<td><form:input class="form-control" path="companyName" /></td>
+				<td><form:input class="form-control" path="companyName" />
+					<form:errors path="companyName" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td><br /></td>
 			</tr>
 			<tr>
 				<td>Contact Number</td>
-				<td><form:input class="form-control" path="contactNumber" /></td>
+				<td><form:input class="form-control" path="contactNumber" />
+					<form:errors path="contactNumber" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td><br /></td>
 			</tr>
 			<tr>
 				<td>Address</td>
-				<td><form:input class="form-control" path="address" /></td>
+				<td><form:input class="form-control" path="address" />
+					<form:errors path="address" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td><br /></td>
