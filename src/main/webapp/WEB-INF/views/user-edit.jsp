@@ -5,32 +5,37 @@
 <h3>Edit User Page</h3>
 <form:form method="POST" modelAttribute="user"
 	action="${pageContext.request.contextPath}/admin/user/edit/${users.id}.html">
+	<form:errors />
 	<table>
 		<tbody>
 			<tr>
 				<td>User ID</td>
-				<td><form:input class="form-control" path="id" readyonly="true" /></td>
+				<td><form:input class="form-control" path="id" readyonly="true" />
+					<form:errors path="id" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td><br /></td>
 			</tr>
 			<tr>
 				<td>User Name</td>
-				<td><form:input class="form-control" path="username" /></td>
+				<td><form:input class="form-control" path="username" /> <form:errors
+						path="username" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td><br /></td>
 			</tr>
 			<tr>
 				<td>Password</td>
-				<td><form:input class="form-control" path="password" /></td>
+				<td><form:input class="form-control" path="password" /> <form:errors
+						path="password" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td><br /></td>
 			</tr>
 			<tr>
 				<td>User Role</td>
-				<td><form:input class="form-control" path="userRole" /></td>
+				<td><form:input class="form-control" path="userRole" /> <form:errors
+						path="userRole" cssStyle="color: red;" /></td>
 			</tr>
 
 			<tr>

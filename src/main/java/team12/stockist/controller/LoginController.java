@@ -13,8 +13,10 @@ public class LoginController
 	@GetMapping("/login")
 	public String showLoginPage(HttpSession session)
 	{
+		Cart cart = new Cart();
 		long cartID = new Date().getTime();
-		session.setAttribute("cartID", cartID);
+		cart.setCartId(Long.toString(cartID));
+		session.setAttribute("cart", cart);
 		return "login";
 	}
 	

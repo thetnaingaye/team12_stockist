@@ -15,6 +15,17 @@
 
 	<form:form method="POST" modelAttribute="cart"
 		action="${pageContext.request.contextPath}/usagerecord/viewcart">
+
+		<div style="color: red;">
+			<c:forEach var="s" items="${noStockCartItem}">
+				<c:out value="${s}" />
+				<br />
+			</c:forEach>
+			<c:if test="${not empty noStockCartItem}">
+				<b>Please amend the quantity accordingly.</b>
+			</c:if>
+		</div>
+
 		<div>
 			<table style="cellspacing: 2; cellpadding: 2; border: 1; width: 50%">
 				<tr>
@@ -30,11 +41,11 @@
 		</div>
 
 		<br />
-		Customer Name: <form:input path="customerName" value="" />
+		<div style="color: red;">${customerNameError}</div>
+		Customer Name: <form:input path="customerName" />
 		<input type="submit" value="Checkout" />
-		<h2>
-			<form:errors path="customerName" cssStyle="color: red;" />
-		</h2>
+
+
 		<br />
 
 
