@@ -40,6 +40,16 @@ public class ReportController {
 		ArrayList<Supplier> supplierList = supplierService.findAllSupplier();
 		HashMap<Supplier, ArrayList<Product>> orderListMap = getOrderList(supplierList);
 
+		double totalPrice = 0;
+
+		for (Map.Entry<Supplier, ArrayList<Product>> entry : orderListMap.entrySet()) {
+			ArrayList<Product> productList = entry.getValue();
+			for (Product p : productList) {
+				totalPrice += p.getUnitsOnOrder() * p.getUnitPrice();
+			}
+
+		}
+		modelAndView.addObject("totalPrice", totalPrice);
 		modelAndView.addObject("orderListMap", orderListMap);
 		modelAndView.addObject("supplierList", supplierList);
 
@@ -59,7 +69,7 @@ public class ReportController {
 			String supplierId = entry.getKey().getSupplierID();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String date = sdf.format(new Date());
-			filename = "C:\\JavaCaReport\\"+date+"-"+supplierId+"-ReorderReport.dat";
+			filename = "C:\\JavaCaReport\\" + date + "-" + supplierId + "-ReorderReport.dat";
 			try {
 				PrintWriter out = new PrintWriter(new File(filename));
 				out.println("\t\t\tInventory Reorder Report for Supplier " + supplierId);
@@ -79,14 +89,13 @@ public class ReportController {
 				out.print("\t\t\t\t\t\t End of Report");
 				out.close();
 			} catch (FileNotFoundException e) {
-				
 
 				e.printStackTrace();
 			}
 		}
-		
-		String message = "File Successfully Output to: "+filename;
-		
+
+		String message = "File Successfully Output to: " + filename;
+
 		modelAndView.setViewName("redirect:/admin/print/report");
 		redirectAttributes.addFlashAttribute("message", message);
 
