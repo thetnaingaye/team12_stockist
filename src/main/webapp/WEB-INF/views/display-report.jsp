@@ -18,28 +18,29 @@
 
 	<div class="scrollbar-thumb"
 		style="overflow-x: auto; overflow-y: auto;">
-		<table class="table table-striped"
-			style="cellspacing: 2; cellpadding: 2; border: 1; width: 100%">
-			<thead>
-				<tr class="listHeading">
-					<th>Part No.</th>
-					<th>Unit Price</th>
-					<th>Quantity</th>
-					<th>Reorder Qty</th>
-					<th>Min. Order Qty</th>
-					<th>Ordered Qty</th>
-					<th>Price</th>
-				</tr>
-			</thead>
+		<c:forEach var="map" items="${orderListMap}">
+			<div class="col-md-offset-5">
+				<c:out
+					value="Inventory Reorder Report for Supplier ${map.key.supplierID}"></c:out>
+			</div>
+			<table class="table table-striped"
+				style="cellspacing: 2; cellpadding: 2; border: 1; width: 100%">
+				<thead>
+					<tr class="listHeading">
+						<th>Part No.</th>
+						<th>Unit Price</th>
+						<th>Quantity</th>
+						<th>Reorder Qty</th>
+						<th>Min. Order Qty</th>
+						<th>Ordered Qty</th>
+						<th>Price</th>
+					</tr>
+				</thead>
 
 
-			<c:forEach var="map" items="${orderListMap}">
-				<div class="col-md-offset-5">
-					<c:out
-						value="Inventory Reorder Report for Supplier ${map.key.supplierID}"></c:out>
-				</div>
 				<c:forEach var="p" items="${map.value}">
 					<tr class="listRecord">
+
 						<td><fmt:formatNumber type="number" minIntegerDigits="4"
 								groupingUsed="false" value="${p.partID}" /></td>
 						<td><fmt:formatNumber type="currency" currencySymbol="$"
@@ -52,9 +53,16 @@
 								currencySymbol="$" groupingUsed="true"
 								value="${p.unitPrice * p.unitsOnOrder}" /></td>
 					</tr>
+
+
 				</c:forEach>
-			</c:forEach>
-		</table>
+
+
+
+
+			</table>
+		</c:forEach>
+							<div class="col-md-offset-5">End of Report</div>
 		<div align="right">
 			<h3>
 				Total Price:

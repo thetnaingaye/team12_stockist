@@ -94,7 +94,7 @@ public class ReportController {
 			}
 		}
 
-		String message = "File Successfully Output to: " + filename;
+		String message = "File Successfully Output to folder C:\\JavaCaReport\\ ";
 
 		modelAndView.setViewName("redirect:/admin/print/report");
 		redirectAttributes.addFlashAttribute("message", message);
