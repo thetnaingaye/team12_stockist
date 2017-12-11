@@ -56,5 +56,12 @@ public class UsageRecordDetailServiceImpl implements UsageRecordDetailService {
 		}
 		return usageRecordDetails;
 	}
+	
+	// Support Product details page
+	@Override
+	@Transactional
+	public ArrayList<UsageRecordDetail> findTransactionHistoryByProductId(int products_PartID) {
+		return usageRecordDetailRepository.findTransactionHistoryByProductId(products_PartID);
+	}
 
 }

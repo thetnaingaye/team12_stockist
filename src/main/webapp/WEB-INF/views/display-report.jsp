@@ -13,7 +13,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<h2>${message}</h2>
+
+	<h3>${customerNameError}</h3>
+
 	<div class="scrollbar-thumb"
 		style="overflow-x: auto; overflow-y: auto;">
 		<table class="table table-striped"
@@ -52,13 +56,13 @@
 					</tr>
 				</c:forEach>
 			</c:forEach>
-
-
 		</table>
 		<div align="right">
-			<h3>Total Price:       <fmt:formatNumber type="currency"
-								currencySymbol="$" groupingUsed="true"
-								value=" ${totalPrice}" /></h3>
+			<h3>
+				Total Price:
+				<fmt:formatNumber type="currency" currencySymbol="$"
+					groupingUsed="true" value=" ${totalPrice}" />
+			</h3>
 		</div>
 		<c:if test="${empty message}">
 			<form:form method="POST"

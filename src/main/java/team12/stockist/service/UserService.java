@@ -10,6 +10,7 @@ public interface UserService {
 
 	ArrayList<User> findAllUser();
 
+
 	User findUserById(Integer userId);
 
 	User createUser(User user);

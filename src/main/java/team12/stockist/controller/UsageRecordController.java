@@ -4,6 +4,8 @@ import static org.mockito.Matchers.intThat;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import team12.stockist.model.Product;
 import team12.stockist.model.UsageRecord;
@@ -47,9 +51,6 @@ public class UsageRecordController {
 	@Autowired
 	private CartItemValidator ciValidator;
 
-	@Autowired
-	private CartValidator cValidator;
-
 	// temporary
 	@Autowired
 	UserService userService;
@@ -59,11 +60,6 @@ public class UsageRecordController {
 		binder.addValidators(ciValidator);
 	}
 
-	@InitBinder("cart")
-	private void initCartValidator(WebDataBinder binder) {
-		binder.addValidators(cValidator);
-	}
-
 	// @RequestMapping (value = "/yourlinkhere", method = RequestMethod.GET (or
 	// POST)
 	// Public blah blah methods here
@@ -71,45 +67,10 @@ public class UsageRecordController {
 	@RequestMapping(value = "/viewcart", method = RequestMethod.GET)
 	public ModelAndView ViewCart(Object object, HttpSession session, Authentication authentication) {
 		ModelAndView modelAndView = new ModelAndView("view-cart");
+
 		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-		Cart cart;
-		if (session.getAttribute("cart") == null)
-
-		{
-			cart = new Cart();
-
-			// ProductController
-			// Khair most likely will use arraylist, use session state to catch his
-			// arraylist to here.
-			ArrayList<CartItem> cartItemList = new ArrayList<CartItem>();
-			CartItem cartItem1 = new CartItem();
-			CartItem cartItem2 = new CartItem();
-
-			// ---- Start of fake items for code testing
-			// Temporary random generator
-			String cartIdNumber = Long.toString((long) session.getAttribute("cartID"));
-			// End of temporary generator
-			// Create some fake hard coded products to add
-			cartItem1.setProduct(productService.findProductById(123));
-			cartItem1.setQuantity(1);
-			cartItem2.setProduct(productService.findProductById(234));
-			cartItem2.setQuantity(1);
-			// End of fake object creation
-			// Addition of cartItem to cartItemList - expect this to be done in
-			// ProductController
-			// Final version should be retrieval of "cartItemList" from HttpSession state
-			cartItemList.add(cartItem1); // ArrayList
-			cartItemList.add(cartItem2); // ArrayList
-
-			cart.setCartId(cartIdNumber);
-			cart.setUser(userDetails);
-			cart.setDateUsed(new Date());
-			cart.setCartItemList(cartItemList);
-			// end of temporary list
-		} else {
-			cart = (Cart) session.getAttribute("cart");
-		}
-		cart.setCartId(Long.toString((long) session.getAttribute("cartID")));
+		Cart cart = (Cart) session.getAttribute("cart");
+		;
 		cart.setUser(userDetails);
 		cart.setDateUsed(new Date());
 
@@ -119,16 +80,41 @@ public class UsageRecordController {
 	}
 
 	@RequestMapping(value = "/viewcart", method = RequestMethod.POST)
-	public ModelAndView Checkout(@ModelAttribute @Valid Cart model, BindingResult result, HttpSession session) {
-
-		if (result.hasErrors())
-			return new ModelAndView("redirect:/usagerecord/viewcart/");
+	public ModelAndView Checkout(@ModelAttribute Cart model, BindingResult result, HttpSession session,
+			final RedirectAttributes redirectAttributes) {
 
 		Cart cart = (Cart) session.getAttribute("cart");
+
 		UsageRecord usageRecord = new UsageRecord();
 		ArrayList<UsageRecordDetail> usageRecordDetails = new ArrayList<UsageRecordDetail>();
 		ModelAndView modelAndView = new ModelAndView();
 		usageRecord.setTransID(cart.getCartId());
+
+		CartValidator cartValidator = new CartValidator();
+		cartValidator.validate(model, result);
+
+		if (result.hasErrors()) {
+			ModelAndView mav = new ModelAndView("redirect:/usagerecord/viewcart/");
+			redirectAttributes.addFlashAttribute("customerNameError", "Error! Customer Name cannot be empty");
+			return mav;
+		}
+
+		if (!checkStockAvailable(cart).isEmpty()) {
+			ModelAndView mav = new ModelAndView("redirect:/usagerecord/viewcart/");
+			ArrayList<String> noStockCartItem = new ArrayList<String>();
+			ArrayList<CartItem> noStockList = checkStockAvailable(cart);
+			for (CartItem cartItem : noStockList) {
+				StringBuilder stockAlert = new StringBuilder("Stock Error for ");
+				stockAlert.append(cartItem.getProduct().getDescription());
+				stockAlert.append(" Remaining stock left is: ");
+				stockAlert.append(Integer
+						.toString(productService.findProductById(cartItem.getProduct().getPartID()).getUnitsInStock()));
+				noStockCartItem.add(stockAlert.toString());
+			}
+			redirectAttributes.addFlashAttribute("noStockCartItem", noStockCartItem);
+			return mav;
+		}
+
 		usageRecord.setCustomerName(model.getCustomerName());
 		usageRecord.setUserId(cart.getUser().getId());
 		usageRecord.setDateUsed(cart.getDateUsed());
@@ -148,11 +134,9 @@ public class UsageRecordController {
 		}
 		usageRecordDetailService.addUsageRecordDetailList(usageRecordDetails);
 
-		long cartID = new Date().getTime();
 		Cart cartNew = new Cart();
-		session.setAttribute("cartID", cartID);
+		cartNew.setCartId(Long.toString(new Date().getTime()));
 		session.setAttribute("cart", cartNew);
-
 		modelAndView.setViewName("redirect:/");
 
 		return modelAndView;
@@ -219,5 +203,16 @@ public class UsageRecordController {
 		}
 
 		return reOrderLevel;
+	}
+
+	private ArrayList<CartItem> checkStockAvailable(Cart cart) {
+		ArrayList<CartItem> noStockList = new ArrayList<CartItem>();
+		for (CartItem cartitem : cart.getCartItemList()) {
+			Product product = productService.findProductById(cartitem.getProduct().getPartID());
+			if (product.getUnitsInStock() < cartitem.quantity) {
+				noStockList.add(cartitem);
+			}
+		}
+		return noStockList;
 	}
 }

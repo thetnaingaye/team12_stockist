@@ -16,4 +16,6 @@ public interface UsageRecordService {
 
 	void deleteUsageRecord(UsageRecord usageRecord);
 
+	public ArrayList<UsageRecord> findUsageRecordHistory(int products_PartID);
+
 }
