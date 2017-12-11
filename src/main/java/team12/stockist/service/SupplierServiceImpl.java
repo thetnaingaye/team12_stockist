@@ -20,7 +20,7 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	@Transactional
-	public ArrayList<Supplier> findAll(){
+	public ArrayList<Supplier> findAllSupplier(){
 		ArrayList<Supplier> supplierList = (ArrayList<Supplier>) supplierRepository.findAll();
 		return supplierList;
 	}
