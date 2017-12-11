@@ -46,5 +46,12 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	public void deleteUsageRecord(UsageRecord usageRecord) {
 		usageRecordRepository.delete(usageRecord);
 	}
+	
+	@Override
+	@Transactional
+	public ArrayList<UsageRecord> findUsageRecordHistory(int products_PartID)
+	{
+		return usageRecordRepository.findUsageRecordHistory(products_PartID);
+	}
 
 }

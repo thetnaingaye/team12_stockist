@@ -1,59 +1,201 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+	
+	
+<link rel='stylesheet prefetch' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<form:form action="${pageContext.request.contextPath}/mechanic/product/search" method="POST">
+	<div class="wrap">
+		<div class="search">
+				<input type="text" class="searchTerm" placeholder="Search..." name="inputField" value="${searchValue}"/>
+				<button class="searchPicture" type="submit"><i class="fa fa-search"></i></button>
+		</div>
+	</div>
+	<br />
+	
+	<p align="center">Hello</p>
+	<h4>Refine by</h4>
+	<div>
+		<table style="cellspacing: 2; cellpadding: 2; border: 1; width:80%">
+			<tbody>
+				<tr>
+					<td>Color: </td>
+					<td><form:checkbox path="colorFilters" value="White"/>&nbsp;White</td>
+					<td><form:checkbox path="colorFilters" value="Black"/>&nbsp;Black</td>
+					<td><form:checkbox path="colorFilters" value="Silver"/>&nbsp;Silver</td>
+					<td><form:checkbox path="colorFilters" value="Gold"/>&nbsp;Gold</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<td>Manufacturer: </td>
+					<td><form:checkbox path="manufacturerFilters" value="Toyota"/>&nbsp;Toyota</td>
+					<td><form:checkbox path="manufacturerFilters" value="Honda"/>&nbsp;Honda</td>
+					<td><form:checkbox path="manufacturerFilters" value="General Motors"/>&nbsp;General Motors</td>
+					<td><form:checkbox path="manufacturerFilters" value="Mercedez Benz"/>&nbsp;Mercedez Benz</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</form:form>
 
 
-<h3>Product List page</h3>
 
+<h2 align="center">Product List</h2>
+		
 <c:if test="${fn:length(productList) gt 0}">
 <div class="scrollbar-thumb" style="overflow-x:auto;overflow-y:auto;">
-<table class="table table-striped" style="cellspacing: 2; cellpadding: 2; border: 1;width:100%">
+<table class="table table-striped" style="cellspacing: 2; cellpadding: 2; border: 1; width:100%">
 	<thead>
 	<tr class="listHeading">
-		<th>Part Id</th>
-		<th>Description</th>
-		<th>UnitPrice</th>
-		<th>Color</th>
-		<th>Dimension</th>
-		<th>Manufacturer</th>
-		<th>ReorderLevel</th>
-		<th>MinReorder Qty</th>
-		<th>ShelfLocation</th>
-		<th>SupplierID</th>
-		<th>UnitsInStock</th>
-		<th>UnitsOnOrder</th>
-		<th>Discontinued</th>
-		<th><spring:message code="caption.edit" /></th>
-		<th><spring:message code="caption.delete" /></th>
+		<th style="text-align: center">Part Id</th>
+		<th style="text-align: center">Description</th>
+		<th style="text-align: center">Unit Price</th>
+		<th style="text-align: center">Color</th>
+		<th style="text-align: center">Manufacturer</th>
+		<th style="text-align: center">Shelf Location</th>
+		<th style="text-align: center">Supplier</th>
+		<th style="text-align: center">Units In Stock</th>
+		<th style="text-align: center">Discontinued</th>
+		<sec:authorize access="hasAuthority('admin')">
+			<th style="text-align: center"><spring:message code="caption.edit" /></th>
+		</sec:authorize>
+		<th style="text-align: center">Add to cart</th>
 	</tr>
 	</thead>
 	<tbody>
 
 	<c:forEach var="p" items="${productList}">
 		<tr class="listRecord">
-			<td align="left">${p.partID}</td>
-			<td align="left">${p.description}</td>
-			<td align="left">${p.unitPrice}</td>
-			<td align="left">${p.color}</td>
-			<td align="left">${p.dimension}</td>
-			<td align="left">${p.manufacturer}</td>
-			<td align="left">${p.reorderLevel}</td>
-			<td align="left">${p.minReorderQty}</td>
-			<td align="left">${p.shelfLocation}</td>
-			<td align="left">${p.supplierID}</td>
-			<td align="left">${p.unitsInStock}</td>
-			<td align="left">${p.unitsOnOrder}</td>
-			<td align="left">${p.discontinued}</td>
-
+			<td align="center">${p.partID}</td>
 			
-			<td align="center"><a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/student/edit/${student.id}.html">Edit</a></td>
-			<td><a class="btn btn-danger" href="${pageContext.request.contextPath}/admin/student/delete/${student.id}.html">Delete</a></td>
+			<!-- For some columns we use a combination of EL and scriptlets to modify the retrieve data such that all first letters are capitalized -->
+			<td align="center"><c:set var="temp" value="${p.description}"/>
+				<a href="${pageContext.request.contextPath}/mechanic/product/details/${p.partID}">
+					<% 
+						String tem = (String) pageContext.getAttribute("temp");
+						tem = Character.toUpperCase(tem.charAt(0)) + tem.substring(1);
+						out.println(tem);
+					%>
+				</a>
+			</td>
+			<td align="center"><fmt:formatNumber value="${p.unitPrice}" type="currency" currencySymbol="$"/></td>
+			<td align="center"><c:set var="temp" value="${p.color}"/>
+			<% 
+				tem = (String) pageContext.getAttribute("temp");
+				tem = Character.toUpperCase(tem.charAt(0)) + tem.substring(1);
+				out.println(tem);
+			%></td>
+			<td align="center"><c:set var="temp" value="${p.manufacturer}"/>
+			<% 
+				tem = (String) pageContext.getAttribute("temp");
+				tem = Character.toUpperCase(tem.charAt(0)) + tem.substring(1);
+				out.println(tem);
+			%></td>
+			<td align="center">${p.shelfLocation}</td>
+			 
+			
+			
+			
+			<!-- Done to produce supplier name in the 'Supplier' column of the table rather than SupplierID -->
+			<c:set var="supID1" value="${p.supplierID}"/>
+			<c:forEach var="s" items="${supplierList}">
+				<c:set var="supID2" value="${s.supplierID}"/>
+				<c:set var="supName" value="${s.companyName}"/>
+				<% 
+					String temp1 = (String) pageContext.getAttribute("supID1");
+					String temp2 = (String) pageContext.getAttribute("supID2");
+					String temp3 = (String) pageContext.getAttribute("supName");
+					if (temp1.equals(temp2)) 
+					{
+						pageContext.setAttribute("supID1", temp3);
+						break;
+					}
+				%>
+			</c:forEach>
+			<td align="center"><c:set var="temp" value="${supID1}"/>
+			<% 
+				tem = (String) pageContext.getAttribute("temp");
+				tem = Character.toUpperCase(tem.charAt(0)) + tem.substring(1);
+				out.println(tem);
+			%></td>
+			
+			
+			
+			
+			
+			<td align="center">${p.unitsInStock}</td>
+			<td align="center">${p.discontinued}</td>
+
+			<sec:authorize access="hasAuthority('admin')">
+			<td align="center"><a class="btn btn-primary" href="${pageContext.request.contextPath}/mechanic/product/edit/${p.partID}">Edit</a></td>
+			</sec:authorize>
+			<td>
+				<form:form action="${pageContext.request.contextPath}/mechanic/product/addtocart" method="POST">
+					<input type="submit" class="btn btn-danger" value="Add">&nbsp;&nbsp;
+					<input type="text" name="qty">
+					<input id="secretValue" name="secretValue" type="hidden" value="${p.partID}"/>
+				</form:form>
+			</td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
 </div>
 </c:if>
+
+
+
+
+<style>
+/* For the search bar */
+.search {
+	width: 100%;
+	position: relative
+}
+
+.searchTerm {
+	float: left;
+	width: 100%;
+	border: 3px solid #3A3A87;
+	padding: 5px;
+	height: 45px;
+	border-radius: 5px;
+	outline: none;
+	color: #9DBFAF;
+	font-size: 20px;
+}
+
+.searchTerm:focus {
+	color: #3A3A87;
+}
+
+.searchPicture {
+	position: absolute;
+	right: -51px;
+	width: 55px;
+	height: 45px;
+	border: 1px solid #3A3A87;
+	background: #3A3A87;
+	text-align: center;
+	color: #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.wrap {
+	width: 40%;
+	position: absolute;
+	top: 52px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+</style>

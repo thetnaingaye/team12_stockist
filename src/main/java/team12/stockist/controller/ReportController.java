@@ -34,7 +34,7 @@ public class ReportController {
 	@RequestMapping(value = "/report", method = RequestMethod.GET)
 	public ModelAndView printReport() {
 		ModelAndView modelAndView = new ModelAndView("display-report");
-		ArrayList<Supplier> supplierList = supplierService.findAll();
+		ArrayList<Supplier> supplierList = supplierService.findAllSupplier();
 		HashMap<Supplier, ArrayList<Product>> orderListMap = getOrderList(supplierList);
 
 		modelAndView.addObject("orderListMap", orderListMap);
@@ -47,7 +47,7 @@ public class ReportController {
 	public ModelAndView outputReport(RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
 
-		ArrayList<Supplier> supplierList = supplierService.findAll();
+		ArrayList<Supplier> supplierList = supplierService.findAllSupplier();
 		HashMap<Supplier, ArrayList<Product>> orderListMap = getOrderList(supplierList);
 		String filename = "";
 		for (Map.Entry<Supplier, ArrayList<Product>> entry : orderListMap.entrySet()) {
