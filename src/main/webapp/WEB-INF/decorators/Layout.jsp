@@ -77,7 +77,7 @@
 
 						<li class="nav-divider"></li>
 						<li><a class="btn btn-primary"
-							href="/team12_stockist/mechanic/product/list">View Products</a></li>
+							href="/team12_stockist/mechanic/product/browse">View Products</a></li>
 						<li class="nav-divider"></li>
 						<li><a class="btn btn-primary" href="#">Usage Records</a></li>
 						<li class="nav-divider"></li>
@@ -94,7 +94,9 @@
 								href="${pageContext.request.contextPath}/admin/user/list">Users</a></li>
 							<li class="nav-divider"></li>
 							
-							
+							<li><a class="btn btn-primary"
+								href="${pageContext.request.contextPath}/admin/product/create">New Product Entry</a></li>
+							<li class="nav-divider"></li>
 							
 							
 							

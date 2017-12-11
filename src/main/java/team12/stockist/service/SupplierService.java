@@ -6,7 +6,7 @@ import team12.stockist.model.Supplier;
 
 public interface SupplierService {
 
-	ArrayList<Supplier> findAll();
+	ArrayList<Supplier> findAllSupplier();
 
 	Supplier findSupplierById(String supplierId);
 

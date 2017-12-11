@@ -35,7 +35,7 @@ public class SupplierController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView userListPage() {
 		ModelAndView mav = new ModelAndView("supplier-list");
-		ArrayList<Supplier> supplierList = (ArrayList<Supplier>) supplierService.findAll();
+		ArrayList<Supplier> supplierList = (ArrayList<Supplier>) supplierService.findAllSupplier();
 		mav.addObject("supplierList", supplierList);
 		return mav;
 	}
