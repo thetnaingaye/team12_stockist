@@ -56,10 +56,8 @@ public class ProductController
 	{
 		SearchFilters sFilters = new SearchFilters();
 		ModelAndView mav = new ModelAndView("product-list", "command", sFilters);
-		ArrayList<Product> pList = (ArrayList<Product>) pservice.findAllProduct();
-		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
-		mav.addObject("productList", pList);
-		mav.addObject("supplierList", sList);
+		String msg = "";
+		mav = mavSupport(mav, msg);
 		return mav;
 	}
 	
@@ -98,10 +96,8 @@ public class ProductController
 		
 		// Redirecting to the main page
 		ModelAndView mav = new ModelAndView("product-list", "command", new SearchFilters());
-		ArrayList<Product> pList = (ArrayList<Product>) pservice.findAllProduct();
-		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
-		mav.addObject("productList", pList);
-		mav.addObject("supplierList", sList);
+		String msg = "Successfully added to cart.";
+		mav = mavSupport(mav, msg);
 
 		
 		// Uncomment to check if your items are captured
@@ -109,7 +105,18 @@ public class ProductController
 		return mav;
 	}
 	
-	
+
+	// A simple support method to minimize code repeats
+	public ModelAndView mavSupport(ModelAndView temp, String msg)
+	{
+		ArrayList<Product> pList = (ArrayList<Product>) pservice.findAllProduct();
+		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
+		temp.addObject("productList", pList);
+		temp.addObject("supplierList", sList);
+
+		temp.addObject("msgAlert", msg);
+		return temp;
+	}
 	
 	
 	

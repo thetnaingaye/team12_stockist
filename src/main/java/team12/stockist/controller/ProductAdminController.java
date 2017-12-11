@@ -59,6 +59,7 @@ public class ProductAdminController {
 
 			String message = "New product " + pdt.getDescription() + " was successfully created.";
 			redirectAttributes.addFlashAttribute("message", message);
+			mav.addObject("msgAlert", message);
 			return mav;
 		}
 	}

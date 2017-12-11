@@ -20,7 +20,7 @@
 	</div>
 	<br />
 	
-	<p align="center">Hello</p>
+	<h5 align="center" Style="color:red">${msgAlert}</h5>
 	<h4>Refine by</h4>
 	<div>
 		<table style="cellspacing: 2; cellpadding: 2; border: 1; width:80%">
