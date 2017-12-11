@@ -4,10 +4,10 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <h3>Supplier List Page</h3>
-<a href="${pageContext.request.contextPath}/admin/supplier/create">Add
-	Supplier Record</a>
+<a class="btn btn-success" href="${pageContext.request.contextPath}/admin/supplier/create">Add
+	Supplier</a>
 <c:if test="${fn:length(supplierList) gt 0}">
-	<table style="cellspacing: 2; cellpadding: 2; border: 1;">
+	<table  class="table table-striped" style="cellspacing: 2; cellpadding: 2; border: 1;width:100%">
 		<thead>
 			<tr class="listHeading">
 				<th><spring:message code="Supplier ID" /></th>
@@ -25,10 +25,10 @@
 					<td>${suppliers.companyName}</td>
 					<td>${suppliers.contactNumber}</td>
 					<td>${suppliers.address}</td>
-					<td align="center"><a
+					<td align="center"><a class="btn btn-primary"
 						href="${pageContext.request.contextPath}/admin/supplier/edit/${suppliers.supplierID}.html"><spring:message
 								code="caption.edit" /></a></td>
-					<td><a
+					<td><a class="btn btn-danger"
 						href="${pageContext.request.contextPath}/admin/supplier/delete/${suppliers.supplierID}.html"><spring:message
 								code="caption.delete" /></a></td>
 				</tr>

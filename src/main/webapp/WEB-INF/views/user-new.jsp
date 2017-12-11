@@ -9,25 +9,35 @@
 		<tbody>
 			<tr>
 				<td>User ID</td>
-				<td><form:input path="id" /></td>
+				<td><form:input path="id" class="form-control" /></td>
+			</tr>
+			<tr>
+			<td><br /></td>
 			</tr>
 			<tr>
 				<td>User Name</td>
-				<td><form:input path="username" /></td>
+				<td><form:input path="username" class="form-control" /></td>
+			</tr>
+			<tr>
+			<td><br /></td>
 			</tr>
 			<tr>
 				<td>Password</td>
-				<td><form:input path="password" /></td>
+				<td><form:input path="password" class="form-control" /></td>
 			</tr>
-
+			<tr>
+			<td><br /></td>
+			</tr>
 			<tr>
 				<td>User Role</td>
-				<td><form:input path="userRole" /></td>
+				<td><form:input path="userRole" class="form-control" /></td>
 			</tr>
-
+<tr>
+<td><br /></td>
+</tr>
 
 			<tr>
-				<td><input type="submit" value="Create" /></td>
+				<td><input class="btn btn-primary" type="submit" value="Create" /></td>
 				<td></td>
 				<td></td>
 			</tr>

@@ -9,25 +9,36 @@
 		<tbody>
 			<tr>
 				<td>Supplier ID</td>
-				<td><form:input path="supplierID" /></td>
+				<td><form:input class="form-control" path="supplierID" /></td>
+			</tr>
+				<tr>
+			<td><br /></td>
 			</tr>
 			<tr>
 				<td>Company Name</td>
-				<td><form:input path="companyName" /></td>
+				<td><form:input class="form-control" path="companyName" /></td>
+			</tr>
+				<tr>
+			<td><br /></td>
 			</tr>
 			<tr>
 				<td>Contact Number</td>
-				<td><form:input path="contactNumber" /></td>
+				<td><form:input class="form-control" path="contactNumber" /></td>
+			</tr>
+				<tr>
+			<td><br /></td>
 			</tr>
 
 			<tr>
 				<td>Address</td>
-				<td><form:input path="address" /></td>
+				<td><form:input class="form-control" path="address" /></td>
+			</tr>
+	<tr>
+			<td><br /></td>
 			</tr>
 
-
 			<tr>
-				<td><input type="submit" value="Create" /></td>
+				<td><input class="btn btn-primary" type="submit" value="Create" /></td>
 				<td></td>
 				<td></td>
 			</tr>

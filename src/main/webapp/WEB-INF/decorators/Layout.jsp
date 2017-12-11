@@ -44,10 +44,13 @@
 			<sec:authorize access="isAuthenticated()">
 
 				<div class="nav navbar-nav navbar-right">
-					<span class="btn btn-primary">hi! ${pageContext.request.userPrincipal.name}, your are currently logged in as | user ID :<sec:authentication property="principal.id" />|
-					 user role :<sec:authentication property="principal.userRole" />
-					 </span>
-						
+					<span class="btn btn-primary">hi!
+						${pageContext.request.userPrincipal.name}, your are currently
+						logged in as | user ID :<sec:authentication
+							property="principal.id" />| user role :<sec:authentication
+							property="principal.userRole" />
+					</span>
+
 				</div>
 
 
@@ -80,8 +83,21 @@
 						<li class="nav-divider"></li>
 						<sec:authorize access="hasAuthority('admin')">
 							<li><a class="btn btn-primary"
+								href="${pageContext.request.contextPath}/admin/print/report">Reorder Report</a></li>
+							<li class="nav-divider"></li>
+							
+							<li><a class="btn btn-primary"
 								href="${pageContext.request.contextPath}/admin/supplier/list">Suppliers</a></li>
 							<li class="nav-divider"></li>
+							
+							<li><a class="btn btn-primary"
+								href="${pageContext.request.contextPath}/admin/user/list">Users</a></li>
+							<li class="nav-divider"></li>
+							
+							
+							
+							
+							
 						</sec:authorize>
 
 					</ul>
