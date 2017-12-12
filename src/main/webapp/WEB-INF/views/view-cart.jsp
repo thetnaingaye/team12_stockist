@@ -43,7 +43,7 @@
 		<br />
 		<div style="color: red;">${customerNameError}</div>
 		Customer Name: <form:input path="customerName" />
-		<input type="submit" value="Checkout" />
+		<input type="submit" value="Record Usage" />
 
 
 		<br />

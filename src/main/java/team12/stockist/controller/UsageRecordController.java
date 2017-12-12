@@ -56,10 +56,6 @@ public class UsageRecordController {
 		binder.addValidators(ciValidator);
 	}
 
-	// @RequestMapping (value = "/yourlinkhere", method = RequestMethod.GET (or
-	// POST)
-	// Public blah blah methods here
-
 	@RequestMapping(value = "/viewcart", method = RequestMethod.GET)
 	public ModelAndView ViewCart(Object object, HttpSession session, Authentication authentication) {
 		ModelAndView modelAndView = new ModelAndView("view-cart");
@@ -82,7 +78,7 @@ public class UsageRecordController {
 		UsageRecord usageRecord = new UsageRecord();
 		ArrayList<UsageRecordDetail> usageRecordDetails = new ArrayList<UsageRecordDetail>();
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		Cart cart = (Cart) session.getAttribute("cart");
 
 		usageRecord.setTransID(cart.getCartId());
@@ -116,11 +112,12 @@ public class UsageRecordController {
 		usageRecord.setUserId(cart.getUser().getId());
 		usageRecord.setDateUsed(cart.getDateUsed());
 		usageRecordService.createUsageRecord(usageRecord);
-
 		usageRecordDetails = usageRecordService.checkoutCartDetails(cart);
-		
 		usageRecordDetailService.addUsageRecordDetailList(usageRecordDetails);
 
+		String checkoutOK = "Cart ID: " + cart.getCartId() + "Usage Recorded";
+		redirectAttributes.addFlashAttribute("checkoutSuccess", checkoutOK);
+		
 		Cart cartNew = new Cart();
 		cartNew.setCartId(Long.toString(new Date().getTime()));
 		session.setAttribute("cart", cartNew);
@@ -128,11 +125,7 @@ public class UsageRecordController {
 		modelAndView.setViewName("redirect:/");
 
 		return modelAndView;
-	}
 
-	private ArrayList<UsageRecordDetail> checkoutCartDetails(Cart cart) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@RequestMapping(value = "viewcart/edit/{index}", method = RequestMethod.GET)
