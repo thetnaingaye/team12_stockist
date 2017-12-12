@@ -58,7 +58,7 @@
 				<td><form:input path="unitsInStock" pattern="^\d+$"/></td><td><form:errors path="unitsInStock" cssStyle="color:red" /><br /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>Discontinue:</td>
+				<td>Discontinued:</td>
 				<td>
 					<form:select path="discontinued" >
 						<form:option value = "1">True</form:option>

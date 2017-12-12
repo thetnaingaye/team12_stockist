@@ -1,5 +1,7 @@
 package team12.stockist.controller;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import team12.stockist.model.Product;
+import team12.stockist.model.Supplier;
 import team12.stockist.service.ProductService;
+import team12.stockist.service.SupplierService;
 import team12.stockist.validator.NewProductValidator;
 
 
@@ -26,6 +30,8 @@ public class ProductAdminController {
 
 	@Autowired
 	private ProductService pservice;
+	@Autowired
+	private SupplierService sservice;
 	@Autowired
 	private NewProductValidator npValidator;
 	@InitBinder("product")
@@ -50,17 +56,44 @@ public class ProductAdminController {
 			return new ModelAndView("product-new");
 		else
 		{
-			ModelAndView mav = new ModelAndView();
+			// Setting additional variables
+			pdt.setUnitsOnOrder(0);
+			pdt.setDiscontinued(0);
 			
-			pservice.createProduct(pdt);
-		
-			mav.setViewName("redirect:/mechanic/product/browse");
 			
-
-			String message = "New product " + pdt.getDescription() + " was successfully created.";
-			redirectAttributes.addFlashAttribute("message", message);
-			mav.addObject("msgAlert", message);
-			return mav;
+			
+			// Checking if product already exist.
+			try
+			{
+				Product tempPdt = pservice.findProductById(pdt.getPartID());
+				
+				if (tempPdt != null)
+				{
+					ModelAndView mav = new ModelAndView("product-new");
+					String s = "A product with the same PartID already exists. Please try again.";
+					mav.addObject("msgAlert", s);
+					return mav;
+				}
+				else
+				{
+					// Creating our product
+					pservice.createProduct(pdt);
+					
+					// Preparing and directing to our browse page
+					ModelAndView mav = new ModelAndView("product-new");
+					String message = "New product " + pdt.getDescription() + " was successfully created.";
+					redirectAttributes.addFlashAttribute("message", message);
+					mav.addObject("msgAlert", message);
+					return mav;
+				}
+			}
+			catch (Exception e)
+			{
+				ModelAndView mav = new ModelAndView("product-new");
+				String s = "There is an error creating the new product entry. Please try again.";
+				mav.addObject("msgAlert", s);
+				return mav;
+			}
 		}
 	}
 }
