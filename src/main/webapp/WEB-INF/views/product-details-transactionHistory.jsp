@@ -13,6 +13,10 @@
 <div>
 	<h4 align="center">${pList.description}</h4>
 </div>
+
+<h5 align="center" Style="color:red">${msgAlert}</h5>   <!-- Msg alert -->
+
+
 <div>PartId:${pList.partID}</div>
 <div>Description:${pList.description}</div>
 <div>UnitPrice:${pList.unitPrice}</div>
@@ -48,6 +52,8 @@
 <div>
 	<h4 align="center">Transaction History</h4>
 </div>
+
+
 <c:if test="${fn:length(tList) gt 0}">
 	<table class="table table-striped"
 		style="cellspacing: 2; cellpadding: 2; border: 1; width: 100%">

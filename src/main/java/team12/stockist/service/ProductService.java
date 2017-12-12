@@ -2,8 +2,7 @@ package team12.stockist.service;
 
 import java.util.ArrayList;
 
-import javax.transaction.Transactional;
-
+import javax.servlet.http.HttpSession;
 import team12.stockist.model.Product;
 
 public interface ProductService 
@@ -20,7 +19,7 @@ public interface ProductService
 	
 	ArrayList<Product> findProductBySupplier(String supplierID);
 	
-	
+	String addToCart(String cartPId, String qty, HttpSession session);
 	
 	
 	

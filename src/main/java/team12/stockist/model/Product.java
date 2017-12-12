@@ -12,13 +12,13 @@ public class Product
 	
 	@Id
 	@Column(name="PartID")
-	private int partID;
+	private Integer partID;
 	
 	@Column(name="Description")
 	private String description;
 	
 	@Column(name="UnitPrice")
-	private double unitPrice;
+	private Double unitPrice;
 	
 	@Column(name="Color")
 	private String color;
@@ -30,10 +30,10 @@ public class Product
 	private String manufacturer;
 	
 	@Column(name="ReorderLevel")
-	private int reorderLevel;
+	private Integer reorderLevel;
 	
 	@Column(name="MinReorderQty")
-	private int minReorderQty;
+	private Integer minReorderQty;
 	
 	@Column(name="ShelfLocation")
 	private String shelfLocation;
@@ -42,13 +42,13 @@ public class Product
 	private String supplierID;
 	
 	@Column(name="UnitsInStock")
-	private int unitsInStock;
+	private Integer unitsInStock;
 	
 	@Column(name="UnitsOnOrder")
-	private int unitsOnOrder;
+	private Integer unitsOnOrder;
 	
 	@Column(name="Discontinued")
-	private int discontinued;
+	private Integer discontinued;
 	
 	//Table relationship do we need to write?
 	
@@ -57,9 +57,9 @@ public class Product
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(int partID, String description, double unitPrice, String color, String dimension,
-			String manufacturer, int reorderLevel, int minReorderLevel, String shelfLocation, String supplierID,
-			int unitsInStock, int unitsOnOrder, int discontinued) {
+	public Product(Integer partID, String description, Double unitPrice, String color, String dimension,
+			String manufacturer, Integer reorderLevel, Integer minReorderLevel, String shelfLocation, String supplierID,
+			Integer unitsInStock, Integer unitsOnOrder, Integer discontinued) {
 		super();
 		this.partID = partID;
 		this.description = description;
@@ -76,11 +76,11 @@ public class Product
 		this.discontinued = discontinued;
 	}
 
-	public int getPartID() {
+	public Integer getPartID() {
 		return partID;
 	}
 
-	public void setPartID(int partID) {
+	public void setPartID(Integer partID) {
 		this.partID = partID;
 	}
 
@@ -92,11 +92,11 @@ public class Product
 		this.description = description;
 	}
 
-	public double getUnitPrice() {
+	public Double getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(double unitPrice) {
+	public void setUnitPrice(Double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 
@@ -124,19 +124,19 @@ public class Product
 		this.manufacturer = manufacturer;
 	}
 
-	public int getReorderLevel() {
+	public Integer getReorderLevel() {
 		return reorderLevel;
 	}
 
-	public void setReorderLevel(int reorderLevel) {
+	public void setReorderLevel(Integer reorderLevel) {
 		this.reorderLevel = reorderLevel;
 	}
 
-	public int getMinReorderQty() {
+	public Integer getMinReorderQty() {
 		return minReorderQty;
 	}
 
-	public void setMinReorderQty(int minReorderLevel) {
+	public void setMinReorderQty(Integer minReorderLevel) {
 		this.minReorderQty = minReorderLevel;
 	}
 
@@ -156,27 +156,27 @@ public class Product
 		this.supplierID = supplierID;
 	}
 
-	public int getUnitsInStock() {
+	public Integer getUnitsInStock() {
 		return unitsInStock;
 	}
 
-	public void setUnitsInStock(int unitsInStock) {
+	public void setUnitsInStock(Integer unitsInStock) {
 		this.unitsInStock = unitsInStock;
 	}
 
-	public int getUnitsOnOrder() {
+	public Integer getUnitsOnOrder() {
 		return unitsOnOrder;
 	}
 
-	public void setUnitsOnOrder(int unitsOnOrder) {
+	public void setUnitsOnOrder(Integer unitsOnOrder) {
 		this.unitsOnOrder = unitsOnOrder;
 	}
 
-	public int getDiscontinued() {
+	public Integer getDiscontinued() {
 		return discontinued;
 	}
 
-	public void setDiscontinued(int discontinued) {
+	public void setDiscontinued(Integer discontinued) {
 		this.discontinued = discontinued;
 	}
 

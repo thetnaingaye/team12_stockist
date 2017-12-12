@@ -4,11 +4,19 @@ import java.util.ArrayList;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import team12.stockist.controller.Cart;
+import team12.stockist.controller.CartItem;
+import team12.stockist.model.Product;
 import team12.stockist.model.UsageRecord;
+
 import team12.stockist.model.User;
+
+import team12.stockist.model.UsageRecordDetail;
+
 import team12.stockist.repository.UsageRecordRepository;
 
 @Service
@@ -16,6 +24,9 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 
 	@Resource
 	UsageRecordRepository usageRecordRepository;
+
+	@Autowired
+	ProductService productService;
 
 	@Override
 	@Transactional
@@ -47,11 +58,10 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	public void deleteUsageRecord(UsageRecord usageRecord) {
 		usageRecordRepository.delete(usageRecord);
 	}
-	
+
 	@Override
 	@Transactional
-	public ArrayList<UsageRecord> findUsageRecordHistory(int products_PartID)
-	{
+	public ArrayList<UsageRecord> findUsageRecordHistory(int products_PartID) {
 		return usageRecordRepository.findUsageRecordHistory(products_PartID);
 	}
 	
@@ -61,6 +71,7 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	{
 		return usageRecordRepository.findTransactionHistoryByDateRange(pid, startdate, enddate);
 	}
+
 
 	@Override
 	@Transactional
@@ -77,4 +88,53 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	}
 
 	
+
+	public int checkForReOrder(Product product) {
+		int reOrderLevel;
+		if (product.getUnitsInStock() < product.getReorderLevel()
+				&& product.getUnitsOnOrder() < product.getMinReorderQty()) {
+
+			if ((product.getReorderLevel() - product.getUnitsInStock()) >= product.getMinReorderQty()
+					&& product.getUnitsOnOrder() < product.getMinReorderQty()) {
+				reOrderLevel = (product.getReorderLevel() - product.getUnitsInStock());
+			} else {
+				reOrderLevel = product.getMinReorderQty();
+			}
+		} else {
+			reOrderLevel = 0;
+		}
+
+		return reOrderLevel;
+	}
+
+	public ArrayList<CartItem> checkStockAvailable(Cart cart) {
+		ArrayList<CartItem> noStockList = new ArrayList<CartItem>();
+		for (CartItem cartitem : cart.getCartItemList()) {
+			Product product = productService.findProductById(cartitem.getProduct().getPartID());
+			if (product.getUnitsInStock() < cartitem.getQuantity()) {
+				noStockList.add(cartitem);
+			}
+		}
+		return noStockList;
+	}
+	
+	public ArrayList<UsageRecordDetail> checkoutCartDetails (Cart cart) {
+		ArrayList<UsageRecordDetail> usageRecordDetails = new ArrayList<UsageRecordDetail>();
+		
+		for (CartItem cartItem : cart.getCartItemList()) {
+			UsageRecordDetail usageRecordDetail = new UsageRecordDetail();
+			usageRecordDetail.setTransId(cart.getCartId());
+			usageRecordDetail.setProductPartId(cartItem.getProduct().getPartID());
+			usageRecordDetail.setUsedQty(cartItem.getQuantity());
+			usageRecordDetails.add(usageRecordDetail);
+			// Check for re-ordering here...
+			Product product = productService.findProductById(cartItem.getProduct().getPartID());
+			product.setUnitsInStock(product.getUnitsInStock() - cartItem.getQuantity());
+			product.setUnitsOnOrder(product.getUnitsOnOrder() + checkForReOrder(product));
+			productService.updateProduct(product);
+		}
+		return usageRecordDetails;
+	}
+
+
 }
