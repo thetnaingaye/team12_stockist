@@ -10,7 +10,7 @@
 		<tbody>
 			<tr>
 				<td>User ID</td>
-				<td><form:input class="form-control" path="id" readyonly="true" />
+				<td><form:input class="form-control" path="id" readonly="true" />
 					<form:errors path="id" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>

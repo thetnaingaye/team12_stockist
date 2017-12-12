@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import team12.stockist.service.UsageRecordService;
 import team12.stockist.service.UserService;
 import team12.stockist.validator.UserValidator;
 
@@ -23,6 +25,8 @@ import team12.stockist.validator.UserValidator;
 @Controller
 public class UserController {
 
+	@Autowired
+	UsageRecordService usageRecordService;
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -87,8 +91,21 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("redirect:/admin/user/list");
 		int iid = Integer.parseInt(id);
 		User user = userService.findUserById(iid);
+		
+		if(usageRecordisNotDeletable(user)) {
+			return mav;
+		}
+		
 		userService.deleteUser(user);
 		return mav;
 	}
+	private boolean usageRecordisNotDeletable(User user) {
+		if (!usageRecordService.findUsageRecordByUserId((user.getId())).isEmpty())
+			return true;
+		else
+			return false;
+	
+	}
+		
 
 }

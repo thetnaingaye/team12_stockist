@@ -54,4 +54,11 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		return usageRecordRepository.findUsageRecordHistory(products_PartID);
 	}
 
+	@Override
+	@Transactional
+	public ArrayList<UsageRecord> findUsageRecordByUserId(int Id) {
+		return usageRecordRepository.findUsageRecordByUserId(Id);
+	}
+
+	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import team12.stockist.model.UsageRecord;
 
@@ -14,4 +15,8 @@ public interface UsageRecordRepository extends JpaRepository<UsageRecord, String
 
 	@Query(value = "SELECT * from usagerecords ur,products p,usagerecorddetails urd  where p.PartID=?1 and p.PartID=urd.Products_PartID and urd.TransID=ur.TransID", nativeQuery = true)
 	ArrayList<UsageRecord> findUsageRecordHistory(int products_PartID);
+	
+	@Query("SELECT ur from UsageRecord ur WHERE ur.userId=:uid")
+	ArrayList<UsageRecord> findUsageRecordByUserId(@Param("uid") int userID);
+	
 }

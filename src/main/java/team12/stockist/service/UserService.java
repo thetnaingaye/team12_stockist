@@ -10,7 +10,6 @@ public interface UserService {
 
 	ArrayList<User> findAllUser();
 
-
 	User findUserById(Integer userId);
 
 	User createUser(User user);
@@ -18,5 +17,6 @@ public interface UserService {
 	User updateUser(User user);
 
 	void deleteUser(User user);
+	
 
 }

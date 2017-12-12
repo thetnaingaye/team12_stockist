@@ -21,7 +21,6 @@ href="${pageContext.request.contextPath}/admin/user/create">Add User</a>
 	</tr>
 	</thead>
 	<tbody>
-
 	<c:forEach var="users" items="${userList}">
 		<tr class="listRecord">
 			<td align="left">${users.id}</td>

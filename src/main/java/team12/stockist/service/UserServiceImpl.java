@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
-	
 
 	@Override
 	@Transactional
@@ -48,5 +47,7 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(User user) {
 		userRepository.delete(user);
 	}
+	
+	
 
 }
