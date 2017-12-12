@@ -24,7 +24,7 @@
 
 
 
-<table style="cellspacing: 2; cellpadding: 2; border: 1; width:50%" >
+<table class="table table-striped" style="cellspacing: 2; cellpadding: 2; border: 1; width:50%" >
 <tbody>
 <tr><td>PartId:<td><td>${pList.partID}</td>
 
@@ -55,25 +55,36 @@
 <div>
 <h5 align="left" Style="color:red">${msgAlert}</h5>
 <form action="${pageContext.request.contextPath}/mechanic/product/details/filter">
+<h4>Filtered transaction history by date range</h4>
+<table>
+<tr>
+<td>
   Start Date:
   <br />
-  <input type="date" name="startdate"><br/>
+  <input class="form-control" type="date" name="startdate" style="width:180px"></td>
+  <td>&nbsp;&nbsp;
+  </td>
+  <td>
   End Date:
   <br />
-  <input type="date" name="enddate"><br />
-  
+  <input class="form-control" type="date" name="enddate" style="width:180px"></td>
+</tr>
+
+
+</table>
+ 
   <input type="hidden" name="pid" value="${pList.partID}"><br/>
-  <input type="submit">
+  <input class="btn btn-primary" type="submit">
 </form>
 </div>
-<br/><br/><br/>
+<br/>
 
 
 <!-- Transaction History -->
 <div>
 	<h4 align="center">Transaction History</h4>
-	</br><br>
 </div>
+	<hr class="divider" />
 <c:if test="${fn:length(tList) gt 0}">
 	<table class="table table-striped"
 		style="cellspacing: 2; cellpadding: 2; border: 1; width: 100%">
@@ -114,8 +125,19 @@
 
 <div>
 	<form:form action="${pageContext.request.contextPath}/mechanic/product/addtocart" method="POST">
-		<input type="submit" class="btn btn-danger" value="Add">&nbsp;&nbsp;
-		<input type="text" name="qty">
+	<table>
+	<tr>
+	<td>
+		<input type="submit" class="btn btn-danger" value="Add">
+	</td>
+		  <td>&nbsp;&nbsp;</td>
+	<td>
+		<input class="form-control" type="text" name="qty" style="width:100px">
+	</td>
+	</tr>
+	
+	</table>
+		
 		<input id="cartPId" name="cartPId" type="hidden" value="${pList.partID}"/>
 	</form:form>
 </div>
