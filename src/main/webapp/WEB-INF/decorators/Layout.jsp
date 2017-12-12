@@ -34,7 +34,9 @@
 </style>
 <decorator:head />
 </head>
-<body>
+
+<body background="${pageContext.request.contextPath}/image/whitepoly.jpg"/>
+
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -138,7 +140,7 @@
 			<c:set var="testDate" value="<%=new java.util.Date()%>" />
 			<fmt:formatDate pattern="y" value="${testDate}" />
 
-			- ISS NUS SA45 - V0.1
+			- ISS NUS SA45 - TEAM12 - Version 1.0
 		</p>
 	</footer>
 </body>
