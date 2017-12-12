@@ -14,14 +14,21 @@
 </head>
 <body>
 
-	<h3>${message}</h3>
+	<h3>Product Reorder Report</h3>
+	<c:if test="${empty message}">
+		<form:form method="POST"
+			action="${pageContext.request.contextPath}/admin/print/report">
+			<input type="submit" value="Generate Report" class="btn btn-success" />
+		</form:form>
+	</c:if>
 
+	<h3>${message}</h3>
 	<div class="scrollbar-thumb"
 		style="overflow-x: auto; overflow-y: auto;">
 		<c:forEach var="map" items="${orderListMap}">
-			<div class="col-md-offset-5">
-				<c:out
-					value="Inventory Reorder Report for Supplier ${map.key.supplierID}"></c:out>
+			<div class="col-md-offset-4">
+				<h4><c:out
+					value="Inventory Reorder Report for Supplier ${map.key.supplierID}"></c:out></h4>
 			</div>
 			<table class="table table-striped"
 				style="cellspacing: 2; cellpadding: 2; border: 1; width: 100%">
@@ -62,7 +69,6 @@
 
 			</table>
 		</c:forEach>
-							<div class="col-md-offset-5">End of Report</div>
 		<div align="right">
 			<h3>
 				Total Price:
@@ -70,12 +76,11 @@
 					groupingUsed="true" value=" ${totalPrice}" />
 			</h3>
 		</div>
-		<c:if test="${empty message}">
-			<form:form method="POST"
-				action="${pageContext.request.contextPath}/admin/print/report">
-				<input type="submit" value="GenerateReport" />
-			</form:form>
-		</c:if>
+		<div class="col-md-offset-5">End of Report</div>
+
+
+
+
 	</div>
 </body>
 </html>

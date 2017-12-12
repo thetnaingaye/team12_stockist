@@ -25,7 +25,7 @@ public class CartItemValidator implements Validator{
 		}
 		
 		if(cartItem.getProduct().getUnitsInStock() < cartItem.getQuantity()) {
-			errors.rejectValue("quantity","Error! Quantity must be LESS than available stock", "Error! Quantity must be LESS than available stock");
+			errors.rejectValue("quantity","Error! Quantity must be LESS than available stock", "Error! Quantity must be LESS than available stock: " + cartItem.getProduct().getUnitsInStock());
 		}
 		
 	}
