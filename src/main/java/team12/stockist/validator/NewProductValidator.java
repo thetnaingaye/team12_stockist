@@ -25,32 +25,6 @@ public class NewProductValidator implements Validator {
 	public void validate(Object arg0, Errors arg1)
 	{
 		// TODO Auto-generated method stub
-		/*Product pdt = (Product) arg0; 
-
-		if (pdt.getPartID() == 0 || pdt.getPartID() == null || isEmpty(pdt.getPartID())) {
-			
-			arg1.reject("partID", "Hello");
-			arg1.rejectValue("partID", "error.dates", "to date must be > from date");
-		}
-		
-		
-		
-		try
-		{
-			Integer temp = (Integer) Integer.parseInt(pdt.getPartID());
-		}
-		catch (Exception e)
-		{
-			arg1.reject("partID", "Hello");
-			arg1.rejectValue("partID", "error.dates", "to date must be > from date");
-		}*/
-		
-		
-		/*if (arg1.hasErrors())
-		{
-			arg1.rejectValue("partID", "error.dates", "to date must be > from date");
-		}*/
-		
 		
 		
 		
