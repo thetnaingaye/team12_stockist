@@ -1,6 +1,8 @@
 package team12.stockist.controller;
 
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,25 +56,25 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ModelAndView createUserPage(@ModelAttribute @Valid User user, BindingResult result, final RedirectAttributes redirectAttribute) {
+	public ModelAndView createUserPage(@ModelAttribute @Valid User user, BindingResult result,
+			final RedirectAttributes redirectAttribute) {
 
-		/*if (result.hasErrors())
-			return new ModelAndView("user-new");
+		/*
+		 * if (result.hasErrors()) return new ModelAndView("user-new");
 		 */
 		ModelAndView mav = new ModelAndView();
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
 			mav.setViewName("redirect:/admin/user/create");
 			redirectAttribute.addFlashAttribute("useralreadyexists", "All fields must be completed");
 			return mav;
 		}
-		
-		if(userService.userAlreadyExists(user)) {
+
+		if (userService.userAlreadyExists(user)) {
 			mav.setViewName("redirect:/admin/user/create");
 			redirectAttribute.addFlashAttribute("useralreadyexists", "User already exists");
 			return mav;
-		}
-		else {
+		} else {
 			userService.createUser(user);
 			mav.setViewName("redirect:/admin/user/list");
 			return mav;
@@ -90,25 +92,19 @@ public class UserController {
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public ModelAndView editUserPage(@ModelAttribute @Valid User user, BindingResult result, @PathVariable String id) {
-		
+
 		ModelAndView mav = new ModelAndView();
 		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
 			mav.setViewName("user-edit");
-			mav.addObject("useralreadyexists", "All fields must be completed");
+			mav.addObject("userupdateerror", "All fields must be completed");
 			return mav;
 		}
-		if(userService.userAlreadyExists(user)) {
-			mav.setViewName("user-edit");
-			mav.addObject("useralreadyexists", "User already exists");
-			return mav;
-		}
-		else {
-			userService.updateUser(user);
-			mav.setViewName("redirect:/admin/user/list");
-			return mav;
-		}
-	
+		
+		userService.updateUser(user);
+		mav.setViewName("redirect:/admin/user/list");
+		return mav;
 
 	}
 
@@ -119,7 +115,8 @@ public class UserController {
 		User user = userService.findUserById(iid);
 
 		if (usageRecordService.usageRecordisNotDeletable(user)) {
-			mav.addObject("userdeleteerror", "Cannot delete user. Please update user role to inactive to delete.");
+			mav.addObject("userdeleteerror",
+					"Cannot delete user. Please update user role to inactive to restrict access.");
 			return mav;
 		}
 

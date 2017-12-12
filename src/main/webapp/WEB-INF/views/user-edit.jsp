@@ -3,7 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <h3>Edit User Page</h3>
-<p>${useralreadyexists}</p>
+<p>${userupdateerror}</p>
 <form:form method="POST" modelAttribute="user"
 	action="${pageContext.request.contextPath}/admin/user/edit/${users.id}.html">
 	<form:errors />
@@ -19,7 +19,7 @@
 			</tr>
 			<tr>
 				<td>User Name</td>
-				<td><form:input class="form-control" path="username" /> <form:errors
+				<td><form:input class="form-control" path="username" readonly="true" /> <form:errors
 						path="username" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
