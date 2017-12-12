@@ -21,7 +21,7 @@
 
 	<table style="width: 100%">
 		<tr>
-			<td align="right"><IMG SRC="${pageContext.request.contextPath}/image/majorcrash.png" with="100%"
+			<td align="right"><IMG SRC="${pageContext.request.contextPath}/image/majorcrash.png" width="100%"
 				height="100%"></td>
 			<td><h3>Thanks for the patience while we put the pieces
 					back together.</h3>

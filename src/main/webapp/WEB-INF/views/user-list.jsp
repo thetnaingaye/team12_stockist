@@ -7,7 +7,7 @@
 
 <h3>User List Page</h3>
 <a class="btn btn-success"
-href="${pageContext.request.contextPath}/admin/user/create">Add User</a>
+href="${pageContext.request.contextPath}/admin/user/create">Add New User</a>
 <c:if test="${fn:length(userList) gt 0}">
 <table class="table table-striped" style="cellspacing: 2; cellpadding: 2; border: 1;width:100%">
 	<thead>
