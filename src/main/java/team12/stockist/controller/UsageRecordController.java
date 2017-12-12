@@ -62,7 +62,7 @@ public class UsageRecordController {
 
 		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 		Cart cart = (Cart) session.getAttribute("cart");
-		;
+		
 		cart.setUser(userDetails);
 		cart.setDateUsed(new Date());
 
