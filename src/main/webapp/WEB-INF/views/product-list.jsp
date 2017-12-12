@@ -142,7 +142,7 @@
 				<form:form action="${pageContext.request.contextPath}/mechanic/product/addtocart" method="POST">
 					<input type="submit" class="btn btn-danger" value="Add">&nbsp;&nbsp;
 					<input type="text" name="qty">
-					<input id="secretValue" name="secretValue" type="hidden" value="${p.partID}"/>
+					<input id="cartPId" name="cartPId" type="hidden" value="${p.partID}"/>
 				</form:form>
 			</td>
 		</tr>

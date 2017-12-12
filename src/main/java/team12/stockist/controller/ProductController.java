@@ -62,17 +62,29 @@ public class ProductController
 	}
 	
 	@RequestMapping(value = "/addtocart")    // Directing to createProduct page
-	public ModelAndView message(@RequestParam String secretValue, @RequestParam String qty, HttpServletRequest req)
+	public ModelAndView message(@RequestParam String cartPId, @RequestParam String qty, HttpServletRequest req)
 	{
 		HttpSession session = (HttpSession) req.getSession();
 		Cart tempCart = (Cart) session.getAttribute("cart");
-		Product tempPdt = pservice.findProductById(Integer.parseInt(secretValue));
+		Product tempPdt = pservice.findProductById(Integer.parseInt(cartPId));
 		ArrayList<CartItem> tempArray = null;
 		
 		// Add our details as our cart items
 		CartItem tempItem = new CartItem();
 		tempItem.setProduct(tempPdt);
-		tempItem.setQuantity(Integer.parseInt(qty));
+		
+		try {
+			// Checking if it can be parse into an int
+			tempItem.setQuantity(Integer.parseInt(qty));
+		} catch (NumberFormatException ex) {
+			
+			// If exception is caught, then input is not an integer.
+			SearchFilters sFilters = new SearchFilters();
+			ModelAndView mav = new ModelAndView("product-list", "command", sFilters);
+			String msg = "You have entered an invalid field in the cart. Please try again.";
+			mav = mavSupport(mav, msg);
+			return mav;
+		}
 		
 		// Adding cart items to our cart
 		if (tempCart.getCartItemList() == null)
@@ -106,7 +118,7 @@ public class ProductController
 	}
 	
 
-	// A simple support method to minimize code repeats
+	// A simple support method to minimize code repeat
 	public ModelAndView mavSupport(ModelAndView temp, String msg)
 	{
 		ArrayList<Product> pList = (ArrayList<Product>) pservice.findAllProduct();
@@ -117,6 +129,8 @@ public class ProductController
 		temp.addObject("msgAlert", msg);
 		return temp;
 	}
+	
+	
 	
 	
 	
