@@ -2,6 +2,8 @@ package team12.stockist.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,13 +64,48 @@ public class ProductController
 	}
 	
 	@RequestMapping(value = "/addtocart")    // Directing to createProduct page
-	public ModelAndView message(@RequestParam String secretValue, @RequestParam String qty)
+	public ModelAndView message(@RequestParam String secretValue, @RequestParam String qty, HttpServletRequest req)
 	{
-		ModelAndView mav = new ModelAndView("redirect:/product/browse");
+		HttpSession session = (HttpSession) req.getSession();
+		Cart tempCart = (Cart) session.getAttribute("cart");
+		Product tempPdt = pservice.findProductById(Integer.parseInt(secretValue));
+		ArrayList<CartItem> tempArray = null;
+		
+		// Add our details as our cart items
+		CartItem tempItem = new CartItem();
+		tempItem.setProduct(tempPdt);
+		tempItem.setQuantity(Integer.parseInt(qty));
+		
+		// Adding cart items to our cart
+		if (tempCart.getCartItemList() == null)
+		{
+			tempArray = new ArrayList<CartItem>();
+			tempArray.add(tempItem);
+		}
+		else 
+		{
+
+			tempArray = tempCart.getCartItemList();
+			tempArray.add(tempItem);
+		}
+		
+		// Set the new ArrayList<CartItem>
+		tempCart.setCartItemList(tempArray);
+		
+		// Setting our object back to our session
+		session.setAttribute("cart", tempCart);
 		
 		
-		// Add cart codes here....
+		// Redirecting to the main page
+		ModelAndView mav = new ModelAndView("product-list", "command", new SearchFilters());
+		ArrayList<Product> pList = (ArrayList<Product>) pservice.findAllProduct();
+		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
+		mav.addObject("productList", pList);
+		mav.addObject("supplierList", sList);
+
 		
+		// Uncomment to check if your items are captured
+		//mav.addObject("searchValue", secretValue);
 		return mav;
 	}
 	

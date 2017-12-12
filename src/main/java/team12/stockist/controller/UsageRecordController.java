@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import team12.stockist.exception.EmptyCartException;
 import team12.stockist.model.Product;
 import team12.stockist.model.UsageRecord;
 import team12.stockist.model.UsageRecordDetail;
@@ -81,9 +82,12 @@ public class UsageRecordController {
 
 	@RequestMapping(value = "/viewcart", method = RequestMethod.POST)
 	public ModelAndView Checkout(@ModelAttribute Cart model, BindingResult result, HttpSession session,
-			final RedirectAttributes redirectAttributes) {
+			final RedirectAttributes redirectAttributes) throws EmptyCartException {
 
 		Cart cart = (Cart) session.getAttribute("cart");
+		
+		if (cart.getCartItemList().isEmpty())
+			throw new EmptyCartException();
 
 		UsageRecord usageRecord = new UsageRecord();
 		ArrayList<UsageRecordDetail> usageRecordDetails = new ArrayList<UsageRecordDetail>();
@@ -137,6 +141,7 @@ public class UsageRecordController {
 		Cart cartNew = new Cart();
 		cartNew.setCartId(Long.toString(new Date().getTime()));
 		session.setAttribute("cart", cartNew);
+
 		modelAndView.setViewName("redirect:/");
 
 		return modelAndView;
@@ -191,9 +196,10 @@ public class UsageRecordController {
 
 	private int checkForReOrder(Product product) {
 		int reOrderLevel;
-		if (product.getUnitsInStock() < product.getReorderLevel()) {
+		if (product.getUnitsInStock() < product.getReorderLevel()
+				&& product.getUnitsOnOrder() < product.getMinReorderQty()) {
 
-			if ((product.getReorderLevel() - product.getUnitsInStock()) >= product.getMinReorderQty()) {
+			if ((product.getReorderLevel() - product.getUnitsInStock()) >= product.getMinReorderQty() && product.getUnitsOnOrder() < product.getMinReorderQty()) {
 				reOrderLevel = (product.getReorderLevel() - product.getUnitsInStock());
 			} else {
 				reOrderLevel = product.getMinReorderQty();

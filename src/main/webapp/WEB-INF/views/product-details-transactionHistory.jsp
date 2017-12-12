@@ -3,6 +3,7 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div>
 	<h3>Product Details Page</h3>
@@ -73,4 +74,13 @@
 	</table>
 </c:if>
 
-<div align="center"><a class="btn btn-primary" href="${pageContext.request.contextPath}/mechanic/product/checkout/${p.partID}.html">Add to Cart</a><div>
+
+<div>
+	<form:form action="${pageContext.request.contextPath}/mechanic/product/addtocart" method="POST">
+		<input type="submit" class="btn btn-danger" value="Add">&nbsp;&nbsp;
+		<input type="text" name="qty">
+		<input id="secretValue" name="secretValue" type="hidden" value="${pList.partID}"/>
+	</form:form>
+</div>
+
+
