@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import team12.stockist.model.DamageRecord;
+
 import team12.stockist.model.UsageRecord;
 import team12.stockist.model.UsageRecordDetail;
 import team12.stockist.repository.UsageRecordDetailRepository;
