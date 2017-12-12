@@ -56,25 +56,35 @@ public class ProductController
 	{
 		SearchFilters sFilters = new SearchFilters();
 		ModelAndView mav = new ModelAndView("product-list", "command", sFilters);
-		ArrayList<Product> pList = (ArrayList<Product>) pservice.findAllProduct();
-		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
-		mav.addObject("productList", pList);
-		mav.addObject("supplierList", sList);
+		String msg = "";
+		mav = mavSupport(mav, msg);
 		return mav;
 	}
 	
 	@RequestMapping(value = "/addtocart")    // Directing to createProduct page
-	public ModelAndView message(@RequestParam String secretValue, @RequestParam String qty, HttpServletRequest req)
+	public ModelAndView addToCart(@RequestParam String cartPId, @RequestParam String qty, HttpServletRequest req)
 	{
 		HttpSession session = (HttpSession) req.getSession();
 		Cart tempCart = (Cart) session.getAttribute("cart");
-		Product tempPdt = pservice.findProductById(Integer.parseInt(secretValue));
+		Product tempPdt = pservice.findProductById(Integer.parseInt(cartPId));
 		ArrayList<CartItem> tempArray = null;
 		
 		// Add our details as our cart items
 		CartItem tempItem = new CartItem();
 		tempItem.setProduct(tempPdt);
-		tempItem.setQuantity(Integer.parseInt(qty));
+		
+		try {
+			// Checking if it can be parse into an int
+			tempItem.setQuantity(Integer.parseInt(qty));
+		} catch (NumberFormatException ex) {
+			
+			// If exception is caught, then input is not an integer.
+			SearchFilters sFilters = new SearchFilters();
+			ModelAndView mav = new ModelAndView("product-list", "command", sFilters);
+			String msg = "You have entered an invalid field in the cart. Please try again.";
+			mav = mavSupport(mav, msg);
+			return mav;
+		}
 		
 		// Adding cart items to our cart
 		if (tempCart.getCartItemList() == null)
@@ -98,15 +108,26 @@ public class ProductController
 		
 		// Redirecting to the main page
 		ModelAndView mav = new ModelAndView("product-list", "command", new SearchFilters());
-		ArrayList<Product> pList = (ArrayList<Product>) pservice.findAllProduct();
-		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
-		mav.addObject("productList", pList);
-		mav.addObject("supplierList", sList);
+		String msg = "Successfully added to cart.";
+		mav = mavSupport(mav, msg);
 
 		
 		// Uncomment to check if your items are captured
 		//mav.addObject("searchValue", secretValue);
 		return mav;
+	}
+	
+
+	// A simple support method to minimize code repeat
+	public ModelAndView mavSupport(ModelAndView temp, String msg)
+	{
+		ArrayList<Product> pList = (ArrayList<Product>) pservice.findAllProduct();
+		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
+		temp.addObject("productList", pList);
+		temp.addObject("supplierList", sList);
+
+		temp.addObject("msgAlert", msg);
+		return temp;
 	}
 	
 	
@@ -147,6 +168,7 @@ public class ProductController
 				return mav;
 	}
 	
+	
 	//-------------------- DETAILS --------------------------//
 	@RequestMapping(value = "/details/{partID}", method = RequestMethod.GET)
 	public ModelAndView getProductDetailsPage(@PathVariable Integer partID) {
@@ -170,6 +192,32 @@ public class ProductController
 
 		return mav;
 	}
+	
+	
+	//-------------------------Filter By Date Range-----------------------------------------------------------------------//
+
+		@RequestMapping(value = "/details/filter")
+		public ModelAndView getProductDetailsPage(@RequestParam String startdate, @RequestParam String enddate, 
+				@RequestParam String pid) {
+			
+			// Redirect to product-details-transactionHistory page
+			ModelAndView mav = new ModelAndView("product-details-transactionHistory");
+					
+			int temp = Integer.parseInt(pid);
+			
+			Product product = pservice.findProductById(Integer.parseInt(pid));
+			mav.addObject("pList", product);
+			
+					
+			ArrayList<UsageRecordDetail> transactionListFromUsageRecorDetails = uservice.findTransactionHistoryByProductId(temp);
+			
+			// Insert formatting for date here....
+			
+			ArrayList<UsageRecord> transactionListFromUsageRecord = (ArrayList<UsageRecord>) uRservice.findUsageRecordHistoryByDate(temp, startdate, enddate);
+			mav.addObject("tList", transactionListFromUsageRecorDetails);
+			mav.addObject("rList", transactionListFromUsageRecord);
+			return mav;
+		}
 	
 	
 	
