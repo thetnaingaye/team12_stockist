@@ -7,80 +7,69 @@
 	action="${pageContext.request.contextPath}/mechanic/product/edit/${product.partID}">		
 	
 	<!-- product table to update -->
-	<table>						
-		<tbody>
-			
+	<table style="cellspacing: 2; cellpadding: 2; border: 1; width:50%" >
+<tbody>
 			<tr>
-				<td>product id:</td>
-				<td><form:input path="partID" readonly="true"/></td>	<!-- set product PartID(primary key) readonly -->
-				<td></td>
+				<td>PartID:</td>
+				<td><form:input path="partID"  readonly="true"/></td><td><form:errors path="partID" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>product Name:</td>
-				<td><form:input path="description" /></td>
-				<td></td>
+				<td>Description:</td>
+				<td><form:input path="description" /></td><td><form:errors path="description" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>Unit price:</td>
-				<td><form:input path="unitPrice" /></td>
-				<td></td>
+				<td>Unit Price:</td>
+				<td><form:input path="unitPrice" pattern="^\d{0,2}+$" /></td><td><form:errors path="unitPrice" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>color</td>
-				<td><form:input path="color" /></td>
-				<td></td>
+				<td>Color:<br /></td>
+				<td><form:input path="color" /></td><td><form:errors path="color" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>Dimension</td>
-				<td><form:input path="dimension" /></td>
-				<td></td>
+				<td>Dimension:</td>
+				<td><form:input path="dimension" /></td><td><form:errors path="dimension" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>Manufacturer</td>
-				<td><form:input path="manufacturer" /></td>
-				<td></td>
+				<td>Manufacturer:</td>
+				<td><form:input path="manufacturer" /></td><td><form:errors path="manufacturer" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>ReorderLevel</td>
-				<td><form:input path="reorderLevel" /></td>
-				<td></td>
+				<td>Reorder Level:</td>
+				<td><form:input path="reorderLevel" pattern="^\d+$"/></td><td><form:errors path="reorderLevel" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>MinReorderQty</td>
-				<td><form:input path="minReorderQty" /></td>
-				<td></td>
+				<td>Minimum Reorder Quantity:</td>
+				<td><form:input path="minReorderQty" pattern="^\d+$"/></td><td><form:errors path="minReorderQty" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>ShelfLocation</td>
-				<td><form:input path="shelfLocation" /></td>
-				<td></td>
+				<td>Shelf Location:</td>
+				<td><form:input path="shelfLocation" /></td><td><form:errors path="shelfLocation" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>SupplierID</td>
-				<td><form:input path="supplierID" /></td>
-				<td></td>
+				<td>SupplierID:</td>
+				<td><form:input path="supplierID" /></td><td><form:errors path="supplierID" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>UnitsInStock</td>
-				<td><form:input path="unitsInStock" /></td>
-				<td></td>
+				<td>UnitSInOrder:</td>
+				<td><form:input path="unitsOnOrder" pattern="^\d+$"/></td><td><form:errors path="unitsOnOrder" cssStyle="color:red" /><br /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>UnitsOnOrder</td>
-				<td><form:input path="unitsOnOrder" /></td>
-				<td></td>
+				<td>UnitsInStock:</td>
+				<td><form:input path="unitsInStock" pattern="^\d+$"/></td><td><form:errors path="unitsInStock" cssStyle="color:red" /><br /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>Discontinued</td>
-				<td><form:input path="discontinued" /></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="edit" /></td>
-				<td></td>
-				<td></td>
+				<td>Discontinue:</td>
+				<td><form:input path="discontinued" pattern="^\d+$"/></td><td><form:errors path="discontinued" cssStyle="color:red" /><br /></td><td><br /><br /><br /></td>
 			</tr>
 		</tbody>
 	</table>
-</form:form>
 
+
+
+<br/>
+<br/>
+
+<input type="submit" value="Edit" class="btn btn-primary" style="position: relative; left: 34.25%;"/>
+</form:form>
+				
+			

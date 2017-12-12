@@ -36,7 +36,7 @@
 				<td><form:input path="reorderLevel" /><br /><form:errors path="reorderLevel" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>Minumum Reorder Quantity</td>
+				<td>Minimum Reorder Quantity</td>
 				<td><form:input path="minReorderQty" /><br /><form:errors path="minReorderQty" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>

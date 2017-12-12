@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+
 @Entity
 @Table(name="products")
 public class Product 
@@ -17,7 +19,7 @@ public class Product
 	@Column(name="Description")
 	private String description;
 	
-	@Column(name="UnitPrice")
+	@Column(name="UnitPrice") 
 	private double unitPrice;
 	
 	@Column(name="Color")
