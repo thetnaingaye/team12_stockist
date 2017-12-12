@@ -64,7 +64,6 @@
 		<th style="text-align: center">Shelf Location</th>
 		<th style="text-align: center">Supplier</th>
 		<th style="text-align: center">Units In Stock</th>
-		<th style="text-align: center">Discontinued</th>
 		<sec:authorize access="hasAuthority('admin')">
 			<th style="text-align: center"><spring:message code="caption.edit" /></th>
 		</sec:authorize>
@@ -133,7 +132,6 @@
 			
 			
 			<td align="center">${p.unitsInStock}</td>
-			<td align="center">${p.discontinued}</td>
 
 			<sec:authorize access="hasAuthority('admin')">
 			<td align="center"><a class="btn btn-primary" href="${pageContext.request.contextPath}/mechanic/product/edit/${p.partID}">Edit</a></td>

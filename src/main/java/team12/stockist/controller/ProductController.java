@@ -65,52 +65,14 @@ public class ProductController
 	public ModelAndView addToCart(@RequestParam String cartPId, @RequestParam String qty, HttpServletRequest req)
 	{
 		HttpSession session = (HttpSession) req.getSession();
-		Cart tempCart = (Cart) session.getAttribute("cart");
-		Product tempPdt = pservice.findProductById(Integer.parseInt(cartPId));
-		ArrayList<CartItem> tempArray = null;
+		String msg;
 		
-		// Add our details as our cart items
-		CartItem tempItem = new CartItem();
-		tempItem.setProduct(tempPdt);
-		
-		try {
-			// Checking if it can be parse into an int
-			tempItem.setQuantity(Integer.parseInt(qty));
-		} catch (NumberFormatException ex) {
-			
-			// If exception is caught, then input is not an integer.
-			SearchFilters sFilters = new SearchFilters();
-			ModelAndView mav = new ModelAndView("product-list", "command", sFilters);
-			String msg = "You have entered an invalid field in the cart. Please try again.";
-			mav = mavSupport(mav, msg);
-			return mav;
-		}
-		
-		// Adding cart items to our cart
-		if (tempCart.getCartItemList() == null)
-		{
-			tempArray = new ArrayList<CartItem>();
-			tempArray.add(tempItem);
-		}
-		else 
-		{
-
-			tempArray = tempCart.getCartItemList();
-			tempArray.add(tempItem);
-		}
-		
-		// Set the new ArrayList<CartItem>
-		tempCart.setCartItemList(tempArray);
-		
-		// Setting our object back to our session
-		session.setAttribute("cart", tempCart);
-		
+		// Sending to the service layer for processing
+		msg = pservice.addToCart(cartPId, qty, session);
 		
 		// Redirecting to the main page
 		ModelAndView mav = new ModelAndView("product-list", "command", new SearchFilters());
-		String msg = "Successfully added to cart.";
 		mav = mavSupport(mav, msg);
-
 		
 		// Uncomment to check if your items are captured
 		//mav.addObject("searchValue", secretValue);
@@ -118,8 +80,8 @@ public class ProductController
 	}
 	
 
-	// A simple support method to minimize code repeat
-	public ModelAndView mavSupport(ModelAndView temp, String msg)
+	// A simple support method to minimize code repeat of calling the diff services (populate the list)
+	private ModelAndView mavSupport(ModelAndView temp, String msg)
 	{
 		ArrayList<Product> pList = (ArrayList<Product>) pservice.findAllProduct();
 		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
@@ -129,6 +91,8 @@ public class ProductController
 		temp.addObject("msgAlert", msg);
 		return temp;
 	}
+	
+	
 	
 	
 	
@@ -196,28 +160,28 @@ public class ProductController
 	
 	//-------------------------Filter By Date Range-----------------------------------------------------------------------//
 
-		@RequestMapping(value = "/details/filter")
-		public ModelAndView getProductDetailsPage(@RequestParam String startdate, @RequestParam String enddate, 
-				@RequestParam String pid) {
-			
-			// Redirect to product-details-transactionHistory page
-			ModelAndView mav = new ModelAndView("product-details-transactionHistory");
-					
-			int temp = Integer.parseInt(pid);
-			
-			Product product = pservice.findProductById(Integer.parseInt(pid));
-			mav.addObject("pList", product);
-			
-					
-			ArrayList<UsageRecordDetail> transactionListFromUsageRecorDetails = uservice.findTransactionHistoryByProductId(temp);
-			
-			// Insert formatting for date here....
-			
-			ArrayList<UsageRecord> transactionListFromUsageRecord = (ArrayList<UsageRecord>) uRservice.findUsageRecordHistoryByDate(temp, startdate, enddate);
-			mav.addObject("tList", transactionListFromUsageRecorDetails);
-			mav.addObject("rList", transactionListFromUsageRecord);
-			return mav;
-		}
+	@RequestMapping(value = "/details/filter")
+	public ModelAndView getProductDetailsPage(@RequestParam String startdate, @RequestParam String enddate, 
+			@RequestParam String pid) {
+		
+		// Redirect to product-details-transactionHistory page
+		ModelAndView mav = new ModelAndView("product-details-transactionHistory");
+				
+		int temp = Integer.parseInt(pid);
+		
+		Product product = pservice.findProductById(Integer.parseInt(pid));
+		mav.addObject("pList", product);
+		
+				
+		ArrayList<UsageRecordDetail> transactionListFromUsageRecorDetails = uservice.findTransactionHistoryByProductId(temp);
+		
+		// Insert formatting for date here....
+		
+		ArrayList<UsageRecord> transactionListFromUsageRecord = (ArrayList<UsageRecord>) uRservice.findUsageRecordHistoryByDate(temp, startdate, enddate);
+		mav.addObject("tList", transactionListFromUsageRecorDetails);
+		mav.addObject("rList", transactionListFromUsageRecord);
+		return mav;
+	}
 	
 	
 	

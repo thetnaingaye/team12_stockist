@@ -3,15 +3,20 @@ package team12.stockist.service;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import team12.stockist.controller.Cart;
+import team12.stockist.controller.CartItem;
 import team12.stockist.model.Product;
 import team12.stockist.repository.ProductRepository;
 
+
 @Service
 public class ProductServiceImpl implements ProductService {
+	
 	@Resource
 	private ProductRepository prepo;
 
@@ -96,8 +101,119 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	
-
 	
+	
+	//-------------------- ADD TO CART --------------------------//
+
+	@Override
+	@Transactional        
+	public String addToCart(String cartPId, String qty, HttpSession session)
+	{
+		Cart sessCart = (Cart) session.getAttribute("cart");
+		boolean check = true;
+		int cartQty;   
+		int pdtID;
+		int tempQty = 0;
+		String msg;
+
+		
+		// Checking if it can be parse into an int first
+		try {
+			cartQty = Integer.parseInt(qty);
+			pdtID = Integer.parseInt(cartPId);
+		} catch (NumberFormatException ex) {
+			
+			// If exception is caught, then input is not an integer.
+			msg = "You have entered an invalid field in the cart. Please try again.";
+			return msg;  // If error, will throw error msg.
+		}
+		
+		
+		// Determine current stock in the inventory
+		Product tempPdt = prepo.findOne(pdtID);     // Based on the PartID that the user has selected
+		int currentQty = tempPdt.getUnitsInStock();
+		
+		
+		// Det all our needed arrays
+		ArrayList<CartItem> cartArray = sessCart.getCartItemList();
+		ArrayList<CartItem> tempArray = new ArrayList<CartItem>();
+		
+		
+		if (currentQty >= cartQty && cartQty > 0)
+		{
+			// Add our details as our cart items
+			CartItem tempItem = new CartItem();
+			
+			// Adding cart items to our cart
+			if (sessCart.getCartItemList() == null)
+			{
+				tempItem.setProduct(tempPdt);
+				tempItem.setQuantity(cartQty);
+
+
+				tempArray.add(tempItem);
+			}
+			else 
+			{
+				for (int i = 0; i < cartArray.size(); i++) {
+					
+					Product temp = cartArray.get(i).getProduct();
+					if (tempPdt.getPartID() == temp.getPartID())
+					{
+						tempQty = cartArray.get(i).getQuantity();   // This will det the qty of the existing pdt in the cart
+						tempQty = tempQty + cartQty;
+						
+						
+						// Check if the qty selected, combined with the existing qty inside the cart is more than the existing inventory
+						if (tempQty > currentQty)
+						{
+							msg = "Quantity selected has exceeded existing stock.";
+							return msg;  // If more than, will throw error msg.
+						}
+						else
+						{
+							tempItem.setProduct(tempPdt);
+							tempItem.setQuantity(tempQty);
+
+							// Removes the existing ArrayList in the cart
+							cartArray.remove(i);
+							
+							
+							// Creates a new arrayList for that specific product and add the new qty to it
+							tempArray.addAll(cartArray);
+							tempArray.add(tempItem);
+						}
+						check = false;
+						break;
+					}
+				}
+				
+				if (check == true)
+				{
+					tempItem.setProduct(tempPdt);
+					tempItem.setQuantity(cartQty);
+					
+					tempArray.addAll(cartArray);
+					tempArray.add(tempItem);
+				}
+			}
+			
+			// Set the new ArrayList<CartItem>
+			sessCart.setCartItemList(tempArray);
+			
+			// Setting our object back to our session
+			session.setAttribute("cart", sessCart);
+			msg = "Successfully added to cart.";
+			
+		}
+		else 
+		{
+			msg = "You have entered an invalid field in the cart. Please try again.";
+		}
+		
+		
+		return msg;
+	}
 	
 	
 	
@@ -192,6 +308,9 @@ public class ProductServiceImpl implements ProductService {
         }
 		return output;
 	}
+	
+	
+	
 	
 	
 	
