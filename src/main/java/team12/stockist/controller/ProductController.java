@@ -28,7 +28,7 @@ import team12.stockist.service.ProductService;
 import team12.stockist.service.SupplierService;
 import team12.stockist.service.UsageRecordDetailService;
 import team12.stockist.service.UsageRecordService;
-import team12.stockist.validator.newProductValidator;
+import team12.stockist.validator.NewProductValidator;
 
 @RequestMapping(value="/mechanic/product/")
 @Controller
