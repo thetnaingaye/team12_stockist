@@ -12,7 +12,11 @@ import team12.stockist.controller.Cart;
 import team12.stockist.controller.CartItem;
 import team12.stockist.model.Product;
 import team12.stockist.model.UsageRecord;
+
+import team12.stockist.model.User;
+
 import team12.stockist.model.UsageRecordDetail;
+
 import team12.stockist.repository.UsageRecordRepository;
 
 @Service
@@ -68,6 +72,27 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		return usageRecordRepository.findTransactionHistoryByDateRange(pid, startdate, enddate);
 	}
 
+
+	
+
+
+	@Override
+	@Transactional
+	public ArrayList<UsageRecord> findUsageRecordByUserId(int Id) {
+		return usageRecordRepository.findUsageRecordByUserId(Id);
+	}
+	@Transactional
+	public boolean usageRecordisNotDeletable(User user) {
+		if (!findUsageRecordByUserId((user.getId())).isEmpty())
+			return true;
+		else
+			return false;
+	
+	}
+
+	
+
+	@Transactional
 	public int checkForReOrder(Product product) {
 		int reOrderLevel;
 		if (product.getUnitsInStock() < product.getReorderLevel()
@@ -86,6 +111,7 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		return reOrderLevel;
 	}
 
+	@Transactional
 	public ArrayList<CartItem> checkStockAvailable(Cart cart) {
 		ArrayList<CartItem> noStockList = new ArrayList<CartItem>();
 		for (CartItem cartitem : cart.getCartItemList()) {
@@ -97,6 +123,7 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		return noStockList;
 	}
 	
+	@Transactional
 	public ArrayList<UsageRecordDetail> checkoutCartDetails (Cart cart) {
 		ArrayList<UsageRecordDetail> usageRecordDetails = new ArrayList<UsageRecordDetail>();
 		
@@ -114,5 +141,6 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		}
 		return usageRecordDetails;
 	}
+
 
 }

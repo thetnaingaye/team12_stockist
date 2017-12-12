@@ -3,6 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <h3>Edit Supplier Record</h3>
+
 <form:form method="POST" modelAttribute="supplier"
 	action="${pageContext.request.contextPath}/admin/supplier/edit/${suppliers.supplierID}.html">
 	<form:errors />

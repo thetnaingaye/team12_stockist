@@ -11,19 +11,23 @@ import team12.stockist.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	@Resource
 	UserRepository userRepository;
-	
+
 	@Override
 	@Transactional
-	public ArrayList<User> findAllUser(){
+	public ArrayList<User> findAllUser() {
 		ArrayList<User> users = (ArrayList<User>) userRepository.findAll();
 		return users;
-		
+
 	}
 	
 	
+	@Transactional
+	public User findByUserName(String username) {
+		return userRepository.findByUserName(username);
+	}
 
 	@Override
 	@Transactional
@@ -48,5 +52,18 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(User user) {
 		userRepository.delete(user);
 	}
+	
+	public boolean userAlreadyExists(User user) {
+		if (findByUserName(user.getUsername()) != null)
+			return true;
+		else
+			return false;
+	}
+	/*public boolean userIdAlreadyExists(User user) {
+		if (findUserById(user.getId()) != null)
+			return true;
+		else
+			return false;
+	}*/
 
 }

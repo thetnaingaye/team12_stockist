@@ -9,6 +9,8 @@
 <a class="btn btn-success"
 href="${pageContext.request.contextPath}/admin/user/create">Add User</a>
 <c:if test="${fn:length(userList) gt 0}">
+<p>${param.userdeleteerror}</p>
+
 <table class="table table-striped" style="cellspacing: 2; cellpadding: 2; border: 1;width:100%">
 	<thead>
 	<tr class="listHeading">
@@ -21,7 +23,6 @@ href="${pageContext.request.contextPath}/admin/user/create">Add User</a>
 	</tr>
 	</thead>
 	<tbody>
-
 	<c:forEach var="users" items="${userList}">
 		<tr class="listRecord">
 			<td align="left">${users.id}</td>

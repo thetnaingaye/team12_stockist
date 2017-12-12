@@ -7,6 +7,10 @@
 <title>Temporary Test Page</title>
 </head>
 <body>
+<!--  NAING!!! LOOK HERE -->
+<h1>${checkoutSuccess}</h1>
+<!--  NAING!!! LOOK HERE -->
+
 <h2>This is the temporary test page to help everyone with tesing your app</h2>
 <h4>Written by Chang Siang</h4>
 <br/>

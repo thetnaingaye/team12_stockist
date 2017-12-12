@@ -115,7 +115,7 @@ public class UsageRecordController {
 		usageRecordDetails = usageRecordService.checkoutCartDetails(cart);
 		usageRecordDetailService.addUsageRecordDetailList(usageRecordDetails);
 
-		String checkoutOK = "Cart ID: " + cart.getCartId() + "Usage Recorded";
+		String checkoutOK = "Cart ID: " + cart.getCartId() + " Usage Recorded Successfully!";
 		redirectAttributes.addFlashAttribute("checkoutSuccess", checkoutOK);
 		
 		Cart cartNew = new Cart();

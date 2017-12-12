@@ -3,6 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <h3>New Supplier Record</h3>
+<p>${supplieralreadyexists}</p>
 <form:form method="POST" modelAttribute="supplier"
 	action="${pageContext.request.contextPath}/admin/supplier/create.html">
 	<form:errors />

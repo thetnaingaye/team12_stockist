@@ -94,6 +94,26 @@ public class GlobalControllerExceptionHandler {
 		return modelAndView;
 	}
 
+	@ExceptionHandler(EmptyCartException.class)
+	public ModelAndView EmptyCartError(HttpServletRequest req, HttpSession session, Exception ex) {
+		ModelAndView modelAndView = new ModelAndView("error-page");
+		ArrayList<String> troubleshoot = new ArrayList<String>();
+
+		String error1 = "Checkout Error! Please check you are not checking out an empty cart.";
+		troubleshoot.add(error1);
+
+		// When try to create new product with an existing primary key
+		// Also include FK not existed conflict
+
+		modelAndView.addObject("url", req.getRequestURI());
+		modelAndView.addObject("time", new Date());
+		modelAndView.addObject("user", session.getAttribute("cart"));
+		modelAndView.addObject("message", "IllegalStateException");
+		modelAndView.addObject("troubleshoot", troubleshoot);
+		modelAndView.addObject("exception", ex);
+		return modelAndView;
+	}
+
 	@ExceptionHandler(Exception.class)
 	public ModelAndView GeneralError(HttpServletRequest req, HttpSession session, Exception ex) {
 		ModelAndView modelAndView = new ModelAndView("error-page");
