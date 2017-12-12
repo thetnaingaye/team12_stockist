@@ -62,7 +62,6 @@
 
 			</table>
 		</c:forEach>
-							<div class="col-md-offset-5">End of Report</div>
 		<div align="right">
 			<h3>
 				Total Price:
@@ -70,6 +69,8 @@
 					groupingUsed="true" value=" ${totalPrice}" />
 			</h3>
 		</div>
+		<div class="col-md-offset-5">End of Report</div>
+
 		<c:if test="${empty message}">
 			<form:form method="POST"
 				action="${pageContext.request.contextPath}/admin/print/report">

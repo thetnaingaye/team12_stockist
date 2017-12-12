@@ -199,7 +199,7 @@ public class UsageRecordController {
 		if (product.getUnitsInStock() < product.getReorderLevel()
 				&& product.getUnitsOnOrder() < product.getMinReorderQty()) {
 
-			if ((product.getReorderLevel() - product.getUnitsInStock()) >= product.getMinReorderQty()) {
+			if ((product.getReorderLevel() - product.getUnitsInStock()) >= product.getMinReorderQty() && product.getUnitsOnOrder() < product.getMinReorderQty()) {
 				reOrderLevel = (product.getReorderLevel() - product.getUnitsInStock());
 			} else {
 				reOrderLevel = product.getMinReorderQty();
