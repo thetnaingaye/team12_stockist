@@ -158,7 +158,7 @@ public class ProductServiceImpl implements ProductService {
 				for (int i = 0; i < cartArray.size(); i++) {
 					
 					Product temp = cartArray.get(i).getProduct();
-					if (tempPdt.getPartID() == temp.getPartID())
+					if (tempPdt.getPartID().equals(temp.getPartID()))
 					{
 						tempQty = cartArray.get(i).getQuantity();   // This will det the qty of the existing pdt in the cart
 						tempQty = tempQty + cartQty;

@@ -20,7 +20,7 @@ public class CartItemValidator implements Validator{
 		CartItem cartItem = (CartItem) object;
 		ValidationUtils.rejectIfEmpty(errors, "quantity", "error.cartitem.quantity.empty");
 		
-		if(cartItem.getQuantity() < 0) {
+		if(cartItem.getQuantity() <= 0) {
 			errors.rejectValue("quantity", "Error! Quantity must be MORE than 0", "Error! Quantity must be MORE than 0");
 		}
 		
