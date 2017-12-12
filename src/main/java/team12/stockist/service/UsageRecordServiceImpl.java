@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import team12.stockist.model.UsageRecord;
+import team12.stockist.model.User;
 import team12.stockist.repository.UsageRecordRepository;
 
 @Service
@@ -58,6 +59,14 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	@Transactional
 	public ArrayList<UsageRecord> findUsageRecordByUserId(int Id) {
 		return usageRecordRepository.findUsageRecordByUserId(Id);
+	}
+	
+	public boolean usageRecordisNotDeletable(User user) {
+		if (!findUsageRecordByUserId((user.getId())).isEmpty())
+			return true;
+		else
+			return false;
+	
 	}
 
 	

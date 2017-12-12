@@ -3,6 +3,7 @@ package team12.stockist.service;
 import java.util.ArrayList;
 
 import team12.stockist.model.UsageRecord;
+import team12.stockist.model.User;
 
 public interface UsageRecordService {
 
@@ -20,5 +21,5 @@ public interface UsageRecordService {
 	
 	ArrayList<UsageRecord> findUsageRecordByUserId(int Id);
 	
-
+	boolean usageRecordisNotDeletable(User user);
 }

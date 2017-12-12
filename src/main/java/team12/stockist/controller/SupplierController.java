@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import team12.stockist.model.Supplier;
+import team12.stockist.service.ProductService;
 import team12.stockist.service.SupplierService;
 import team12.stockist.validator.SupplierValidator;
 
@@ -26,6 +27,8 @@ public class SupplierController {
 	SupplierService supplierService;
 	@Autowired
 	private SupplierValidator supplierValidator;
+	@Autowired
+	ProductService productService;
 
 	@InitBinder("supplier")
 	private void initSupplierBinder(WebDataBinder binder) {
@@ -85,6 +88,11 @@ public class SupplierController {
 	public ModelAndView deleteSupplier(@PathVariable String supplierID) {
 		ModelAndView mav = new ModelAndView("redirect:/admin/supplier/list");
 		Supplier supplier = supplierService.findSupplierById(supplierID);
+		
+		if (productService.findProductBySupplier(supplierID)!=null) {
+			mav.addObject("supplierdeleteerror", "Cannot delete Supplier while it exists in Usage Records.");
+			return mav;
+		}
 		supplierService.deleteSupplierRecord(supplier);
 		return mav;
 	}

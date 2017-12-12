@@ -55,14 +55,20 @@ public class UserController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView createUserPage(@ModelAttribute @Valid User user, BindingResult result) {
 
-		if (result.hasErrors())
+		/*if (result.hasErrors())
 			return new ModelAndView("user-new");
-		ModelAndView mav = new ModelAndView();
-
-		userService.createUser(user);
-		mav.setViewName("redirect:/admin/user/list");
-
-		return mav;
+		 */
+		ModelAndView mav = new ModelAndView("user-new");
+		
+		if(userService.userAlreadyExists(user)) {
+			mav.addObject("useralreadyexists", "User already exists"); 
+			return mav;
+		}
+		else {
+			userService.createUser(user);
+			mav.setViewName("redirect:/admin/user/list");
+			return mav;
+		}
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -81,9 +87,8 @@ public class UserController {
 
 		ModelAndView mav = new ModelAndView("redirect:/admin/user/list");
 
-		userService.updateUser(user);
-
 		return mav;
+
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
@@ -91,21 +96,14 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("redirect:/admin/user/list");
 		int iid = Integer.parseInt(id);
 		User user = userService.findUserById(iid);
-		
-		if(usageRecordisNotDeletable(user)) {
+
+		if (usageRecordService.usageRecordisNotDeletable(user)) {
+			mav.addObject("userdeleteerror", "Cannot delete user. Please update user role to inactive to delete.");
 			return mav;
 		}
-		
+
 		userService.deleteUser(user);
 		return mav;
 	}
-	private boolean usageRecordisNotDeletable(User user) {
-		if (!usageRecordService.findUsageRecordByUserId((user.getId())).isEmpty())
-			return true;
-		else
-			return false;
-	
-	}
-		
 
 }

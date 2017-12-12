@@ -32,9 +32,7 @@ public class UserValidator implements Validator {
 		ValidationUtils.rejectIfEmpty(errors, "username", "User name cannot be empty");
 		ValidationUtils.rejectIfEmpty(errors, "password", "Password cannot be empty");
 		ValidationUtils.rejectIfEmpty(errors, "userRole", "User role cannot be empty");
-		 if (userService.findUserById(user.getId()) != null) {
-	            errors.rejectValue("id", "Duplicate User ID");
-	        }
+		 
 		System.out.println(user.toString());
 	}
 

@@ -10,6 +10,8 @@ public interface UserService {
 
 	ArrayList<User> findAllUser();
 
+	User findByUserName(String username);
+	
 	User findUserById(Integer userId);
 
 	User createUser(User user);
@@ -18,5 +20,6 @@ public interface UserService {
 
 	void deleteUser(User user);
 	
+	boolean userAlreadyExists(User user);
 
 }
