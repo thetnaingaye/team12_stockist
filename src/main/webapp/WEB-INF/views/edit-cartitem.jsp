@@ -11,36 +11,51 @@
 <title>Edit Cart Item</title>
 </head>
 <body>
+	<h3>Edit Cart Item</h3>
 	<form:form method="POST" modelAttribute="cartItem"
 		action="${pageContext.request.contextPath}/mechanic/usagerecord/viewcart/edit/${index}">
+		
+
 		<div>
 			<table style="cellspacing: 2; cellpadding: 2; border: 1; width: 50%">
 				<tr>
-					<td>Part ID: ${cartItem.product.partID} <form:hidden
-							path="product.partID" /></td>
+					<td><b>Part ID:</b></td>
+					<form:hidden path="product.partID" />
+					<td><b>Name:</b></td>
+					<td><b>Quantity:</b></td>
 				</tr>
 				<tr>
-					<td>Name: ${cartItem.product.description} <form:hidden
-							path="product.description" /></td>
-					<td><form:hidden path="product.unitPrice"/>
-					<form:hidden path="product.color"/>
-					<form:hidden path="product.manufacturer"/>
-					<form:hidden path="product.reorderLevel"/>
-					<form:hidden path="product.minReorderQty"/>
-					<form:hidden path="product.shelfLocation"/>
-					<form:hidden path="product.supplierID"/>
-					<form:hidden path="product.unitsInStock"/>
-					<form:hidden path="product.unitsOnOrder"/>
-					<form:hidden path="product.discontinued"/></td>
+					<td>${cartItem.product.partID}</td>
+					<td>${cartItem.product.description}</td>
+					<td><form:input path="quantity" class="form-control"
+							placeholder="Enter Quantity" pattern="^\d+$"/><form:errors path="quantity" class="form-control" /></td>
+
 				</tr>
 				<tr>
-					<td>Quantity: <form:input path="quantity" /> <form:errors
-							path="quantity" cssStyle="color: red;" /></td>
-					<td></td>
+					<td colspan="3"><input type="submit" value="Update"
+						class="btn btn-success" /></td>
 				</tr>
 			</table>
 		</div>
-		<input type="submit" value="Update" />
+
+
+
+		<div>
+			<form:hidden path="product.partID" />
+			<form:hidden path="product.description" />
+			<form:hidden path="product.unitPrice" />
+			<form:hidden path="product.color" />
+			<form:hidden path="product.manufacturer" />
+			<form:hidden path="product.reorderLevel" />
+			<form:hidden path="product.minReorderQty" />
+			<form:hidden path="product.shelfLocation" />
+			<form:hidden path="product.supplierID" />
+			<form:hidden path="product.unitsInStock" />
+			<form:hidden path="product.unitsOnOrder" />
+			<form:hidden path="product.discontinued" />
+
+		</div>
+
 	</form:form>
 
 </body>
