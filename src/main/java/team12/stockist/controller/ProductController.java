@@ -62,7 +62,7 @@ public class ProductController
 	}
 	
 	@RequestMapping(value = "/addtocart")    // Directing to createProduct page
-	public ModelAndView message(@RequestParam String cartPId, @RequestParam String qty, HttpServletRequest req)
+	public ModelAndView addToCart(@RequestParam String cartPId, @RequestParam String qty, HttpServletRequest req)
 	{
 		HttpSession session = (HttpSession) req.getSession();
 		Cart tempCart = (Cart) session.getAttribute("cart");
@@ -168,6 +168,7 @@ public class ProductController
 				return mav;
 	}
 	
+	
 	//-------------------- DETAILS --------------------------//
 	@RequestMapping(value = "/details/{partID}", method = RequestMethod.GET)
 	public ModelAndView getProductDetailsPage(@PathVariable Integer partID) {
@@ -191,6 +192,32 @@ public class ProductController
 
 		return mav;
 	}
+	
+	
+	//-------------------------Filter By Date Range-----------------------------------------------------------------------//
+
+		@RequestMapping(value = "/details/filter")
+		public ModelAndView getProductDetailsPage(@RequestParam String startdate, @RequestParam String enddate, 
+				@RequestParam String pid) {
+			
+			// Redirect to product-details-transactionHistory page
+			ModelAndView mav = new ModelAndView("product-details-transactionHistory");
+					
+			int temp = Integer.parseInt(pid);
+			
+			Product product = pservice.findProductById(Integer.parseInt(pid));
+			mav.addObject("pList", product);
+			
+					
+			ArrayList<UsageRecordDetail> transactionListFromUsageRecorDetails = uservice.findTransactionHistoryByProductId(temp);
+			
+			// Insert formatting for date here....
+			
+			ArrayList<UsageRecord> transactionListFromUsageRecord = (ArrayList<UsageRecord>) uRservice.findUsageRecordHistoryByDate(temp, startdate, enddate);
+			mav.addObject("tList", transactionListFromUsageRecorDetails);
+			mav.addObject("rList", transactionListFromUsageRecord);
+			return mav;
+		}
 	
 	
 	
