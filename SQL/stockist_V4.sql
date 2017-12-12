@@ -79,7 +79,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (123,'light bulb',1.23,'white','2cm','toyota',20,1,'1A','S1',123,1,0),(234,'Steelmate TPMS TP-S3E',255.00,'Black','NULL','Toyota',50,25,'4C','S1',56,5,0),(1876,'Low Beam H7 12V',0.99,'White','NULL','Honda',60,30,'2B','S1',145,9,0),(2346,'Pair Tie Rod Ball Joint ',10.55,'Silver','81mm','Honda',45,20,'2C','S1',290,0,0),(2593,'Mercedes Benz Steering Gear',45.34,'Black','NULL','Merzedez Benz',35,10,'2C','S1',75,0,0),(2786,'Iridium Tough Spark Plug - VK20',31.56,'Silver','NULL','Toyota',40,25,'2A','S1',65,30,0),(3265,'GM Rear Liftgate Hands Closing Module',75.90,'Silver','NULL','General Motors',30,10,'9F','S1',10,1,0),(3456,'Cellink B3 battery pack',254.00,'Black','NULL','Toyota',20,5,'5D','S1',98,0,0),(4564,'Thinkware X550-2CH',743.33,'Silver','2.7 LCD\"','Toyota',5,0,'1A','S1',12,0,0),(9342,'Plasmacluster Ion Generator ',98.50,'Gold','5cm (h) x 6.5cm (base) x 7.6cm (top)','Toyota',25,3,'4C','S1',67,0,0);
+INSERT INTO `products` VALUES (123,'light bulb',1.23,'white','2cm','toyota',20,1,'1A','S1',121,1,0),(234,'Steelmate TPMS TP-S3E',255.00,'Black','NULL','Toyota',50,25,'4C','S1',54,5,0),(1876,'Low Beam H7 12V',0.99,'White','NULL','Honda',60,30,'2B','S1',145,9,0),(2346,'Pair Tie Rod Ball Joint ',10.55,'Silver','81mm','Honda',45,20,'2C','S1',290,0,0),(2593,'Mercedes Benz Steering Gear',45.34,'Black','NULL','Merzedez Benz',35,10,'2C','S1',75,0,0),(2786,'Iridium Tough Spark Plug - VK20',31.56,'Silver','NULL','Toyota',40,25,'2A','S1',65,30,0),(3265,'GM Rear Liftgate Hands Closing Module',75.90,'Silver','NULL','General Motors',30,10,'9F','S1',10,1,0),(3456,'Cellink B3 battery pack',254.00,'Black','NULL','Toyota',20,5,'5D','S1',98,0,0),(4564,'Thinkware X550-2CH',743.33,'Silver','2.7 LCD\"','Toyota',5,0,'1A','S1',12,0,0),(9342,'Plasmacluster Ion Generator ',98.50,'Gold','5cm (h) x 6.5cm (base) x 7.6cm (top)','Toyota',25,3,'4C','S1',67,0,0);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +126,7 @@ CREATE TABLE `usagerecorddetails` (
   KEY `fk_usagerecorddetails_usagerecords1_idx` (`TransID`),
   CONSTRAINT `fk_UsageRecordDetails_Products1` FOREIGN KEY (`Products_PartID`) REFERENCES `products` (`PartID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usagerecorddetails_usagerecords1` FOREIGN KEY (`TransID`) REFERENCES `usagerecords` (`TransID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,6 +135,7 @@ CREATE TABLE `usagerecorddetails` (
 
 LOCK TABLES `usagerecorddetails` WRITE;
 /*!40000 ALTER TABLE `usagerecorddetails` DISABLE KEYS */;
+INSERT INTO `usagerecorddetails` VALUES (1,'1512914136069',123,1),(2,'1512914136069',234,1),(3,'1512914339929',123,1),(4,'1512914339929',234,1),(5,'1512914582600',123,1),(6,'1512914582600',234,1),(7,'1512915000885',123,1),(8,'1512915000885',234,1),(9,'1512915619978',123,5),(10,'1512915619978',234,0),(11,'1512953505279',123,1),(12,'1512953505279',234,1),(13,'1512977178317',123,1),(14,'1512977178317',234,1);
 /*!40000 ALTER TABLE `usagerecorddetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +149,7 @@ DROP TABLE IF EXISTS `usagerecords`;
 CREATE TABLE `usagerecords` (
   `TransID` varchar(255) NOT NULL,
   `CustomerName` longtext,
-  `DateUsed` datetime DEFAULT NULL,
+  `DateUsed` date DEFAULT NULL,
   `UserID` int(11) DEFAULT NULL,
   PRIMARY KEY (`TransID`),
   KEY `fk_usagerecords_users1_idx` (`UserID`),
@@ -162,6 +163,7 @@ CREATE TABLE `usagerecords` (
 
 LOCK TABLES `usagerecords` WRITE;
 /*!40000 ALTER TABLE `usagerecords` DISABLE KEYS */;
+INSERT INTO `usagerecords` VALUES ('1512914136069','Thet Naing Aye','2017-07-10',3),('1512914339929','Peter Parker','2017-08-10',1),('1512914582600','Bruce Wayne','2017-09-20',2),('1512915000885','Tony Stark ','2017-10-10',2),('1512915619978','Clerk Kent','2017-11-11',2),('1512953505279','Thet Naing Aye','2017-12-11',3),('1512977178317','fffff','2017-12-11',3);
 /*!40000 ALTER TABLE `usagerecords` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +181,7 @@ CREATE TABLE `users` (
   `UserRole` varchar(45) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `UserName_UNIQUE` (`UserName`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,4 +203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-10 18:30:12
+-- Dump completed on 2017-12-11 16:08:59
