@@ -48,13 +48,14 @@
 <div>
 <h5 align="left" Style="color:red">${msgAlert}</h5>
 <form action="${pageContext.request.contextPath}/mechanic/product/details/filter">
-  Filter Date:
-  <input type="date" name="startdate">
-  <input type="date" name="enddate">
-   <c:set var="test1" value="startdate"/>
-    <c:set var="test2" value="enddate"/>
+  Start Date:
+  <br />
+  <input type="date" name="startdate"><br/>
+  End Date:
+  <br />
+  <input type="date" name="enddate"><br />
   
-  <input type="hidden" name="pid" value="${pList.partID}">
+  <input type="hidden" name="pid" value="${pList.partID}"><br/>
   <input type="submit">
 </form>
 </div>
