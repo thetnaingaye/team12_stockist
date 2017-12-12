@@ -7,17 +7,10 @@
 <title>Temporary Test Page</title>
 </head>
 <body>
-<h2>This is the temporary test page to help everyone with tesing your app</h2>
-<h4>Written by Chang Siang</h4>
-<br/>
-<b>This is achieved by added the folloing code to the WebAppConfig.java</b>
-<pre><code>
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("default");
-	}
-</code>
-</pre>
+<div class="jumbotron text-center">
+    <h1>Welcome to Stockist</h1>
+  </div>
+
 
 <p>List of test page</p>
 <br/>

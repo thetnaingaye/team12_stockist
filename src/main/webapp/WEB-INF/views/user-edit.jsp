@@ -34,10 +34,13 @@
 			</tr>
 			<tr>
 				<td>User Role</td>
-				<td><form:input class="form-control" path="userRole" /> <form:errors
+				<td><form:select path="userRole" items="${roleList}" width="200" style="width: 200px"/> <form:errors
 						path="userRole" cssStyle="color: red;" /></td>
 			</tr>
 
+			<tr>
+				<td><br /></td>
+			</tr>
 			<tr>
 				<td><br /></td>
 			</tr>

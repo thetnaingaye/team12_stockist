@@ -4,10 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import team12.stockist.model.User;
+
+import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
@@ -16,6 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("SELECT u.userRole from User u WHERE u.username = :username")
 	public List<String> findRoleByUserName(@Param("username") String username);
+
 
 
 
