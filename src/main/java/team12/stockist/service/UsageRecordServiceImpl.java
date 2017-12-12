@@ -68,6 +68,7 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		return usageRecordRepository.findTransactionHistoryByDateRange(pid, startdate, enddate);
 	}
 
+	@Transactional
 	public int checkForReOrder(Product product) {
 		int reOrderLevel;
 		if (product.getUnitsInStock() < product.getReorderLevel()
@@ -86,6 +87,7 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		return reOrderLevel;
 	}
 
+	@Transactional
 	public ArrayList<CartItem> checkStockAvailable(Cart cart) {
 		ArrayList<CartItem> noStockList = new ArrayList<CartItem>();
 		for (CartItem cartitem : cart.getCartItemList()) {
@@ -97,6 +99,7 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		return noStockList;
 	}
 	
+	@Transactional
 	public ArrayList<UsageRecordDetail> checkoutCartDetails (Cart cart) {
 		ArrayList<UsageRecordDetail> usageRecordDetails = new ArrayList<UsageRecordDetail>();
 		
