@@ -59,9 +59,10 @@ public class UserController {
 	public ModelAndView newUserPage() {
 		ModelAndView mav = new ModelAndView("user-new","user", new User());
 		Map< String, String > role = new HashMap<String, String>();
-        role.put("mechanic", "mechanic");
+		role.put("inactive", "inactive");
+		role.put("mechanic", "mechanic");
         role.put("admin", "admin");
-		mav.addObject("roleList", role);
+        mav.addObject("roleList", role);
 		return mav;
 	}
 
@@ -97,7 +98,8 @@ public class UserController {
 		int iid = Integer.parseInt(id);
 		User user = userService.findUserById(iid);
 		Map< String, String > role = new HashMap<String, String>();
-        role.put("mechanic", "mechanic");
+		role.put("inactive", "inactive");
+		role.put("mechanic", "mechanic");
         role.put("admin", "admin");
 		mav.addObject("roleList", role);
 		mav.addObject("user", user);
