@@ -1,19 +1,12 @@
-package team12.stockist.model;
+package team12.stockist.controller;
 
 import java.util.ArrayList;
 
 public class SearchFilters {
 	
-	private ArrayList<String> colorFilters;
 	private ArrayList<String> manufacturerFilters;
 	
 	
-	public ArrayList<String> getColorFilters() {
-		return colorFilters;
-	}
-	public void setColorFilters(ArrayList<String> colorFilters) {
-		this.colorFilters = colorFilters;
-	}
 	public ArrayList<String> getManufacturerFilters() {
 		return manufacturerFilters;
 	}

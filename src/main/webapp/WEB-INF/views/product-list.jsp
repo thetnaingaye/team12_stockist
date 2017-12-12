@@ -23,23 +23,14 @@
 	<h5 align="center" Style="color:red">${msgAlert}</h5>
 	<h4>Refine by</h4>
 	<div>
-		<table style="cellspacing: 2; cellpadding: 2; border: 1; width:80%">
-			<tbody>
-				<tr>
-					<td>Color: </td>
-					<td><form:checkbox path="colorFilters" value="White"/>&nbsp;White</td>
-					<td><form:checkbox path="colorFilters" value="Black"/>&nbsp;Black</td>
-					<td><form:checkbox path="colorFilters" value="Silver"/>&nbsp;Silver</td>
-					<td><form:checkbox path="colorFilters" value="Gold"/>&nbsp;Gold</td>
-				</tr>
-			</tbody>
+		<table style="width:60%">
 			<tbody>
 				<tr>
 					<td>Manufacturer: </td>
-					<td><form:checkbox path="manufacturerFilters" value="Toyota"/>&nbsp;Toyota</td>
-					<td><form:checkbox path="manufacturerFilters" value="Honda"/>&nbsp;Honda</td>
+					<td><form:checkbox path="manufacturerFilters" value="Toyota"/>&nbsp;Toyota&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td><form:checkbox path="manufacturerFilters" value="Honda"/>&nbsp;Mercedez Benz</td>
 					<td><form:checkbox path="manufacturerFilters" value="General Motors"/>&nbsp;General Motors</td>
-					<td><form:checkbox path="manufacturerFilters" value="Mercedez Benz"/>&nbsp;Mercedez Benz</td>
+					<td><form:checkbox path="manufacturerFilters" value="Mercedez Benz"/>&nbsp;Honda</td>
 				</tr>
 			</tbody>
 		</table>

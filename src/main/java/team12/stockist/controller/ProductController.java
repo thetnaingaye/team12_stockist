@@ -1,6 +1,9 @@
 package team12.stockist.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import team12.stockist.model.Product;
-import team12.stockist.model.SearchFilters;
 import team12.stockist.model.Supplier;
 import team12.stockist.model.UsageRecord;
 import team12.stockist.model.UsageRecordDetail;
@@ -28,7 +30,9 @@ import team12.stockist.service.ProductService;
 import team12.stockist.service.SupplierService;
 import team12.stockist.service.UsageRecordDetailService;
 import team12.stockist.service.UsageRecordService;
-import team12.stockist.validator.NewProductValidator;
+import team12.stockist.validator.ProductUpdateValidator;
+
+
 
 @RequestMapping(value="/mechanic/product/")
 @Controller
@@ -42,6 +46,14 @@ public class ProductController
 	private UsageRecordDetailService uservice;
 	@Autowired
 	private UsageRecordService uRservice;
+	@Autowired
+	ProductUpdateValidator uValidator;
+	
+	@InitBinder("product")
+	private void initStudentBinder(WebDataBinder binder)
+	{
+		binder.addValidators(uValidator);
+	}
 	
 	
 	
@@ -117,19 +129,25 @@ public class ProductController
 	}
 
 	@RequestMapping(value = "/edit/{partID}", method = RequestMethod.POST)
-	public ModelAndView editProduct(@ModelAttribute  Product product, BindingResult result, @PathVariable Integer partID,
-			final RedirectAttributes redirectAttributes)
-	{
+	public ModelAndView editProduct(@ModelAttribute @Valid Product product, BindingResult result, @PathVariable Integer partID,
+			final RedirectAttributes redirectAttributes) {
 		// Redirect to product-list page
 		
-		ModelAndView mav = new ModelAndView("redirect:/mechanic/product/browse");
+		if(result.hasErrors())
+			return new ModelAndView("product-edit");
+		
+		ModelAndView mav = new ModelAndView();
+		
+
+		//1/ModelAndView mav = new ModelAndView("redirect:/mechanic/product/browse");
 		// calling ProductServiceImpl service class method updateProduct.
 		// update the product
 		pservice.updateProduct(product);
 		String message = "Product is updated";
 		redirectAttributes.addFlashAttribute("message", message);
-		
-				return mav;
+		mav.setViewName("redirect:/mechanic/product/browse");
+
+		return mav;
 	}
 	
 	
@@ -169,20 +187,59 @@ public class ProductController
 			@RequestParam String pid) {
 		
 		// Redirect to product-details-transactionHistory page
+		ArrayList<UsageRecordDetail> transactionListFromUsageRecorDetails;
+		ArrayList<UsageRecord> transactionListFromUsageRecord;
+		
 		ModelAndView mav = new ModelAndView("product-details-transactionHistory");
+		String msg = "";
 				
 		int temp = Integer.parseInt(pid);
 		
-		Product product = pservice.findProductById(Integer.parseInt(pid));
+		Product product = pservice.findProductById(temp);
 		mav.addObject("pList", product);
 		
-				
-		ArrayList<UsageRecordDetail> transactionListFromUsageRecorDetails = uservice.findTransactionHistoryByProductId(temp);
+		Date stDate = null;
+		Date enDate = null;
+		SimpleDateFormat sD = new SimpleDateFormat("yyyy-MM-dd");
 		
 		
-		ArrayList<UsageRecord> transactionListFromUsageRecord = (ArrayList<UsageRecord>) uRservice.findUsageRecordHistoryByDate(temp, startdate, enddate);
+		try
+		{
+			stDate = sD.parse(startdate);
+			enDate = sD.parse(enddate);
+		} catch (ParseException e)
+		{
+			transactionListFromUsageRecorDetails = (ArrayList<UsageRecordDetail>) uservice.findTransactionHistoryByProductId(temp);
+			transactionListFromUsageRecord = (ArrayList<UsageRecord>) uRservice.findUsageRecordHistory(temp);
+			msg = "";
+			mav.addObject("tList", transactionListFromUsageRecorDetails);
+			mav.addObject("rList", transactionListFromUsageRecord);
+			mav.addObject("msgAlert", msg);
+			return mav;
+		}
+		
+		
+		// Formatting to date
+		
+		if (stDate.before(enDate))
+		{
+			transactionListFromUsageRecorDetails = uservice.findTransactionHistoryByProductId(temp);
+			transactionListFromUsageRecord = (ArrayList<UsageRecord>) uRservice.findUsageRecordHistoryByDate(temp, startdate, enddate);
+			
+			msg = "";
+		}
+		else
+		{
+			transactionListFromUsageRecorDetails = (ArrayList<UsageRecordDetail>) uservice.findTransactionHistoryByProductId(temp);
+			transactionListFromUsageRecord = (ArrayList<UsageRecord>) uRservice.findUsageRecordHistory(temp);
+			msg = "Please specify a correct date range.";
+		}
+		
+		
 		mav.addObject("tList", transactionListFromUsageRecorDetails);
 		mav.addObject("rList", transactionListFromUsageRecord);
+		mav.addObject("msgAlert", msg);
+		
 		return mav;
 	}
 	

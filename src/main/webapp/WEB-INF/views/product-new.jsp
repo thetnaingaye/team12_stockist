@@ -8,75 +8,77 @@
 	<table style="border: 10; width: 50%; display: flex; align-items: center">
 		<tbody>
 			<tr>
-				<td>PartID</td>
-				<td><form:input path="partID" class="form-control" />&nbsp;&nbsp;
+				<td>PartID&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><form:input path="partID" class="form-control" pattern="^\d+$" />
 				<form:errors path="partID" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Description</td>
-				<td><form:input path="description" class="form-control" />&nbsp;&nbsp;
+				<td>Description&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><form:input path="description" class="form-control" />
 				<form:errors path="description" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Unit Price</td>
-				<td><form:input path="unitPrice" class="form-control" />&nbsp;&nbsp;
+				<td>Unit Price&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><form:input path="unitPrice" class="form-control" pattern="^\d{0,2}+$" />
 				<form:errors path="unitPrice" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Color<br /></td>
-				<td><form:input path="color" class="form-control" />&nbsp;&nbsp;
+				<td>Color&nbsp;&nbsp;&nbsp;&nbsp;<br /></td>
+				<td><form:input path="color" class="form-control" />
 				<form:errors path="color" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Dimension</td>
-				<td><form:input path="dimension" class="form-control" />&nbsp;&nbsp;
+				<td>Dimension&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><form:input path="dimension" class="form-control" />
 				<form:errors path="dimension" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Manufacturer</td>
-				<td><form:input path="manufacturer" class="form-control" />&nbsp;&nbsp;
+				<td>Manufacturer&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><form:input path="manufacturer" class="form-control" />
 				<form:errors path="manufacturer" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Reorder Level</td>
-				<td><form:input path="reorderLevel" class="form-control" />&nbsp;&nbsp;
+				<td>Reorder Level&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><form:input path="reorderLevel" class="form-control" pattern="^\d+$" />
 				<form:errors path="reorderLevel" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Minumum Reorder Quantity</td>
-				<td><form:input path="minReorderQty" class="form-control" />&nbsp;&nbsp;
+				<td>Minumum Reorder Quantity&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><form:input path="minReorderQty" class="form-control" pattern="^\d+$" />
 				<form:errors path="minReorderQty" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Shelf Location</td>
-				<td><form:input path="shelfLocation" class="form-control" />&nbsp;&nbsp;
+				<td>Shelf Location&nbsp;&nbsp;&nbsp;&nbsp;</td>	
+				<td><form:input path="shelfLocation" class="form-control" />
 				<form:errors path="shelfLocation" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>SupplierID</td>
-				<td><form:input path="supplierID" class="form-control" />&nbsp;&nbsp;	
+				<td>SupplierID&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><form:input path="supplierID" class="form-control" />&nbsp;&nbsp;&nbsp;&nbsp;
 				<form:errors path="supplierID" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Quantity</td>
-				<td><form:input path="unitsOnOrder" class="form-control" />&nbsp;&nbsp;
-				<form:errors path="unitsOnOrder" cssStyle="color:red" /></td>
+				<td>Quantity&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><form:input path="UnitsInStock" class="form-control" pattern="^\d+$" />
+				<form:errors path="UnitsInStock" cssStyle="color:red" /></td>
 			</tr>
 		</tbody>
 	</table>
+	<br />
+	<br />
 	
 	<input type="submit" value="Enter" class="btn btn-primary" style="position: relative; left: 34.25%;"/>
-	<a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/product/create" style="position: relative; left: -5%;">Reset</a>
+	<a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/product/create" style="position: relative; left: -6%;">Reset</a>
 </form:form>
 
 
