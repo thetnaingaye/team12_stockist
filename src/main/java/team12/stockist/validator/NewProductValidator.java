@@ -1,6 +1,7 @@
 package team12.stockist.validator;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.NumberUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -20,15 +21,39 @@ public class NewProductValidator implements Validator {
 	}
 
 	@Override
-	public void validate(Object arg0, Errors arg1) 
+	public void validate(Object arg0, Errors arg1)
 	{
 		// TODO Auto-generated method stub
-		//Product pdt = (Product) arg0; 
+		/*Product pdt = (Product) arg0; 
+
+		if (pdt.getPartID() == 0 || pdt.getPartID() == null || isEmpty(pdt.getPartID())) {
+			
+			arg1.reject("partID", "Hello");
+			arg1.rejectValue("partID", "error.dates", "to date must be > from date");
+		}
+		
+		
+		
+		try
+		{
+			Integer temp = (Integer) Integer.parseInt(pdt.getPartID());
+		}
+		catch (Exception e)
+		{
+			arg1.reject("partID", "Hello");
+			arg1.rejectValue("partID", "error.dates", "to date must be > from date");
+		}*/
+		
+		
+		/*if (arg1.hasErrors())
+		{
+			arg1.rejectValue("partID", "error.dates", "to date must be > from date");
+		}*/
 		
 		
 		
 		
-		//ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "partID" , "error.studentName", "PartID is required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "partID" , "error.studentName", "PartID is required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "description" , "error.studentNickName", "Description is required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitPrice" , "error.studentNickName", "Unit price is required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "color" , "error.studentNickName", "Color is required");
