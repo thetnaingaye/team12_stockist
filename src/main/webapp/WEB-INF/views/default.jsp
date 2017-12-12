@@ -7,17 +7,15 @@
 <title>Welcome Page</title>
 </head>
 
+<div class="jumbotron text-center">
+	<img src="${pageContext.request.contextPath}/image/logo.png"
+		width="45%" height="45%" class="img-rounded" />
+<br><br>
+	<h4>${checkoutSuccess}</h4>
+	<h1>WELCOME TO STOCKIST</h1>
 
 
-	<div class="jumbotron text-center">
-	<img src="${pageContext.request.contextPath}/image/logo.png" width="45%"
-				height="45%"
-		class="img-rounded" />
-<h1>${checkoutSuccess}</h1>
-		<h1>WELCOME TO STOCKIST</h1>
-
-		
-	</div>
+</div>
 
 </body>
 </html>
