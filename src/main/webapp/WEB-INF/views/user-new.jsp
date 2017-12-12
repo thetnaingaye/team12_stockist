@@ -3,7 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <h3>New User Page</h3>
-<p>${param.useralreadyexists}</p>
+<p>${useralreadyexists}</p>
 <form:form method="POST" modelAttribute="user"
 	action="${pageContext.request.contextPath}/admin/user/create.html">
 	<form:errors />
@@ -30,10 +30,14 @@
 			<tr>
 				<td><br /></td>
 			</tr>
+
 			<tr>
 				<td>User Role</td>
-				<td><form:input path="userRole" class="form-control" /> <form:errors
-						path="userRole" cssStyle="color: red;" /></td>
+				<td><form:select path="userRole">
+						<option value="mechanic">mechanic</option>
+						<option value="admin">admin</option>
+						<option value="inactive">inactive</option>
+					</form:select></td>
 			</tr>
 			<tr>
 				<td><br /></td>
