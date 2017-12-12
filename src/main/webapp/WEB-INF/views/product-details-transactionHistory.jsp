@@ -15,8 +15,13 @@
 
 <!-- Product Description -->
 <div>
+
+	
+
 	<h2>${pList.description}</h2>
+
 </div>
+
 
 
 <table style="cellspacing: 2; cellpadding: 2; border: 1; width:50%" >
@@ -36,10 +41,12 @@
 <tr><td>Discontinued:<td><td>${pList.discontinued}</td>
 
 
+
 </table>
 <br/>
 <br/>
 <br/>
+
 
 
 

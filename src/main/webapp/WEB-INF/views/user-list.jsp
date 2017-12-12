@@ -7,7 +7,7 @@
 
 <h3>User List Page</h3>
 <a class="btn btn-success"
-href="${pageContext.request.contextPath}/admin/user/create">Add User</a>
+href="${pageContext.request.contextPath}/admin/user/create">Add New User</a>
 <c:if test="${fn:length(userList) gt 0}">
 <p>${param.userdeleteerror}</p>
 
