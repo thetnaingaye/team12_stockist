@@ -79,29 +79,27 @@ public class UsageRecordController {
 	public ModelAndView Checkout(@ModelAttribute Cart model, BindingResult result, HttpSession session,
 			final RedirectAttributes redirectAttributes) throws EmptyCartException {
 
-		Cart cart = (Cart) session.getAttribute("cart");
-		
-		if (cart.getCartItemList().isEmpty())
-			throw new EmptyCartException();
-
 		UsageRecord usageRecord = new UsageRecord();
 		ArrayList<UsageRecordDetail> usageRecordDetails = new ArrayList<UsageRecordDetail>();
 		ModelAndView modelAndView = new ModelAndView();
+		
+		Cart cart = (Cart) session.getAttribute("cart");
+
 		usageRecord.setTransID(cart.getCartId());
 
 		CartValidator cartValidator = new CartValidator();
 		cartValidator.validate(model, result);
 
 		if (result.hasErrors()) {
-			ModelAndView mav = new ModelAndView("redirect:/usagerecord/viewcart/");
+			ModelAndView mav = new ModelAndView("redirect:/mechanic/usagerecord/viewcart/");
 			redirectAttributes.addFlashAttribute("customerNameError", "Error! Customer Name cannot be empty");
 			return mav;
 		}
 
-		if (!checkStockAvailable(cart).isEmpty()) {
-			ModelAndView mav = new ModelAndView("redirect:/usagerecord/viewcart/");
+		if (!usageRecordService.checkStockAvailable(cart).isEmpty()) {
+			ModelAndView mav = new ModelAndView("redirect:/mechanic/usagerecord/viewcart/");
 			ArrayList<String> noStockCartItem = new ArrayList<String>();
-			ArrayList<CartItem> noStockList = checkStockAvailable(cart);
+			ArrayList<CartItem> noStockList = usageRecordService.checkStockAvailable(cart);
 			for (CartItem cartItem : noStockList) {
 				StringBuilder stockAlert = new StringBuilder("Stock Error for ");
 				stockAlert.append(cartItem.getProduct().getDescription());
@@ -119,18 +117,8 @@ public class UsageRecordController {
 		usageRecord.setDateUsed(cart.getDateUsed());
 		usageRecordService.createUsageRecord(usageRecord);
 
-		for (CartItem cartItem : cart.getCartItemList()) {
-			UsageRecordDetail usageRecordDetail = new UsageRecordDetail();
-			usageRecordDetail.setTransId(cart.getCartId());
-			usageRecordDetail.setProductPartId(cartItem.getProduct().getPartID());
-			usageRecordDetail.setUsedQty(cartItem.getQuantity());
-			usageRecordDetails.add(usageRecordDetail);
-			// Check for re-ordering here...
-			Product product = productService.findProductById(cartItem.product.getPartID());
-			product.setUnitsInStock(product.getUnitsInStock() - cartItem.getQuantity());
-			product.setUnitsOnOrder(product.getUnitsOnOrder() + checkForReOrder(product));
-			productService.updateProduct(product);
-		}
+		usageRecordDetails = usageRecordService.checkoutCartDetails(cart);
+		
 		usageRecordDetailService.addUsageRecordDetailList(usageRecordDetails);
 
 		Cart cartNew = new Cart();
@@ -140,6 +128,11 @@ public class UsageRecordController {
 		modelAndView.setViewName("redirect:/");
 
 		return modelAndView;
+	}
+
+	private ArrayList<UsageRecordDetail> checkoutCartDetails(Cart cart) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@RequestMapping(value = "viewcart/edit/{index}", method = RequestMethod.GET)
@@ -169,7 +162,7 @@ public class UsageRecordController {
 		cart.setCartItemList(cartItemList);
 
 		session.setAttribute("cart", cart);
-		modelAndView.setViewName("redirect:/usagerecord/viewcart/");
+		modelAndView.setViewName("redirect:/mechanic/usagerecord/viewcart/");
 
 		return modelAndView;
 	}
@@ -184,36 +177,8 @@ public class UsageRecordController {
 		cart.setCartItemList(cartItemList);
 
 		session.setAttribute("cart", cart);
-		modelAndView.setViewName("forward:/usagerecord/viewcart/");
+		modelAndView.setViewName("forward:/mechanic/usagerecord/viewcart/");
 
 		return modelAndView;
-	}
-
-	private int checkForReOrder(Product product) {
-		int reOrderLevel;
-		if (product.getUnitsInStock() < product.getReorderLevel()
-				&& product.getUnitsOnOrder() < product.getMinReorderQty()) {
-
-			if ((product.getReorderLevel() - product.getUnitsInStock()) >= product.getMinReorderQty() && product.getUnitsOnOrder() < product.getMinReorderQty()) {
-				reOrderLevel = (product.getReorderLevel() - product.getUnitsInStock());
-			} else {
-				reOrderLevel = product.getMinReorderQty();
-			}
-		} else {
-			reOrderLevel = 0;
-		}
-
-		return reOrderLevel;
-	}
-
-	private ArrayList<CartItem> checkStockAvailable(Cart cart) {
-		ArrayList<CartItem> noStockList = new ArrayList<CartItem>();
-		for (CartItem cartitem : cart.getCartItemList()) {
-			Product product = productService.findProductById(cartitem.getProduct().getPartID());
-			if (product.getUnitsInStock() < cartitem.quantity) {
-				noStockList.add(cartitem);
-			}
-		}
-		return noStockList;
 	}
 }

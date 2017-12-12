@@ -67,9 +67,9 @@
 						<td align="center">${i.product.description}</td>
 						<td align="center">${i.quantity}</td>
 						<td align="center"><a class="btn btn-primary"
-							href="${pageContext.request.contextPath}/usagerecord/viewcart/edit/${loop.index}">Amend</a></td>
+							href="${pageContext.request.contextPath}/mechanic/usagerecord/viewcart/edit/${loop.index}">Amend</a></td>
 						<td><a class="btn btn-danger"
-							href="${pageContext.request.contextPath}/usagerecord/viewcart/delete/${loop.index}">Delete</a></td>
+							href="${pageContext.request.contextPath}/mechanic/usagerecord/viewcart/delete/${loop.index}">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

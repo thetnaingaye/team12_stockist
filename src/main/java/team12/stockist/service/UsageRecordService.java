@@ -2,7 +2,12 @@ package team12.stockist.service;
 
 import java.util.ArrayList;
 
+import org.springframework.web.servlet.ModelAndView;
+
+import team12.stockist.controller.Cart;
+import team12.stockist.controller.CartItem;
 import team12.stockist.model.UsageRecord;
+import team12.stockist.model.UsageRecordDetail;
 
 public interface UsageRecordService {
 
@@ -17,5 +22,9 @@ public interface UsageRecordService {
 	void deleteUsageRecord(UsageRecord usageRecord);
 
 	public ArrayList<UsageRecord> findUsageRecordHistory(int products_PartID);
+
+	ArrayList<CartItem> checkStockAvailable(Cart cart);
+
+	ArrayList<UsageRecordDetail> checkoutCartDetails(Cart cart);
 
 }
