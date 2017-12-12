@@ -28,19 +28,22 @@ public class ProductUpdateValidator implements Validator {
 		
 		
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "partID" , "error.productId", "PartID is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "description" , "error.productName", "Description is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitPrice" , "error.productUnitPrice", "Unit price is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "color" , "error.productColor", "Color is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "dimension" , "error.productDimension", "Dimension is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "manufacturer" , "error.productManufacturer", "Manufacturer is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "reorderLevel" , "error.productReorderLevel", "Reorder Level is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "minReorderQty" , "error.productReorderQuantity", "Minimum Reorder Quantity is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "shelfLocation" , "error.productShelLocation", "Shelf Location is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "supplierID" , "error.productSupplierID", "SupplierID is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitsOnOrder" , "error.productQuantity", "Quantity is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitsInStock" , "UnitsInStock is required", "UnitsInStock is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "discontinued" , "error.productQuantity", "Discontinue status  is required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "partID" , "error.productId", "PartID");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "description" , "error.productDescription", "Description");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitPrice" , "error.productUnitprice", "Unit price");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "color" , "error.productColor", "Color");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "dimension" , "error.productDimension", "Dimension");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "manufacturer" , "error.productManufacturer", "Manufacturer ");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "reorderLevel" , "error.productReorderLevel", "Reorder Level");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "minReorderQty" , "error.productMinOrderQty", "Minimum");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "shelfLocation" , "error.productShelfLocation", "Shelf");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "supplierID" , "error.productSupplierId", "SupplierID");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitsOnOrder" , "error.productUnitsOnOrder", "Quantity");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitsInStock" , "error.productUnitsInStock", "UnitsInStock ");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "discontinued" , "error.productDiscontinued", "Discontinue");
+		
+
+
 		
 			
 		
