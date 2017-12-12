@@ -10,7 +10,7 @@ import team12.stockist.model.Product;
 
 
 @Component
-public class newProductValidator implements Validator {
+public class NewProductValidator implements Validator {
 	
 	@Override
 	public boolean supports(Class<?> arg0) 
@@ -23,7 +23,12 @@ public class newProductValidator implements Validator {
 	public void validate(Object arg0, Errors arg1) 
 	{
 		// TODO Auto-generated method stub
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "partID" , "error.studentName", "PartID is required");
+		//Product pdt = (Product) arg0; 
+		
+		
+		
+		
+		//ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "partID" , "error.studentName", "PartID is required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "description" , "error.studentNickName", "Description is required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitPrice" , "error.studentNickName", "Unit price is required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "color" , "error.studentNickName", "Color is required");

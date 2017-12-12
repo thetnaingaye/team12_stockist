@@ -28,7 +28,7 @@ import team12.stockist.service.ProductService;
 import team12.stockist.service.SupplierService;
 import team12.stockist.service.UsageRecordDetailService;
 import team12.stockist.service.UsageRecordService;
-import team12.stockist.validator.newProductValidator;
+import team12.stockist.validator.NewProductValidator;
 
 @RequestMapping(value="/mechanic/product/")
 @Controller
@@ -62,7 +62,7 @@ public class ProductController
 	}
 	
 	@RequestMapping(value = "/addtocart")    // Directing to createProduct page
-	public ModelAndView addToCart(@RequestParam String cartPId, @RequestParam String qty, HttpServletRequest req)
+	public ModelAndView addToCart1(@RequestParam String cartPId, @RequestParam String qty, HttpServletRequest req)
 	{
 		HttpSession session = (HttpSession) req.getSession();
 		String msg;
@@ -77,7 +77,7 @@ public class ProductController
 		// Uncomment to check if your items are captured
 		//mav.addObject("searchValue", secretValue);
 		return mav;
-	}
+	}//
 	
 
 	// A simple support method to minimize code repeat of calling the diff services (populate the list)
@@ -102,7 +102,7 @@ public class ProductController
 	
 	
 	
-	// .................. UPDATE PRODUCT........................//
+	// .................. UPDATE PRODUCT PAGE ........................//
 
 	@RequestMapping(value = "/edit/{partID}", method = RequestMethod.GET)
 	public ModelAndView editProductPage(@PathVariable Integer partID) {
@@ -133,7 +133,7 @@ public class ProductController
 	}
 	
 	
-	//-------------------- DETAILS --------------------------//
+	//-------------------- DETAILS PAGE --------------------------//
 	@RequestMapping(value = "/details/{partID}", method = RequestMethod.GET)
 	public ModelAndView getProductDetailsPage(@PathVariable Integer partID) {
 		// Redirect to product-details-transactionHistory page
@@ -153,12 +153,16 @@ public class ProductController
 		// Add tp ModelView Attribute
 		mav.addObject("tList", transactionListFromUsageRecorDetails);
 		mav.addObject("rList", transactionListFromUsageRecord);
+		
+		// Add msg object
+		String msg = "";
+		mav.addObject("msgAlert", msg);
 
 		return mav;
 	}
 	
 	
-	//-------------------------Filter By Date Range-----------------------------------------------------------------------//
+	//-------------------------Filter By Date Range--------------------------------------------------//
 
 	@RequestMapping(value = "/details/filter")
 	public ModelAndView getProductDetailsPage(@RequestParam String startdate, @RequestParam String enddate, 
@@ -175,15 +179,12 @@ public class ProductController
 				
 		ArrayList<UsageRecordDetail> transactionListFromUsageRecorDetails = uservice.findTransactionHistoryByProductId(temp);
 		
-		// Insert formatting for date here....
 		
 		ArrayList<UsageRecord> transactionListFromUsageRecord = (ArrayList<UsageRecord>) uRservice.findUsageRecordHistoryByDate(temp, startdate, enddate);
 		mav.addObject("tList", transactionListFromUsageRecorDetails);
 		mav.addObject("rList", transactionListFromUsageRecord);
 		return mav;
 	}
-	
-	
 	
 	
 	

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import team12.stockist.model.Product;
 import team12.stockist.service.ProductService;
-import team12.stockist.validator.newProductValidator;
+import team12.stockist.validator.NewProductValidator;
 
 
 
@@ -27,7 +27,7 @@ public class ProductAdminController {
 	@Autowired
 	private ProductService pservice;
 	@Autowired
-	private newProductValidator npValidator;
+	private NewProductValidator npValidator;
 	@InitBinder("product")
 	private void initProductBinder(WebDataBinder binder)
 	{
