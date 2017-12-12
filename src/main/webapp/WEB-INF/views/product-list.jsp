@@ -28,9 +28,9 @@
 				<tr>
 					<td>Manufacturer: </td>
 					<td><form:checkbox path="manufacturerFilters" value="Toyota"/>&nbsp;Toyota&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td><form:checkbox path="manufacturerFilters" value="Honda"/>&nbsp;Mercedez Benz</td>
+					<td><form:checkbox path="manufacturerFilters" value="Mercedez Benz"/>&nbsp;Mercedez Benz</td>
 					<td><form:checkbox path="manufacturerFilters" value="General Motors"/>&nbsp;General Motors</td>
-					<td><form:checkbox path="manufacturerFilters" value="Mercedez Benz"/>&nbsp;Honda</td>
+					<td><form:checkbox path="manufacturerFilters" value="Honda"/>&nbsp;Honda</td>
 				</tr>
 			</tbody>
 		</table>
