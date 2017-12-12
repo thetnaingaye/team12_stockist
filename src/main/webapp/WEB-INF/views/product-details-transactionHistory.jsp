@@ -28,6 +28,23 @@
 <div>Discontinued:${pList.discontinued}</div>
 <br />
 <br />
+
+
+
+<!-- Product BY Date Range -->
+<div>
+<form action="${pageContext.request.contextPath}/mechanic/product/details/filter">
+  Filter Date:
+  <input type="date" name="startdate">
+  <input type="date" name="enddate">
+  <input type="hidden" name="pid" value="${pList.partID}">
+  <input type="submit">
+</form>
+</div>
+
+
+
+<!-- Transaction History -->
 <div>
 	<h4 align="center">Transaction History</h4>
 </div>
@@ -47,14 +64,12 @@
 			<!-- Iterating through tList.Printing transId and Usedquantity of product -->
 			<c:forEach var="p" items="${tList}">
 				<tr class="listRecord">
-
-					<td align="left">${p.transId}</td>
-					<td align="left">${p.usedQty}</td>
 					<!-- Iterating through the rList to print out the rList details specific to the tList -->
 					<c:forEach var="p1" items="${rList}">
 						<!-- If condition to print rList record only if transId is same -->
 						<c:if test="${p.transId==p1.transID}">
-
+							<td align="left">${p.transId}</td>
+							<td align="left">${p.usedQty}</td>
 							<td align="left">${p1.customerName}</td>
 							<td align="left">${p1.dateUsed}</td>
 						</c:if>
@@ -79,7 +94,7 @@
 	<form:form action="${pageContext.request.contextPath}/mechanic/product/addtocart" method="POST">
 		<input type="submit" class="btn btn-danger" value="Add">&nbsp;&nbsp;
 		<input type="text" name="qty">
-		<input id="secretValue" name="secretValue" type="hidden" value="${pList.partID}"/>
+		<input id="cartPId" name="cartPId" type="hidden" value="${pList.partID}"/>
 	</form:form>
 </div>
 
