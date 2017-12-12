@@ -12,7 +12,7 @@
 </head>
 <body>
 	<form:form method="POST" modelAttribute="cartItem"
-		action="${pageContext.request.contextPath}/usagerecord/viewcart/edit/${index}">
+		action="${pageContext.request.contextPath}/mechanic/usagerecord/viewcart/edit/${index}">
 		<div>
 			<table style="cellspacing: 2; cellpadding: 2; border: 1; width: 50%">
 				<tr>
