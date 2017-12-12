@@ -12,29 +12,21 @@
 <title>View Item Cart</title>
 </head>
 <body>
-
+<h3>Record Part Usage</h3>
 	<form:form method="POST" modelAttribute="cart"
 		action="${pageContext.request.contextPath}/mechanic/usagerecord/viewcart">
 
-		<div style="color: red;">
-			<c:forEach var="s" items="${noStockCartItem}">
-				<c:out value="${s}" />
-				<br />
-			</c:forEach>
-			<c:if test="${not empty noStockCartItem}">
-				<b>Please amend the quantity accordingly.</b>
-			</c:if>
-		</div>
+
 
 		<div>
-			<table style="cellspacing: 2; cellpadding: 2; border: 1; width: 50%">
+			<table style="cellspacing: 2; cellpadding: 1; border: 1; width: 30%">
 				<tr>
-					<td>Name: ${cart.user.username}</td>
-					<td></td>
+					<td><b>Staff Name:</b></td>
+					<td>${cart.user.username}</td>
 				</tr>
 				<tr>
-					<td>Cart ID: ${cart.cartId}</td>
-					<td></td>
+					<td><b>Cart ID:</b></td>
+					<td>${cart.cartId}</td>
 				</tr>
 
 			</table>
@@ -42,8 +34,9 @@
 
 		<br />
 		<div style="color: red;">${customerNameError}</div>
-		Customer Name: <form:input path="customerName" />
-		<input type="submit" value="Checkout" />
+		<form:input path="customerName" class="form-control"
+			placeholder="Enter Customer Name.." />
+
 
 
 		<br />
@@ -53,9 +46,9 @@
 			style="cellspacing: 2; cellpadding: 2; border: 1; width: 100%">
 			<thead>
 				<tr>
-					<td align="center">Part ID</td>
-					<td align="center">Description</td>
-					<td align="center">Quantity</td>
+					<td align="center"><b>Part ID</b></td>
+					<td align="center"><b>Description</b></td>
+					<td align="center"><b>Quantity</b></td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -67,13 +60,24 @@
 						<td align="center">${i.product.description}</td>
 						<td align="center">${i.quantity}</td>
 						<td align="center"><a class="btn btn-primary"
-							href="${pageContext.request.contextPath}/usagerecord/viewcart/edit/${loop.index}">Amend</a></td>
+							href="${pageContext.request.contextPath}/mechanic/usagerecord/viewcart/edit/${loop.index}">Amend</a></td>
 						<td><a class="btn btn-danger"
-							href="${pageContext.request.contextPath}/usagerecord/viewcart/delete/${loop.index}">Delete</a></td>
+							href="${pageContext.request.contextPath}/mechanic/usagerecord/viewcart/delete/${loop.index}">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<div style="color: red;">
+			<c:forEach var="s" items="${noStockCartItem}">
+				<c:out value="${s}" />
+				<br />
+			</c:forEach>
+			<c:if test="${not empty noStockCartItem}">
+				<b>Please amend the quantity accordingly.</b>
+			</c:if>
+		</div>
+		<input type="submit" value="Record Usage" class="btn btn-success"
+			style="position: relative; left: 70%;" />
 	</form:form>
 </body>
 </html>

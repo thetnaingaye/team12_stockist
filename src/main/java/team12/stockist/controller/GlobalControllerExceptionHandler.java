@@ -62,7 +62,7 @@ public class GlobalControllerExceptionHandler {
 		ModelAndView modelAndView = new ModelAndView("error-page");
 		ArrayList<String> troubleshoot = new ArrayList<String>();
 
-		String error1 = "Please check you are deleting a valid Product or Supplier.";
+		String error1 = "Please check you are deleting a valid Supplier.";
 		troubleshoot.add(error1);
 		// When try delete none existing product id
 		modelAndView.addObject("url", req.getRequestURI());
