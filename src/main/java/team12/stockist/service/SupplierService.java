@@ -3,6 +3,7 @@ package team12.stockist.service;
 import java.util.ArrayList;
 
 import team12.stockist.model.Supplier;
+import team12.stockist.model.User;
 
 public interface SupplierService {
 
@@ -15,5 +16,7 @@ public interface SupplierService {
 	Supplier updateSupplierRecord(Supplier supplier);
 
 	void deleteSupplierRecord(Supplier supplier);
+	
+	boolean supplierAlreadyExists(Supplier supplier);
 
 }

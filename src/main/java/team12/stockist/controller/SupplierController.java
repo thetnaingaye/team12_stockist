@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import team12.stockist.model.Supplier;
+import team12.stockist.service.ProductService;
 import team12.stockist.service.SupplierService;
 import team12.stockist.validator.SupplierValidator;
 
@@ -26,6 +29,8 @@ public class SupplierController {
 	SupplierService supplierService;
 	@Autowired
 	private SupplierValidator supplierValidator;
+	@Autowired
+	ProductService productService;
 
 	@InitBinder("supplier")
 	private void initSupplierBinder(WebDataBinder binder) {
@@ -48,16 +53,27 @@ public class SupplierController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ModelAndView createSupplierPage(@ModelAttribute @Valid Supplier supplier, BindingResult result) {
+	public ModelAndView createSupplierPage(@ModelAttribute @Valid Supplier supplier, BindingResult result,final RedirectAttributes redirectAttribute) {
 
-		if (result.hasErrors())
-			return new ModelAndView("supplier-new");
+		
 		ModelAndView mav = new ModelAndView();
 
-		supplierService.createSupplierRecord(supplier);
-		mav.setViewName("redirect:/admin/supplier/list");
-
-		return mav;
+		if(result.hasErrors()) {
+			mav.setViewName("redirect:/admin/supplier/create");
+			redirectAttribute.addFlashAttribute("supplieralreadyexists", "All fields must be completed");
+			return mav;
+		}
+		
+		if(supplierService.supplierAlreadyExists(supplier)) {
+			mav.setViewName("redirect:/admin/supplier/create");
+			redirectAttribute.addFlashAttribute("supplieralreadyexists", "Supplier already exists");
+			return mav;
+		}
+		else {
+			supplierService.createSupplierRecord(supplier);
+			mav.setViewName("redirect:/admin/supplier/list");
+			return mav;
+		}
 	}
 
 	@RequestMapping(value = "/edit/{supplierID}", method = RequestMethod.GET)
@@ -85,6 +101,11 @@ public class SupplierController {
 	public ModelAndView deleteSupplier(@PathVariable String supplierID) {
 		ModelAndView mav = new ModelAndView("redirect:/admin/supplier/list");
 		Supplier supplier = supplierService.findSupplierById(supplierID);
+		
+		if (!productService.findProductBySupplier(supplierID).isEmpty()) {
+			mav.addObject("supplierdeleteerror", "Cannot delete Supplier while it exists in Usage Records.");
+			return mav;
+		}
 		supplierService.deleteSupplierRecord(supplier);
 		return mav;
 	}

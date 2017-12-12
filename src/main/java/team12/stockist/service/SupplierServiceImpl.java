@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import team12.stockist.model.Supplier;
+import team12.stockist.model.User;
 import team12.stockist.repository.SupplierRepository;
 
 
@@ -51,6 +52,13 @@ public class SupplierServiceImpl implements SupplierService {
 	@Transactional
 	public void deleteSupplierRecord(Supplier supplier) {
 		supplierRepository.delete(supplier);
+	}
+	
+	public boolean supplierAlreadyExists(Supplier supplier) {
+		if (findSupplierById(supplier.getSupplierID()) != null)
+			return true;
+		else
+			return false;
 	}
 
 }

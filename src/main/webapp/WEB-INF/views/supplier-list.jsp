@@ -7,6 +7,7 @@
 <a class="btn btn-success" href="${pageContext.request.contextPath}/admin/supplier/create">Add
 	Supplier</a>
 <c:if test="${fn:length(supplierList) gt 0}">
+<p>${param.supplierdeleteerror}</p>
 	<table  class="table table-striped" style="cellspacing: 2; cellpadding: 2; border: 1;width:100%">
 		<thead>
 			<tr class="listHeading">

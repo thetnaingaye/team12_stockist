@@ -12,7 +12,11 @@ import team12.stockist.controller.Cart;
 import team12.stockist.controller.CartItem;
 import team12.stockist.model.Product;
 import team12.stockist.model.UsageRecord;
+
+import team12.stockist.model.User;
+
 import team12.stockist.model.UsageRecordDetail;
+
 import team12.stockist.repository.UsageRecordRepository;
 
 @Service
@@ -68,6 +72,26 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		return usageRecordRepository.findTransactionHistoryByDateRange(pid, startdate, enddate);
 	}
 
+
+	
+
+
+	@Override
+	@Transactional
+	public ArrayList<UsageRecord> findUsageRecordByUserId(int Id) {
+		return usageRecordRepository.findUsageRecordByUserId(Id);
+	}
+	@Transactional
+	public boolean usageRecordisNotDeletable(User user) {
+		if (!findUsageRecordByUserId((user.getId())).isEmpty())
+			return true;
+		else
+			return false;
+	
+	}
+
+	
+
 	@Transactional
 	public int checkForReOrder(Product product) {
 		int reOrderLevel;
@@ -117,5 +141,6 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		}
 		return usageRecordDetails;
 	}
+
 
 }

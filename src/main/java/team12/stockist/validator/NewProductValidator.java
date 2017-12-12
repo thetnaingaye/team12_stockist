@@ -1,3 +1,4 @@
+
 package team12.stockist.validator;
 
 import org.springframework.stereotype.Component;
