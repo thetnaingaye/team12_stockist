@@ -24,11 +24,11 @@ public class CartItemValidator implements Validator{
 	public void validate(Object object, Errors errors) {
 		CartItem cartItem = (CartItem) object;
 		ValidationUtils.rejectIfEmpty(errors, "quantity", "error.cartitem.quantity.empty");
-		
+
 		if(!Pattern.matches(regex, String.valueOf(cartItem.getQuantity()))) {
 			errors.rejectValue("quantity", "Error! Please enter a valid integer", "Error! Please enter a valid integer");
 		}
-		
+
 		if(cartItem.getQuantity() <= 0) {
 			errors.rejectValue("quantity", "Error! Quantity must be MORE than 0", "Error! Quantity must be MORE than 0");
 		}
