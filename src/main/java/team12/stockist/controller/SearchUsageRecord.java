@@ -3,6 +3,8 @@ package team12.stockist.controller;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import team12.stockist.model.UsageRecord;
 import team12.stockist.model.UsageRecordDetail;
 
@@ -12,6 +14,8 @@ public class SearchUsageRecord {
 	private Date endDate;
 	private ArrayList<UsageRecord> usageRecords;
 	private ArrayList<UsageRecordDetail> usageRecordDetails;
+	private int partId;
+
 
 	public SearchUsageRecord() {
 		super();
@@ -19,12 +23,13 @@ public class SearchUsageRecord {
 	}
 
 	public SearchUsageRecord(Date startDate, Date endDate, ArrayList<UsageRecord> usageRecords,
-			ArrayList<UsageRecordDetail> usageRecordDetails) {
+			ArrayList<UsageRecordDetail> usageRecordDetails,int partId) {
 		super();
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.usageRecords = usageRecords;
 		this.usageRecordDetails = usageRecordDetails;
+		this.partId=partId;
 	}
 
 	public Date getStartDate() {
@@ -59,6 +64,14 @@ public class SearchUsageRecord {
 		this.usageRecordDetails = usageRecordDetails;
 	}
 
+
+	public int getPartId() {
+		return partId;
+	}
+
+	public void setPartId(int partId) {
+		this.partId = partId;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

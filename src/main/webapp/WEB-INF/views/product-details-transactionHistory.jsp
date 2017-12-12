@@ -4,6 +4,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <div>
 	<h3>Product Details Page</h3>
 </div>
@@ -27,6 +29,30 @@
 <div>Discontinued:${pList.discontinued}</div>
 <br />
 <br />
+
+<div>
+
+
+<%-- <form:form method="GET" modelAttribute="sur" action="${pageContext.request.contextPath}/mechanic/product/details/${partId}">
+<form:input id="startdate" type="date" path="startDate" />
+<br/>
+<form:input id="enddate" type="date" path="endDate" />
+<br/>
+<form:hidden id="partID" path="partId"/>
+<input type="submit" value="search"/>
+</form:form> --%>
+
+
+<form action="${pageContext.request.contextPath}/mechanic/product/details/filter">
+  Filter Date:
+  <input type="date" name="startdate">
+  <input type="date" name="enddate">
+  <input type="hidden" name="pid" value="${pList.partID}">
+  <input type="submit">
+</form>
+
+
+</div>
 <div>
 	<h4 align="center">Transaction History</h4>
 </div>

@@ -1,12 +1,14 @@
 package team12.stockist.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import team12.stockist.controller.SearchUsageRecord;
 import team12.stockist.model.DamageRecord;
 import team12.stockist.model.UsageRecord;
 import team12.stockist.model.UsageRecordDetail;
@@ -62,6 +64,11 @@ public class UsageRecordDetailServiceImpl implements UsageRecordDetailService {
 	@Transactional
 	public ArrayList<UsageRecordDetail> findTransactionHistoryByProductId(int products_PartID) {
 		return usageRecordDetailRepository.findTransactionHistoryByProductId(products_PartID);
+	}
+	//Transaction History by DateRange
+	public ArrayList<UsageRecordDetail> findTransactionHistoryByDateRange(int products_PartID,Date startDate,Date endDate)
+	{
+		return usageRecordDetailRepository.findTransactionHistoryByDateRange();
 	}
 
 }

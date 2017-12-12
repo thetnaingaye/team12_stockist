@@ -17,5 +17,8 @@ public interface UsageRecordService {
 	void deleteUsageRecord(UsageRecord usageRecord);
 
 	public ArrayList<UsageRecord> findUsageRecordHistory(int products_PartID);
+	
+	
+	public ArrayList<UsageRecord> findUsageRecordHistoryByDate(int pid, String startdate, String enddate);
 
 }
