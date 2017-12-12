@@ -14,7 +14,7 @@
 <body>
 
 	<form:form method="POST" modelAttribute="cart"
-		action="${pageContext.request.contextPath}/usagerecord/viewcart">
+		action="${pageContext.request.contextPath}/mechanic/usagerecord/viewcart">
 
 		<div style="color: red;">
 			<c:forEach var="s" items="${noStockCartItem}">

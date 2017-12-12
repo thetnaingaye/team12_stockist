@@ -1,11 +1,8 @@
 package team12.stockist.controller;
 
-import static org.mockito.Matchers.intThat;
-
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -13,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,7 +31,7 @@ import team12.stockist.service.UserService;
 import team12.stockist.validator.CartItemValidator;
 import team12.stockist.validator.CartValidator;
 
-@RequestMapping(value = "/usagerecord/")
+@RequestMapping(value = "/mechanic/usagerecord/")
 @Controller
 public class UsageRecordController {
 

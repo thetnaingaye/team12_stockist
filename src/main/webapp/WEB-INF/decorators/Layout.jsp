@@ -84,7 +84,7 @@
 						<li><a class="btn btn-primary"
 							href="/team12_stockist/mechanic/product/browse">Browse Catalog</a></li>
 						<li class="nav-divider"></li>
-						<li><a class="btn btn-primary" href="${pageContext.request.contextPath}/usagerecord/viewcart">Record Usage</a></li>
+						<li><a class="btn btn-primary" href="${pageContext.request.contextPath}/mechanic/usagerecord/viewcart">Record Usage</a></li>
 						<li class="nav-divider"></li>
 						
 						<sec:authorize access="hasAuthority('admin')">
