@@ -10,7 +10,7 @@
 		<tbody>
 			<tr>
 				<td>Supplier ID</td>
-				    <td><form:input class="form-control" path="supplierID" readyonly="true" />
+				    <td><form:input class="form-control" path="supplierID" readonly="true" />
 					<form:errors path="supplierID" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
