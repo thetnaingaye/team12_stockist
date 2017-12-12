@@ -18,8 +18,11 @@ public interface UsageRecordService {
 	void deleteUsageRecord(UsageRecord usageRecord);
 
 	ArrayList<UsageRecord> findUsageRecordHistory(int products_PartID);
-	
+
 	ArrayList<UsageRecord> findUsageRecordByUserId(int Id);
-	
+
 	boolean usageRecordisNotDeletable(User user);
+
+	public ArrayList<UsageRecord> findUsageRecordHistoryByDate(int pid, String startdate, String enddate);
+
 }

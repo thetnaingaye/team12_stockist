@@ -54,6 +54,13 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	{
 		return usageRecordRepository.findUsageRecordHistory(products_PartID);
 	}
+	
+	@Override
+	@Transactional
+	public ArrayList<UsageRecord> findUsageRecordHistoryByDate(int pid, String startdate, String enddate)
+	{
+		return usageRecordRepository.findTransactionHistoryByDateRange(pid, startdate, enddate);
+	}
 
 	@Override
 	@Transactional
