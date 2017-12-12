@@ -53,17 +53,12 @@ public class UserServiceImpl implements UserService {
 		userRepository.delete(user);
 	}
 	
+
 	public boolean userAlreadyExists(User user) {
 		if (findByUserName(user.getUsername()) != null)
 			return true;
 		else
 			return false;
 	}
-	/*public boolean userIdAlreadyExists(User user) {
-		if (findUserById(user.getId()) != null)
-			return true;
-		else
-			return false;
-	}*/
-
+	
 }

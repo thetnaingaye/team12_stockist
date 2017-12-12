@@ -1,6 +1,9 @@
 package team12.stockist.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,7 @@ public class UserController {
 		binder.addValidators(userValidator);
 	}
 
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView userListPage() {
 		ModelAndView mav = new ModelAndView("user-list");
@@ -48,8 +52,11 @@ public class UserController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView newUserPage() {
-		ModelAndView mav = new ModelAndView("user-new");
-		mav.addObject("user", new User());
+		ModelAndView mav = new ModelAndView("user-new","user", new User());
+		Map< String, String > role = new HashMap<String, String>();
+        role.put("mechanic", "mechanic");
+        role.put("admin", "admin");
+		mav.addObject("roleList", role);
 		return mav;
 	}
 
@@ -84,6 +91,10 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("user-edit");
 		int iid = Integer.parseInt(id);
 		User user = userService.findUserById(iid);
+		Map< String, String > role = new HashMap<String, String>();
+        role.put("mechanic", "mechanic");
+        role.put("admin", "admin");
+		mav.addObject("roleList", role);
 		mav.addObject("user", user);
 		return mav;
 	}

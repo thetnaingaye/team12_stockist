@@ -1,36 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Temporary Test Page</title>
+<title>Welcome Page</title>
 </head>
-<body>
-<!--  NAING!!! LOOK HERE -->
+
+
+
+	<div class="jumbotron text-center">
+	<img src="${pageContext.request.contextPath}/image/logo.png" width="45%"
+				height="45%"
+		class="img-rounded" />
 <h1>${checkoutSuccess}</h1>
-<!--  NAING!!! LOOK HERE -->
+		<h1>WELCOME TO STOCKIST</h1>
 
-<h2>This is the temporary test page to help everyone with tesing your app</h2>
-<h4>Written by Chang Siang</h4>
-<br/>
-<b>This is achieved by added the folloing code to the WebAppConfig.java</b>
-<pre><code>
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("default");
-	}
-</code>
-</pre>
-
-<p>List of test page</p>
-<br/>
-<table>
-<tr><td><a href="${pageContext.request.contextPath}/mechanic/product/browse">Product-List.jsp GET</a></td></tr>
-<tr><td><a href="${pageContext.request.contextPath}/usagerecord/viewcart">view-cart.jsp GET</a></td></tr>
-<tr><td><a href="${pageContext.request.contextPath}/admin/supplier/list">Click here to try you have admin access</a></td></tr>
-<tr><td><a href="${pageContext.request.contextPath}/admin/print/report">display-report.jsp GET</a></td></tr>
-</table>
+		
+	</div>
 
 </body>
 </html>

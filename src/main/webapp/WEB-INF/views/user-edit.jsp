@@ -35,13 +35,16 @@
 			</tr>
 			<tr>
 				<td>User Role</td>
-				<td><form:select path="userRole" class="form-control">
-						<option value="mechanic">mechanic</option>
-						<option value="admin">admin</option>
-						<option value="inactive">inactive</option>
-					</form:select></td>
+
+
+				<td><form:select class="form-control" path="userRole" items="${roleList}" width="200" style="width: 200px"/> <form:errors
+						path="userRole" cssStyle="color: red;" /></td>
+
 			</tr>
 
+			<tr>
+				<td><br /></td>
+			</tr>
 			<tr>
 				<td><br /></td>
 			</tr>

@@ -11,8 +11,9 @@
 
 
 <div>
-	<h4 align="center">${pList.description}</h4>
+	<h4 align="center"class="text-uppercase">${pList.description}</h4>
 </div>
+
 
 <h5 align="center" Style="color:red">${msgAlert}</h5>   <!-- Msg alert -->
 
@@ -30,6 +31,26 @@
 <div>UnitsInStock:${pList.unitsInStock}</div>
 <div>UnitsOnOrder:${pList.unitsOnOrder}</div>
 <div>Discontinued:${pList.discontinued}</div>
+
+<div class="row">
+<div class="col-sm-4">Part ID</div><div class="col-sm-8">${pList.partID}</div>
+<div class="col-sm-4">Description</div><div class="col-sm-8">${pList.description}</div>
+<div class="col-sm-4">Unit Price</div><div class="col-sm-8">${pList.unitPrice}</div>
+<div class="col-sm-4">Color</div><div class="col-sm-8">${pList.color}</div>
+<div class="col-sm-4">Dimension</div><div class="col-sm-8">${pList.dimension}</div>
+<div class="col-sm-4">Manufacturer</div><div class="col-sm-8">${pList.manufacturer}</div>
+<div class="col-sm-4">Reorder Level</div><div class="col-sm-8">${pList.reorderLevel}</div>
+
+
+<div class="col-sm-4">Minimum Reorder Quantity</div><div class="col-sm-8">${pList.minReorderQty}</div>
+<div class="col-sm-4">Shelf Location</div><div class="col-sm-8">${pList.shelfLocation}</div>
+<div class="col-sm-4">Supplier ID</div><div class="col-sm-8">${pList.supplierID}</div>
+<div class="col-sm-4">Units In Stock</div><div class="col-sm-8">${pList.unitsInStock}</div>
+<div class="col-sm-4">Units On Order</div><div class="col-sm-8">${pList.unitsOnOrder}</div>
+
+<div class="col-sm-4">Discontinued</div><div class="col-sm-8">${pList.discontinued}</div>
+</div>
+
 <br />
 <br />
 
