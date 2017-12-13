@@ -84,7 +84,7 @@ public class ReportController {
 					totalPrice += p.getUnitsOnOrder() * p.getUnitPrice();
 				}
 				out.println("=======================================================================\t\t\t");
-				out.println("                                          TOTAL                " + totalPrice);
+				out.println("                                          TOTAL                " + cF.format(totalPrice));
 				out.println("=======================================================================\t\t\t");
 				out.print("\t\t\t\t\t\t End of Report");
 				out.close();

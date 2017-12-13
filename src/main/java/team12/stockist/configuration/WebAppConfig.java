@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
-import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,13 +30,11 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan(basePackages="team12.stockist")
-@PropertySource({ "classpath:application.properties",
-		"classpath:/i18n/messages.properties" })
+@ComponentScan(basePackages = "team12.stockist")
+@PropertySource({ "classpath:application.properties", "classpath:/i18n/messages.properties" })
 @EnableJpaRepositories("team12.stockist.repository")
 
 public class WebAppConfig extends WebMvcConfigurerAdapter {
@@ -58,13 +55,10 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-		dataSource.setDriverClassName(env
-				.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
+		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
 		dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
-		dataSource.setUsername(env
-				.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
-		dataSource.setPassword(env
-				.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+		dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
+		dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 
 		return dataSource;
 	}
@@ -73,11 +67,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(dataSource());
+		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
 		entityManagerFactoryBean
-				.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-		entityManagerFactoryBean
-				.setPackagesToScan(env
-						.getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
+				.setPackagesToScan(env.getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
 
 		entityManagerFactoryBean.setJpaProperties(hibProperties());
 
@@ -86,26 +78,23 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	private Properties hibProperties() {
 		Properties properties = new Properties();
-		properties.put(PROPERTY_NAME_HIBERNATE_DIALECT,
-				env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
-		properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL,
-				env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
+		properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
+		properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
 		return properties;
 	}
 
 	@Bean
 	public JpaTransactionManager transactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(entityManagerFactory()
-				.getObject());
+		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return transactionManager;
 	}
 
 	/*
-	 * @Bean public UrlBasedViewResolver setupViewResolver() {
-	 * UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-	 * resolver.setPrefix("/WEB-INF/views/"); resolver.setSuffix(".jsp");
-	 * resolver.setViewClass(JstlView.class); return resolver; }
+	 * @Bean public UrlBasedViewResolver setupViewResolver() { UrlBasedViewResolver
+	 * resolver = new UrlBasedViewResolver(); resolver.setPrefix("/WEB-INF/views/");
+	 * resolver.setSuffix(".jsp"); resolver.setViewClass(JstlView.class); return
+	 * resolver; }
 	 */
 
 	@Bean
@@ -131,8 +120,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations(
-				"/resources/");
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 		registry.addResourceHandler("/image/**").addResourceLocations("/image/");
 		registry.addResourceHandler("/css/**").addResourceLocations("/css/");
 		registry.addResourceHandler("/js/**").addResourceLocations("/js/");
@@ -150,14 +138,14 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	public LocaleResolver localeResolver() {
 
 		CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
-		cookieLocaleResolver.setDefaultLocale(StringUtils
-				.parseLocaleString("en"));
+		cookieLocaleResolver.setDefaultLocale(StringUtils.parseLocaleString("en"));
 		return cookieLocaleResolver;
 	}
-	
-	//Added by changsiang to have a default view page
+
+	// Added by changsiang to have a default view page
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("default");
 	}
+
 }
