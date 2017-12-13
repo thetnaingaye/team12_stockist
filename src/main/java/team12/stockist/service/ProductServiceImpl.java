@@ -114,14 +114,14 @@ public class ProductServiceImpl implements ProductService {
 		int cartQty;   
 		int pdtID;
 		int tempQty = 0;
-		String msg;
+		String msg = "";
 
 		
 		// Checking if it can be parse into an int first
 		try {
 			cartQty = Integer.parseInt(qty);
 			pdtID = Integer.parseInt(cartPId);
-		} catch (NumberFormatException ex) {
+		} catch (Exception ex) {
 			
 			// If exception is caught, then input is not an integer.
 			msg = "You have entered an invalid field in the cart. Please try again.";
@@ -138,6 +138,12 @@ public class ProductServiceImpl implements ProductService {
 		ArrayList<CartItem> cartArray = sessCart.getCartItemList();
 		ArrayList<CartItem> tempArray = new ArrayList<CartItem>();
 		
+		
+		
+		if (tempPdt.getDiscontinued().equals(1))
+		{
+			return "Sorry, this item has been discontinued. Please contact administrator.";
+		}
 		
 		if (currentQty >= cartQty && cartQty > 0)
 		{
@@ -208,8 +214,9 @@ public class ProductServiceImpl implements ProductService {
 		}
 		else 
 		{
-			msg = "You have entered an invalid field in the cart. Please try again.";
+			msg = "You have entered an invalid value in the cart. Please try again.";
 		}
+		
 		
 		
 		return msg;

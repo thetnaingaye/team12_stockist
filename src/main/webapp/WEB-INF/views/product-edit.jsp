@@ -58,13 +58,19 @@
 				<td><form:input path="unitsInStock" pattern="^\d+$"/></td><td><form:errors path="unitsInStock" cssStyle="color:red" /><br /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
-				<td>Discontinue:</td>
-				<td><form:input path="discontinued" pattern="^\d+$"/></td><td><form:errors path="discontinued" cssStyle="color:red" /><br /></td><td><br /><br /><br /></td>
+				<td>Discontinued:</td>
+				<td>
+					<form:select path="discontinued" >
+						<form:option value = "1">True</form:option>
+              			<form:option value = "0">False</form:option>
+					</form:select>
+				</td>
+				<td><form:errors path="discontinued" cssStyle="color:red" /><br /></td><td><br /><br /><br /></td>
 			</tr>
 		</tbody>
 	</table>
 
-
+<!-- pattern="^\d{1}$" -->
 
 <br/>
 <br/>

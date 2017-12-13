@@ -4,6 +4,7 @@
 	
 
 <h3 align="left">New Product Entry</h3>
+<h5 align="left" Style="color:red">${msgAlert}</h5>
 <form:form method="POST" modelAttribute="product" action="${pageContext.request.contextPath}/admin/product/create">
 	<table style="border: 10; width: 50%; display: flex; align-items: center">
 		<tbody>
@@ -50,7 +51,7 @@
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>
-				<td>Minumum Reorder Quantity&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td>Minimum Reorder Quantity&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<td><form:input path="minReorderQty" class="form-control" pattern="^\d+$" />
 				<form:errors path="minReorderQty" cssStyle="color:red" /></td>
 			</tr>
