@@ -40,12 +40,18 @@ public class ProductAdminController {
 		binder.addValidators(npValidator);
 	}
 	
+	private static ArrayList<Supplier> ssList;
+	
+	
 	
 	//-------------------- CREATE --------------------------//
 	@RequestMapping(value = "/create", method = RequestMethod.GET)    // Directing to createProduct page
 	public ModelAndView createProduct()
 	{
 		ModelAndView mav = new ModelAndView("product-new", "product", new Product());
+		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
+		ssList = sList;
+		mav.addObject("sList", sList);
 		return mav;
 	}
 	
@@ -53,7 +59,9 @@ public class ProductAdminController {
 	public ModelAndView newStudentPage(@ModelAttribute @Valid Product pdt, BindingResult result, final RedirectAttributes redirectAttributes)
 	{
 		if(result.hasErrors())
-			return new ModelAndView("product-new");
+			{
+				return new ModelAndView("product-new", "sList", ssList);
+			}
 		else
 		{
 			// Setting additional variables
@@ -69,7 +77,7 @@ public class ProductAdminController {
 				
 				if (tempPdt != null)
 				{
-					ModelAndView mav = new ModelAndView("product-new");
+					ModelAndView mav = new ModelAndView("product-new", "sList", ssList);
 					String s = "A product with the same PartID already exists. Please try again.";
 					mav.addObject("msgAlert", s);
 					return mav;
@@ -80,7 +88,7 @@ public class ProductAdminController {
 					pservice.createProduct(pdt);
 					
 					// Preparing and directing to our browse page
-					ModelAndView mav = new ModelAndView("product-new");
+					ModelAndView mav = new ModelAndView("product-new", "sList", ssList);
 					String message = "New product " + pdt.getDescription() + " was successfully created.";
 					redirectAttributes.addFlashAttribute("message", message);
 					mav.addObject("msgAlert", message);
@@ -89,7 +97,7 @@ public class ProductAdminController {
 			}
 			catch (Exception e)
 			{
-				ModelAndView mav = new ModelAndView("product-new");
+				ModelAndView mav = new ModelAndView("product-new", "sList", ssList);
 				String s = "There is an error creating the new product entry. Please try again.";
 				mav.addObject("msgAlert", s);
 				return mav;

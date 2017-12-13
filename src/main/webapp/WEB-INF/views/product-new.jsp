@@ -1,6 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-	
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 	
 
 <h3 align="left">New Product Entry</h3>
@@ -64,8 +65,15 @@
 			<tr><td><br /></td></tr>
 			<tr>
 				<td>SupplierID&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<td><form:input path="supplierID" class="form-control" />&nbsp;&nbsp;&nbsp;&nbsp;
-				<form:errors path="supplierID" cssStyle="color:red" /></td>
+				<td>
+					<form:select path="supplierID" class="form-control" >
+						<c:forEach var="s" items="${sList}">
+							<form:option value = "${s.supplierID}" >${s.companyName}</form:option>
+              			</c:forEach>
+					</form:select>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<form:errors path="supplierID" cssStyle="color:red" />
+				</td>
 			</tr>
 			<tr><td><br /></td></tr>
 			<tr>

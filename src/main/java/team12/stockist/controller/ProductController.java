@@ -55,7 +55,8 @@ public class ProductController
 		binder.addValidators(uValidator);
 	}
 	
-	
+	// Used for the edit page
+	private static ArrayList<Supplier> ssList;
 	
 
 	
@@ -66,8 +67,7 @@ public class ProductController
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public ModelAndView productListPage() 
 	{
-		SearchFilters sFilters = new SearchFilters();
-		ModelAndView mav = new ModelAndView("product-list", "command", sFilters);
+		ModelAndView mav = new ModelAndView("product-list", "command", new SearchFilters());
 		String msg = "";
 		mav = mavSupport(mav, msg);
 		return mav;
@@ -125,6 +125,12 @@ public class ProductController
 		// result is stored in variable 'product' of type Product
 		Product product = pservice.findProductById(partID);
 		mav.addObject("product", product);
+		
+		// Used to populate the supplier drop down list
+		ArrayList<Supplier> sList = (ArrayList<Supplier>) sservice.findAllSupplier();
+		ssList = sList;
+		mav.addObject("sList", sList);
+		
 		return mav;
 	}
 
@@ -134,7 +140,7 @@ public class ProductController
 		// Redirect to product-list page
 		
 		if(result.hasErrors())
-			return new ModelAndView("product-edit");
+			return new ModelAndView("product-edit", "sList", ssList);
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -242,6 +248,9 @@ public class ProductController
 		
 		return mav;
 	}
+	
+	
+	
 	
 	
 	
