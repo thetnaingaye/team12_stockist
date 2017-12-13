@@ -79,7 +79,7 @@
 			<tr>
 				<td>Quantity&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<td><form:input path="UnitsInStock" class="form-control" pattern="^\d+$" />
-				<form:errors path="UnitsInStock" cssStyle="color:red" /></td>
+				<form:errors path="unitsInStock" cssStyle="color:red" /></td>
 			</tr>
 		</tbody>
 	</table>

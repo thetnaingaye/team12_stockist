@@ -25,19 +25,19 @@ public class NewProductValidator implements Validator {
 	public void validate(Object arg0, Errors arg1)
 	{
 		// TODO Auto-generated method stub
-		
-		
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "partID" , "error.studentName", "PartID is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "description" , "error.studentNickName", "Description is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitPrice" , "error.studentNickName", "Unit price is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "color" , "error.studentNickName", "Color is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "dimension" , "error.studentNickName", "Dimension is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "manufacturer" , "error.studentNickName", "Manufacturer is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "reorderLevel" , "error.studentNickName", "Reorder Level is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "minReorderQty" , "error.studentNickName", "Minimum Reorder Quantity is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "shelfLocation" , "error.studentNickName", "Shelf Location is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "supplierID" , "error.studentNickName", "SupplierID is required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "UnitsInStock" , "error.studentNickName", "Quantity is required");
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "partID" , "error.productId", "PartID");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "description" , "error.productDescription", "Description");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitPrice" , "error.productUnitprice", "Unit price");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "color" , "error.productColor", "Color");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "dimension" , "error.productDimension", "Dimension");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "manufacturer" , "error.productManufacturer", "Manufacturer ");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "reorderLevel" , "error.productReorderLevel", "Reorder Level");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "minReorderQty" , "error.productMinOrderQty", "Minimum");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "shelfLocation" , "error.productShelfLocation", "Shelf");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "supplierID" , "error.productSupplierId", "SupplierID");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "unitsInStock" , "error.productUnitsInStock", "UnitsInStock ");
+	
+
 	}
 }
