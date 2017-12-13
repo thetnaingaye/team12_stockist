@@ -9,7 +9,7 @@
 <a class="btn btn-success"
 href="${pageContext.request.contextPath}/admin/user/create">Add New User</a>
 <c:if test="${fn:length(userList) gt 0}">
-<p>${param.userdeleteerror}</p>
+<p style="color:red">${param.userdeleteerror}</p>
 
 <table class="table table-striped" style="cellspacing: 2; cellpadding: 2; border: 1;width:100%">
 	<thead>

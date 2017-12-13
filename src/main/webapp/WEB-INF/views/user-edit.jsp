@@ -3,7 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <h3>Edit User Page</h3>
-<p>${userupdateerror}</p>
+<p style="color:red">${userupdateerror}</p>
 <form:form method="POST" modelAttribute="user"
 	action="${pageContext.request.contextPath}/admin/user/edit/${users.id}.html">
 	<form:errors />

@@ -3,7 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <h3>New User Page</h3>
-<p>${useralreadyexists}</p>
+<p style="color:red">${useralreadyexists}</p>
 <form:form method="POST" modelAttribute="user"
 	action="${pageContext.request.contextPath}/admin/user/create.html">
 	<form:errors />
