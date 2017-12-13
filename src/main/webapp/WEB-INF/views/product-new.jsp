@@ -23,7 +23,7 @@
 			<tr><td><br /></td></tr>
 			<tr>
 				<td>Unit Price&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<td><form:input path="unitPrice" class="form-control" pattern="^\d{0,2}+$" />
+				<td><form:input path="unitPrice" class="form-control" pattern="^[+]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?$" />
 				<form:errors path="unitPrice" cssStyle="color:red" /></td>
 			</tr>
 			<tr><td><br /></td></tr>

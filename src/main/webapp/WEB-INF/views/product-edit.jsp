@@ -21,7 +21,9 @@
 			</tr>
 			<tr>
 				<td>Unit Price:</td>
-				<td><form:input path="unitPrice" pattern="^\d{0,2}+$" /></td><td><form:errors path="unitPrice" cssStyle="color:red" /></td><td><br /><br /><br /></td>
+			<%-- 	<td><form:input path="unitPrice" pattern="^\d{0,2}+$" /></td> --%>
+			<td><form:input path="unitPrice" pattern="^[+]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?$" /></td> 
+				<td><form:errors path="unitPrice" cssStyle="color:red" /></td><td><br /><br /><br /></td>
 			</tr>
 			<tr>
 				<td>Color:<br /></td>
